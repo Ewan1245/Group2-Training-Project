@@ -1,0 +1,23 @@
+header {
+    background-color: blue;
+    height: 10vh;
+}
+
+.header-link {
+    display: inline-block;
+}
+
+.header-right {
+    float: right;
+}
+
+.header-link img {
+    height: 10vh;
+    display: inline-block;
+}
+
+.header-link h1 {
+    float: right;
+    color: aqua;
+}
+
