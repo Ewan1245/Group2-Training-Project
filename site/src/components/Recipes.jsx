@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Recipes = ({ ingredient, setError }) => { // ingredient prop passed from parent component (App) to find recipes, and setError allows to set error message to change state in parent (App)
 
     const [recipes, setRecipes] = useState([]); // State for storing recipes
+    const navigate = useNavigate(); // hook to navigate
 
     // Effect to fetch recipes when the ingredient changes
     useEffect(() => {
@@ -69,21 +70,19 @@ const Recipes = ({ ingredient, setError }) => { // ingredient prop passed from p
             <h1 className="mb-4">Recipes</h1>
             <div className="row">
                 {recipes.map(recipe => ( // mapping over the recipes array filled with the detailedMeals data, using that data to build each recipe card
-                    <div key={recipe.idMeal} className="col-md-4 mb-4">
+                    <div key={recipe.idMeal} onClick={() => navigate("/recipe/" + recipe.idMeal)} className="col-md-4 mb-4"> {/* Using navigate in the div to redirect*/}
                         <div className="card">
-                            <Link to={`/recipe/${recipe.idMeal}`} className="text-decoration-none"> {/* using the meal id to redirect to RecipeDetail component with id in URL */}
-                                <img src={recipe.strMealThumb} className="card-img-top" alt={recipe.strMeal} />
-                                <div className="card-body">
-                                    <h5 className="card-title">{recipe.strMeal}</h5>
-                                    <p className="card-text"><strong>Area:</strong> {recipe.strArea}</p>
-                                    <p className="card-text"><strong>Tags:</strong> {recipe.strTags}</p>
-                                </div>
-                            </Link>
+                            <img src={recipe.strMealThumb} className="card-img-top" alt={recipe.strMeal} />
+                            <div className="card-body">
+                                <h5 className="card-title">{recipe.strMeal}</h5>
+                                <p className="card-text"><strong>Area:</strong> {recipe.strArea}</p>
+                                <p className="card-text"><strong>Tags:</strong> {recipe.strTags}</p>
+                            </div>
                         </div>
                     </div>
                 ))}
             </div>
-        </div>
+        </div >
     );
 };
 
