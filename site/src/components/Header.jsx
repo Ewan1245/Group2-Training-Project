@@ -14,7 +14,7 @@ const Header = ({logged_in}) => {
                 
             </a>
             {/* TODO: Link this to either a login page or a profile page, depending on logged in status */}
-            <a href='/' className='header-right header-link'>
+            <a href='/login' className='header-right header-link'>
                 <img src={avatar} alt='profile'></img>
             </a>
         </header>
