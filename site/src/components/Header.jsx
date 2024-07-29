@@ -1,5 +1,6 @@
 import React from 'react';
-import logo from '../images/logo512.png';
+//import logo from '../images/logo512.png';
+import sky from "../images/Sky_Eats_Logo.jpg"
 import avatar from '../images/avatar.jpg';
 import '../css/Header.css';
 
@@ -9,8 +10,8 @@ const Header = ({logged_in}) => {
     return (
         <header>
             <a href='/' className='header-link'>
-                <img src={logo} alt='logo'></img>
-                <h1>Food Recipe Site</h1>
+                <img src={sky} alt='logo'></img>
+                
             </a>
             {/* TODO: Link this to either a login page or a profile page, depending on logged in status */}
             <a href='/' className='header-right header-link'>

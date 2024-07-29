@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../css/Input.css';
+
 
 const Input = ({ onSubmit }) => {
     const [value, setValue] = useState("");
@@ -25,7 +27,7 @@ const Input = ({ onSubmit }) => {
                 onChange={handleChange}
                 placeholder="Enter an ingredient"
             />
-            <button type="submit" className="btn btn-primary">Search</button>
+            <button type="submit" className="input-btn btn btn-primary">Search</button>
         </form>
     );
 };

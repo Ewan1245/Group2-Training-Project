@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import '../css/Recipes.css'
 
 const Recipes = ({ ingredient, setError }) => {
     const [recipes, setRecipes] = useState([]);
@@ -44,10 +45,10 @@ const Recipes = ({ ingredient, setError }) => {
 
     return (
         <div>
-            <h1 className="mb-4">Recipes</h1>
+            <h1 className="mb-3">Recipes</h1>
             <div className="row">
                 {recipes.map(recipe => (
-                    <div key={recipe.idMeal} className="col-md-4 mb-4">
+                    <div key={recipe.idMeal} className="col-md-3 mb-3">
                         <div className="card">
                             <Link to={`/recipe/${recipe.idMeal}`} className="text-decoration-none">
                                 <img src={recipe.strMealThumb} className="card-img-top" alt={recipe.strMeal} />
