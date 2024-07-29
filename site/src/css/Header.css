@@ -1,10 +1,10 @@
 header {
-    background-color: blue;
+    background-color: #dc0119;
     height: 10vh;
 }
 
 .header-link {
-    display: inline-block;
+    display: inline-block; 
 }
 
 .header-right {
@@ -18,6 +18,9 @@ header {
 
 .header-link h1 {
     float: right;
-    color: aqua;
+    color: white;
+    position: relative;
+    top: 2.5vh;
+    font-family: "Lucida Console", "Courier New", monospace;
 }
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../css/Recipes.css'
 
 const Recipes = ({ ingredients, setError }) => {
     const [recipes, setRecipes] = useState([]); // State for storing recipes
@@ -82,10 +83,11 @@ const Recipes = ({ ingredients, setError }) => {
 
     return (
         <div>
-            <h1 className="mb-4">Recipes</h1>
+            <h1 className="mb-3">Recipes</h1>
             <div className="row">
+
                 {recipes.map(recipe => ( // Mapping over the recipes array filled with the detailedMeals data, using that data to build each recipe card
-                    <div key={recipe.idMeal} onClick={() => navigate("/recipe/" + recipe.idMeal)} className="col-md-4 mb-4"> {/* Using navigate in the div to redirect */}
+                    <div key={recipe.idMeal} onClick={() => navigate("/recipe/" + recipe.idMeal)} className="col-md-3 mb-3"> {/* Using navigate in the div to redirect */}
                         <div className="card">
                             <img src={recipe.strMealThumb} className="card-img-top" alt={recipe.strMeal} />
                             <div className="card-body">
