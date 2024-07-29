@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes as Switch } from 'react-router-d
 import Recipes from './components/Recipes';
 import RecipeDetail from './components/RecipeDetail';
 import Input from './components/Input';
+import Login from './components/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -38,11 +39,13 @@ function App() {
     <Router>
       <Header logged_in={false} />
       <div className="container mt-5">
+        {/* TODO remove input when on login/profile page */}
         {/* Input component, passing setIngredient function as a prop so we can set the Ingredient state in the Input component */}
         <Input addIngredient={addIngredient} ingredients={ingredients} removeIngredient={removeIngredient} />
         {/* Display error message if there's an error */}
         {error && <div className="alert alert-danger">{error}</div>}
         <Switch>
+          <Route path="/login" element={<Login />} />
           {/* Route for the recipes page, passing ingredient (set in Ingredient component) and setError (to set state of possible error messages) as props to Recipes component */}
           <Route path="/" element={<Recipes ingredients={ingredients} setError={setError} />} />
           {/* Route for recipe details, matching any URL with /recipe/:id pattern. This is the structure used by navigate in Recipes.jsx and useParams() gets the id that way */}
