@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const Recipes = ({ ingredient, setError }) => {
+const Recipes = ({ ingredients, setError }) => {
     const [recipes, setRecipes] = useState([]); // State for storing recipes
     const navigate = useNavigate(); // Hook to navigate
 
     // Example ingredients array
-    const ingredients = ['Tomato', 'Mozzarella', 'Bread'];
+    // const ingredients = ['Tomato', 'Mozzarella', 'Bread'];
 
     // Function to check if a meal contains all ingredients
     const containsAllIngredients = (meal, ingredients) => {
@@ -67,7 +67,7 @@ const Recipes = ({ ingredient, setError }) => {
         };
 
         fetchRecipes();
-    }, [ingredient, setError]); // Dependency array: re-run effect when setError changes (need to add ingredients in once Input with array has been implemented)
+    }, [ingredients, setError]); // Dependency array: re-run effect when setError changes (need to add ingredients in once Input with array has been implemented)
 
     // // message when no/empty string ingredient is submitted
     // if (!ingredient.trim()) {
