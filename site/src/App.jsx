@@ -10,10 +10,13 @@ import Input from './components/Input';
 import Login from './components/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FeaturedRecipes from './components/FeaturedRecipes';
+import FilterOptions from './components/FilterOptions';
 
 function App() {
   // useState hooks to manage the ingredient and error state. Defined here as states are set and used in different children components from here
   const [ingredients, setIngredients] = useState([]);
+  const [cuisines, setCuisines] = useState([]);
+  const [selectedCuisine, setSelectedCuisine] = useState("");
   const [error, setError] = useState("");
 
   //add an ingredient to the ingredients array
@@ -52,7 +55,7 @@ function App() {
             <>
               <Input addIngredient={addIngredient} ingredients={ingredients} removeIngredient={removeIngredient} />
               {ingredients.length==0 && <FeaturedRecipes setError={setError} />}
-              {ingredients.length>0 && <Recipes ingredients={ingredients} setError={setError} />}
+              {ingredients.length>0 && <><FilterOptions cuisines={cuisines} setCuisine={setSelectedCuisine} /><Recipes ingredients={ingredients} setError={setError} setCuisines={setCuisines} selectedCuisine={selectedCuisine}/></>}
             </>
           } />
           

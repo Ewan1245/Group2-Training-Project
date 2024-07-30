@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../css/Recipes.css'
 
-const Recipes = ({ ingredients, setError }) => {
+const Recipes = ({ ingredients, setError, setCuisines, selectedCuisine }) => {
     const [recipes, setRecipes] = useState([]); // State for storing recipes
     const navigate = useNavigate(); // Hook to navigate
 
@@ -57,6 +57,9 @@ const Recipes = ({ ingredients, setError }) => {
                 if (filteredMeals.length === 0) {
                     setError("No recipes found for those ingredients.");
                 } else {
+                    //update the available cuisines - converts to set to remove duplicates
+                    setCuisines(...new Set(filteredMeals.forEach(meal => meal.strArea)))
+                    // setCuisines(["Indian", "Chinese", "British"]);
                     // Update the state with the unique detailed meals
                     setRecipes(filteredMeals);
                     setError("");
@@ -69,6 +72,17 @@ const Recipes = ({ ingredients, setError }) => {
 
         fetchRecipes();
     }, [ingredients, setError]); // Dependency array: re-run effect when setError changes (need to add ingredients in once Input with array has been implemented)
+
+    useEffect(() => {
+        //filter the recipes by the selected cuisine
+        let recipes_copy = recipes.slice();
+        recipes_copy = recipes_copy.filter(recipe => {
+            return recipe.strArea === selectedCuisine
+        });
+        setRecipes(recipes_copy);
+
+        //if setting to al have to refresh the list
+    }, [selectedCuisine]);
 
     // // message when no/empty string ingredient is submitted
     // if (!ingredient.trim()) {

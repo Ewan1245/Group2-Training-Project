@@ -47,7 +47,7 @@ const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callbac
                 <IngredientContainer removeIngredient={removeIngredient} ingredient={ingredient}/>
             ))}
             </div>
-            <FilterOptions cuisines={cuisines}/>
+            {/* <FilterOptions cuisines={cuisines}/> */}
         </div>
     );
 };
