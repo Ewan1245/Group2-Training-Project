@@ -55,6 +55,7 @@ const Recipes = ({ ingredients, setError }) => {
                 const filteredMeals = uniqueMeals.filter(meal => containsAllIngredients(meal, ingredients));
 
                 if (filteredMeals.length === 0) {
+                    setRecipes([]); // Clear the recipes state
                     setError("No recipes found for those ingredients.");
                 } else {
                     // Update the state with the unique detailed meals
@@ -83,9 +84,7 @@ const Recipes = ({ ingredients, setError }) => {
 
     return (
         <div>
-            <h1 className="mb-3">Recipes</h1>
             <div className="row">
-
                 {recipes.map(recipe => ( // Mapping over the recipes array filled with the detailedMeals data, using that data to build each recipe card
                     <div key={recipe.idMeal} onClick={() => navigate("/recipe/" + recipe.idMeal)} className="col-md-3 mb-3"> {/* Using navigate in the div to redirect */}
                         <div className="card">
