@@ -1,7 +1,7 @@
 import React from 'react';
 //import logo from '../images/logo512.png';
 import sky from "../images/Sky_Eats_Logo.jpg"
-import avatar from '../images/avatar.jpg';
+import avatar from '../images/profile.png';
 import '../css/Header.css';
 
 //returns a header object with a navbar

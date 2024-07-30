@@ -15,7 +15,7 @@ const Login = () => {
                 <label> Remember me</label>
                 <input type="checkbox" />
             </div>
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="input-btn btn">Submit</button>
         </form>
     )
 }
