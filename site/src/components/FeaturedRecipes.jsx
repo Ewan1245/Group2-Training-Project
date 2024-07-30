@@ -3,12 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 {/* duplicate of Recipes.jsx with some changes to create a featured recipes panel */}
-const FeaturedRecipes = ({ setError }) => {
+const FeaturedRecipes = ({ ingredients, setError }) => {
     const [recipes, setRecipes] = useState([]); // State for storing recipes
     const navigate = useNavigate(); // Hook to navigate
-
-    // featured ingredients -> edit here to personalise for user etc
-    const ingredients = ['Egg'];
 
     // Function to check if a meal contains all ingredients
     const containsAllIngredients = (meal, ingredients) => {
