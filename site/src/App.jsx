@@ -9,6 +9,7 @@ import RecipeDetail from './components/RecipeDetail';
 import Input from './components/Input';
 import Login from './components/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import FeaturedRecipes from './components/FeaturedRecipes';
 
 function App() {
   // useState hooks to manage the ingredient and error state. Defined here as states are set and used in different children components from here
@@ -44,10 +45,11 @@ function App() {
         <Input addIngredient={addIngredient} ingredients={ingredients} removeIngredient={removeIngredient} />
         {/* Display error message if there's an error */}
         {error && <div className="alert alert-danger">{error}</div>}
+        {ingredients.length==0 && <FeaturedRecipes setError={setError}/>}
         <Switch>
           <Route path="/login" element={<Login />} />
           {/* Route for the recipes page, passing ingredient (set in Ingredient component) and setError (to set state of possible error messages) as props to Recipes component */}
-          <Route path="/" element={<Recipes ingredients={ingredients} setError={setError} />} />
+          {ingredients.length>0 && <Route path="/" element={<Recipes ingredients={ingredients} setError={setError} />} />}
           {/* Route for recipe details, matching any URL with /recipe/:id pattern. This is the structure used by navigate in Recipes.jsx and useParams() gets the id that way */}
           <Route path="/recipe/:id" element={<RecipeDetail />} />
         </Switch>
