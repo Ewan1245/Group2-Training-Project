@@ -1,14 +1,18 @@
 import React from 'react';
 
-const FilterOptions = () => {
+const FilterOptions = ({cuisines, setCuisine}) => {
+
+    const handleChange = (event) => {
+
+    }
 
     return (
-        <div className='filter-options'>
+        <div className='filter-options' onChange={handleChange}>
             <select>
-                <option value="">Select Cuisine</option>
-                <option value="Test1">Test1</option>
-                <option value="Test2">Test2</option>
-                <option value="Test3">Test3</option>
+                <option value="All">Select Cuisine</option>
+                {cuisines.map((cuisine) => (
+                    <option value={cuisine}>{cuisine}</option>
+                ))}
             </select>
         </div>
     )

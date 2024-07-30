@@ -25,6 +25,8 @@ const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callbac
         setInputValue("");
     };
 
+    const cuisines = ["Chinese", "Indian", "British"];
+
     return (
 
         <div className='input'>
@@ -45,7 +47,7 @@ const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callbac
                 <IngredientContainer removeIngredient={removeIngredient} ingredient={ingredient}/>
             ))}
             </div>
-            <FilterOptions/>
+            <FilterOptions cuisines={cuisines}/>
         </div>
     );
 };
