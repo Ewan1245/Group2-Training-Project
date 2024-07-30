@@ -10,7 +10,7 @@ const FilterOptions = ({cuisines, setCuisine}) => {
         <div className='filter-options'>
             <select onChange={handleChange}>
                 <option value="">Select Cuisine</option>
-                {cuisines !== null && cuisines.map((cuisine) => (
+                {cuisines !== undefined && cuisines.map((cuisine) => (
                     <option value={cuisine}>{cuisine}</option>
                 ))}
             </select>
