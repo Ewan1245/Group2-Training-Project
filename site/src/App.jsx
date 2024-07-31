@@ -60,14 +60,13 @@ function App() {
               {ingredients.length>0 && <><FilterOptions cuisines={cuisines} setCuisine={setSelectedCuisine} selectedCuisine={selectedCuisine} /><Recipes ingredients={ingredients} setError={setError} setCuisines={setCuisines} selectedCuisine={selectedCuisine}/></>}
             </>
           } />
-          
           {/* Route for the recipes page, passing ingredient (set in Ingredient component) and setError (to set state of possible error messages) as props to Recipes component */}
           
           {/* Route for recipe details, matching any URL with /recipe/:id pattern. This is the structure used by navigate in Recipes.jsx and useParams() gets the id that way */}
           <Route path="/recipe/:id" element={<RecipeDetail />} />
         </Switch>
+        <Footer />
       </div>
-      <Footer />
     </Router>
 
   );
