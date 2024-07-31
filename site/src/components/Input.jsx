@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Input.css';
 import IngredientContainer from './IngredientContainer';
+import FilterOptions from './FilterOptions';
 
 
 const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callback function provided by parent (App) which passes the data (ingredient) back up
@@ -24,6 +25,8 @@ const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callbac
         setInputValue("");
     };
 
+    const cuisines = ["Chinese", "Indian", "British"];
+
     return (
 
         <div className='input'>
@@ -44,6 +47,7 @@ const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callbac
                 <IngredientContainer removeIngredient={removeIngredient} ingredient={ingredient}/>
             ))}
             </div>
+            {/* <FilterOptions cuisines={cuisines}/> */}
         </div>
     );
 };
