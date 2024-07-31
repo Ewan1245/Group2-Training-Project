@@ -38,6 +38,8 @@ function App() {
     }
   }
 
+  console.log(selectedCuisine);
+
 
   return (
     <Router>
@@ -54,8 +56,8 @@ function App() {
           <Route path='/' element={
             <>
               <Input addIngredient={addIngredient} ingredients={ingredients} removeIngredient={removeIngredient} />
-              {ingredients.length==0 && <FeaturedRecipes setError={setError} />}
-              {ingredients.length>0 && <><FilterOptions cuisines={cuisines} setCuisine={setSelectedCuisine} /><Recipes ingredients={ingredients} setError={setError} setCuisines={setCuisines} selectedCuisine={selectedCuisine}/></>}
+              {/* {ingredients.length==0 && <FeaturedRecipes setError={setError} />} */}
+              {ingredients.length>0 && <><FilterOptions cuisines={cuisines} setCuisine={setSelectedCuisine} selectedCuisine={selectedCuisine} /><Recipes ingredients={ingredients} setError={setError} setCuisines={setCuisines} selectedCuisine={selectedCuisine}/></>}
             </>
           } />
           

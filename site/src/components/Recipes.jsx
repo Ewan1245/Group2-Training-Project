@@ -22,17 +22,19 @@ const Recipes = ({ ingredients, setError, setCuisines, selectedCuisine }) => {
         return ingredients.every(ing => mealIngredients.includes(ing.toLowerCase()));
     };
 
+    
+
     // Effect to fetch recipes
     useEffect(() => {
         const fetchRecipes = async () => {
             try {
                 const allMeals = [];
-
+    
                 // Fetch recipes for each ingredient in the ingredients array, initial fetch only gets Recipe name and basic info
                 for (let ing of ingredients) {
                     const response = await axios.get(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ing}`);
                     const meals = response.data.meals;
-
+    
                     if (meals) {
                         // Prepare an array to store detailed information about each meal based on id from previous fetch
                         for (let meal of meals) {
@@ -46,19 +48,21 @@ const Recipes = ({ ingredients, setError, setCuisines, selectedCuisine }) => {
                         }
                     }
                 }
-
+    
                 // Remove duplicate meals based on idMeal
                 const uniqueMeals = Array.from(new Set(allMeals.map(meal => meal.idMeal)))
                     .map(idMeal => allMeals.find(meal => meal.idMeal === idMeal));
-
+    
                 // Filter meals to keep only those that contain all the ingredients
-                const filteredMeals = uniqueMeals.filter(meal => containsAllIngredients(meal, ingredients));
+                let filteredMeals = uniqueMeals.filter(meal => containsAllIngredients(meal, ingredients));
 
+                if(selectedCuisine !== "") filteredMeals = filteredMeals.filter(meal => meal.strArea === selectedCuisine);
+    
                 if (filteredMeals.length === 0) {
                     setError("No recipes found for those ingredients.");
                 } else {
                     //update the available cuisines - converts to set to remove duplicates
-                    setCuisines(...new Set(filteredMeals.forEach(meal => meal.strArea)))
+                    setCuisines([...new Set(filteredMeals.map(meal => meal.strArea))]);
                     // setCuisines(["Indian", "Chinese", "British"]);
                     // Update the state with the unique detailed meals
                     setRecipes(filteredMeals);
@@ -71,18 +75,9 @@ const Recipes = ({ ingredients, setError, setCuisines, selectedCuisine }) => {
         };
 
         fetchRecipes();
-    }, [ingredients, setError]); // Dependency array: re-run effect when setError changes (need to add ingredients in once Input with array has been implemented)
+    }, [ingredients, setError, selectedCuisine]); // Dependency array: re-run effect when setError changes (need to add ingredients in once Input with array has been implemented)
 
-    useEffect(() => {
-        //filter the recipes by the selected cuisine
-        let recipes_copy = recipes.slice();
-        recipes_copy = recipes_copy.filter(recipe => {
-            return recipe.strArea === selectedCuisine
-        });
-        setRecipes(recipes_copy);
 
-        //if setting to al have to refresh the list
-    }, [selectedCuisine]);
 
     // // message when no/empty string ingredient is submitted
     // if (!ingredient.trim()) {
