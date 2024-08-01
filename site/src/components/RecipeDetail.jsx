@@ -45,6 +45,27 @@ const RecipeDetail = () => {
         return <div className="alert alert-danger">{error}</div>;
     }
 
+    // Creating array with list of all ingredients
+    const allIngredients = [];
+    for (let i = 1; i <= 20; i++) {
+        const ingredient = recipe[`strIngredient${i}`];
+        const measure = recipe[`strMeasure${i}`];
+        if (ingredient && ingredient.trim()) {
+            allIngredients.push(
+                <li key={i}>
+                    {ingredient}, {measure}
+                </li>
+            );
+        }
+    }
+
+    // Create array with <p> elements for each step in the instructions (can format weird because of inconsitency from mealDB format)
+    const steps = recipe.strInstructions
+        ? recipe.strInstructions.split(/\r\n|\n|\r/).map((step, index) => ( // spltting based on new line characters in the instructions from mealDB
+            <p key={index}>{step.trim()}</p>
+        ))
+        : [];
+
     // Similar to previous page, uses meal data to render card. Only single meal fetched based on id
     return (
         <div className="container mt-5">
@@ -60,9 +81,13 @@ const RecipeDetail = () => {
                             <p className="card-text"><strong>Category:</strong> {recipe.strCategory}</p>
                             <p className="card-text"><strong>Area:</strong> {recipe.strArea}</p>
                             <p className="card-text"><strong>Tags:</strong> {recipe.strTags}</p>
+                            <p className="card-text"><strong>Ingredients:</strong></p>
+                            <ul>{allIngredients}</ul>
                             <p className="card-text"><strong>Instructions:</strong></p>
-                            <p className="card-text">{recipe.strInstructions}</p>
-                            <a href={recipe.strYoutube} className="btn btn-primary" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+                            {steps}
+                            {recipe.strYoutube && (
+                                <a href={recipe.strYoutube} className="btn btn-primary" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+                            )}
                         </div>
                     </div>
                 </div>

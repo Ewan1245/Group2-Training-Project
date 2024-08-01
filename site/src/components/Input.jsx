@@ -32,6 +32,7 @@ const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callbac
         <div className='input'>
             <form className="d-flex mb-4" onSubmit={handleSubmit}>
                 <input
+                    name="Ingredient Input"
                     type="text"
                     autoFocus
                     ref={input_ref}
