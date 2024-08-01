@@ -44,29 +44,31 @@ function App() {
 
   return (
     <Router>
-      <Header logged_in={false} />
-      <div className="container mt-5">
-        {/* TODO remove input when on login/profile page */}
-        {/* Input component, passing setIngredient function as a prop so we can set the Ingredient state in the Input component */}
-        
-        {/* Display error message if there's an error */}
-        {error && <div className="alert alert-danger">{error}</div>}
-        
-        <Switch>
-          <Route path="/login" element={<Login />} />
-          <Route path='/' element={
-            <>
-              <Input addIngredient={addIngredient} ingredients={ingredients} removeIngredient={removeIngredient} />
-              {/* {ingredients.length==0 && <FeaturedRecipes setError={setError} />} */}
-              {ingredients.length>0 && <><FilterOptions cuisines={cuisines} setCuisine={setSelectedCuisine} selectedCuisine={selectedCuisine} /><Recipes ingredients={ingredients} setError={setError} setCuisines={setCuisines} selectedCuisine={selectedCuisine}/></>}
-            </>
-          } />
-          {/* Route for the recipes page, passing ingredient (set in Ingredient component) and setError (to set state of possible error messages) as props to Recipes component */}
+      <div className="d-flex flex-column min-vh-100">
+        <Header logged_in={false} />
+        <div className="flex-grow-1 container mt-5">
+          {/* TODO remove input when on login/profile page */}
+          {/* Input component, passing setIngredient function as a prop so we can set the Ingredient state in the Input component */}
           
-          {/* Route for recipe details, matching any URL with /recipe/:id pattern. This is the structure used by navigate in Recipes.jsx and useParams() gets the id that way */}
-          <Route path="/recipe/:id" element={<RecipeDetail />} />
-          <Route path="/profile" element={<PersonalProfile />} />
-        </Switch>
+          {/* Display error message if there's an error */}
+          {error && <div className="alert alert-danger">{error}</div>}
+          
+          <Switch>
+            <Route path="/login" element={<Login />} />
+            <Route path='/' element={
+              <>
+                <Input addIngredient={addIngredient} ingredients={ingredients} removeIngredient={removeIngredient} />
+                {/* {ingredients.length==0 && <FeaturedRecipes setError={setError} />} */}
+                {ingredients.length>0 && <><FilterOptions cuisines={cuisines} setCuisine={setSelectedCuisine} selectedCuisine={selectedCuisine} /><Recipes ingredients={ingredients} setError={setError} setCuisines={setCuisines} selectedCuisine={selectedCuisine}/></>}
+              </>
+            } />
+            {/* Route for the recipes page, passing ingredient (set in Ingredient component) and setError (to set state of possible error messages) as props to Recipes component */}
+            
+            {/* Route for recipe details, matching any URL with /recipe/:id pattern. This is the structure used by navigate in Recipes.jsx and useParams() gets the id that way */}
+            <Route path="/recipe/:id" element={<RecipeDetail />} />
+              <Route path="/profile" element={<PersonalProfile />} />
+            </Switch>
+          </div>
         <Footer />
       </div>
     </Router>
