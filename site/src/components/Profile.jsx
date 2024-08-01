@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography, } from 'mdb-react-ui-kit';
+import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage } from 'mdb-react-ui-kit';
 
 const PersonalProfile = () => {
     return (
@@ -8,7 +8,7 @@ const PersonalProfile = () => {
             <MDBRow className="justify-content-center align-items-center h-100">
               <MDBCol lg="9" xl="7">
                 <MDBCard>
-                  <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#722', height: '200px' }}>
+                  <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#dc0119', height: '200px' }}>
                     <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
                       <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
                     alt="Avatar" className="my-5" style={{ width: '95px', marginLeft: '20px'}} fluid />
@@ -17,8 +17,8 @@ const PersonalProfile = () => {
                       </button>
                     </div>
                     <div className="ms-3" style={{ marginTop: '130px' }}>
-                      <MDBCardText tag="h5">Jade</MDBCardText>
-                      <MDBCardText>UK</MDBCardText>
+                      <MDBCardText tag="h5">Welcome, User</MDBCardText>
+                      <MDBCardText></MDBCardText>
                     </div>
                   </div>
                   <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
