@@ -1,7 +1,10 @@
 import React, { createRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../css/Input.css';
 import IngredientContainer from './IngredientContainer';
+import FilterOptions from './FilterOptions';
+
 
 const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callback function provided by parent (App) which passes the data (ingredient) back up
 
@@ -22,10 +25,14 @@ const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callbac
         setInputValue("");
     };
 
+    const cuisines = ["Chinese", "Indian", "British"];
+
     return (
+
         <div className='input'>
             <form className="d-flex mb-4" onSubmit={handleSubmit}>
                 <input
+                    name="Ingredient Input"
                     type="text"
                     autoFocus
                     ref={input_ref}
@@ -34,13 +41,14 @@ const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callbac
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Enter an ingredient"
                 />
-                <button type="submit" className="btn btn-primary">Add Ingredient</button>
+                <button type="submit" className="input-btn btn btn-primary">Add Ingredient</button>
             </form>
             <div className='ingredients'>
             {ingredients.map(ingredient => (
                 <IngredientContainer removeIngredient={removeIngredient} ingredient={ingredient}/>
             ))}
             </div>
+            {/* <FilterOptions cuisines={cuisines}/> */}
         </div>
     );
 };
