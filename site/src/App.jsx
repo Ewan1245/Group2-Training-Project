@@ -8,6 +8,7 @@ import Recipes from './components/Recipes';
 import RecipeDetail from './components/RecipeDetail';
 import Input from './components/Input';
 import Login from './components/Login';
+import PersonalProfile from './components/Profile';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FeaturedRecipes from './components/FeaturedRecipes';
 import FilterOptions from './components/FilterOptions';
@@ -78,11 +79,11 @@ function AppContent() {
               }
             </>
           } />
-          {/* Route for the recipes page, passing ingredient (set in Ingredient component) and setError (to set state of possible error messages) as props to Recipes component */}
-            
-          {/* Route for recipe details, matching any URL with /recipe/:id pattern. This is the structure used by navigate in Recipes.jsx and useParams() gets the id that way */}
-          <Route path="/recipe/:id" element={<RecipeDetail />} />
-        </Switch>
+          {/* Route for the recipes page, passing ingredient (set in Ingredient component) and setError (to set state of possible error messages) as props to Recipes component */} 
+            {/* Route for recipe details, matching any URL with /recipe/:id pattern. This is the structure used by navigate in Recipes.jsx and useParams() gets the id that way */}
+            <Route path="/recipe/:id" element={<RecipeDetail />} />
+              <Route path="/profile" element={<PersonalProfile />} />
+            </Switch>
       </div>
       <Footer />
     </div>
