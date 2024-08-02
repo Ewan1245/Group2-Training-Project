@@ -2,46 +2,50 @@ import { BrowserRouter as Router, Route, Routes as Switch, useLocation } from 'r
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react'; // React and its hooks
 import Recipes from './components/Recipes';
 import RecipeDetail from './components/RecipeDetail';
 import Input from './components/Input';
 import Login from './components/Login';
 import PersonalProfile from './components/Profile';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap CSS for styling
 import FeaturedRecipes from './components/FeaturedRecipes';
 import FilterOptions from './components/FilterOptions';
-import { FaComments, FaTimes, FaMinus } from 'react-icons/fa';
+import { FaComments, FaTimes, FaMinus } from 'react-icons/fa'; // Icons for chat UI
 import Chat from './components/Chat';
 import './css/Chat.css';
-
+// Custom hook to get query parameters from the URL
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
+// Main content of the app, split from main App() component to be able to implement useLocation since it needs to be called within Router component
 function AppContent() {
-  const [ingredients, setIngredients] = useState([]);
-  const [cuisines, setCuisines] = useState([]);
-  const [selectedCuisine, setSelectedCuisine] = useState("");
-  const [error, setError] = useState("");
+  // State variables
+  const [ingredients, setIngredients] = useState([]); // List of ingredients
+  const [cuisines, setCuisines] = useState([]); // List of cuisines
+  const [selectedCuisine, setSelectedCuisine] = useState(""); // Currently selected cuisine
+  const [error, setError] = useState(""); // Error message
 
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [chatHistory, setChatHistory] = useState([]);
-  const [userInput, setUserInput] = useState("");
+  const [isChatOpen, setIsChatOpen] = useState(false); // Whether chat is open
+  const [chatHistory, setChatHistory] = useState([]); // History of chat messages
+  const [userInput, setUserInput] = useState(""); // User input for chat
 
+  // Function to minimise chat, not fully closing
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
   };
 
+  // Function to close chat
   const closeChat = () => {
     setIsChatOpen(false);
-    setChatHistory([]);
+    setChatHistory([]); // Clear chat history when closing
   };
 
-  const query = useQuery();
-  const prevIngredientsRef = useRef();
+  const query = useQuery(); // Get query parameters from URL
+  const prevIngredientsRef = useRef(); // Ref to store previous ingredients
 
-
+  // Effect to update ingredients based on URL parameters
   useEffect(() => {
     const urlIngredients = query.get("ingredients");
     const ingredientsArray = urlIngredients ? urlIngredients.split(",") : [];
@@ -52,22 +56,20 @@ function AppContent() {
     }
   }, [query]);
 
-  //add an ingredient to the ingredients array
+  // Function to add an ingredient to the list
   const addIngredient = (ingredient) => {
-    //copy the current ingredients array
-    let ing_copy = ingredients.slice();
-    ing_copy.push(ingredient);
-    setIngredients(ing_copy);
+    let ing_copy = ingredients.slice(); // Copy current ingredients array
+    ing_copy.push(ingredient); // Add new ingredient
+    setIngredients(ing_copy); // Update state
   }
 
-  //remove an ingredient from the ingredients aray
+  // Function to remove an ingredient from the list
   const removeIngredient = (ingredient) => {
-    //copy the current ingredients array
-    let ing_copy = ingredients.slice();
-    let index = ing_copy.indexOf(ingredient);
-    if (index != -1) { //check that it exists in the array
-      ing_copy.splice(index, 1);
-      setIngredients(ing_copy);
+    let ing_copy = ingredients.slice(); // Copy current ingredients array
+    let index = ing_copy.indexOf(ingredient); // Find index of ingredient
+    if (index !== -1) { // Check if it exists in the array
+      ing_copy.splice(index, 1); // Remove it from the array
+      setIngredients(ing_copy); // Update state
     }
   }
 
@@ -101,17 +103,21 @@ function AppContent() {
         </Switch>
       </div>
       <div name="ChatBot">
+        {/* Button to open chat */}
         {!isChatOpen && (
           <button className="chat-icon" onClick={toggleChat}>
             <FaComments size={30} />
           </button>
         )}
+        {/* Chat window */}
         {isChatOpen && (
           <div className="chat-container">
             <div className="chat-header">
+              {/* Minimize chat button */}
               <button className="chat-minimize" onClick={toggleChat}>
                 <FaMinus size={20} />
               </button>
+              {/* Close chat button */}
               <button className="chat-close" onClick={closeChat}>
                 <FaTimes size={20} />
               </button>
@@ -132,6 +138,7 @@ function AppContent() {
   );
 }
 
+// Main App component
 function App() {
   return (
     <Router>
