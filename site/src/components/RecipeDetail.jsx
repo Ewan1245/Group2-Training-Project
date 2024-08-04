@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 const RecipeDetail = () => {
     // Hook to get the id parameter from the URL
     const { id } = useParams();
