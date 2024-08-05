@@ -1,3 +1,4 @@
 # Group2-Training-Project
 
-M: Input submit function not working after lates commit. Hard coded array ingredients[] in Recipes.jsx which is to be used to implement multip ingredient submits going forward
+> create a .env file in the root directory of site folder.
+> add single line: REACT_APP_API_KEY = 'YOUR_DEEPINFRA_Mistral-7B-Instruct-v0.3_API_KEY'
