@@ -1,9 +1,9 @@
+import { BrowserRouter as Router, Route, Routes as Switch, useLocation } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes as Switch } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
 import Recipes from './components/Recipes';
 import RecipeDetail from './components/RecipeDetail';
 import Input from './components/Input';
@@ -13,12 +13,29 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import FeaturedRecipes from './components/FeaturedRecipes';
 import FilterOptions from './components/FilterOptions';
 
-function App() {
-  // useState hooks to manage the ingredient and error state. Defined here as states are set and used in different children components from here
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
+function AppContent() {
   const [ingredients, setIngredients] = useState([]);
   const [cuisines, setCuisines] = useState([]);
   const [selectedCuisine, setSelectedCuisine] = useState("");
   const [error, setError] = useState("");
+
+  const query = useQuery();
+  const prevIngredientsRef = useRef();
+
+
+  useEffect(() => {
+    const urlIngredients = query.get("ingredients");
+    const ingredientsArray = urlIngredients ? urlIngredients.split(",") : [];
+
+    if (prevIngredientsRef.current !== ingredientsArray.toString()) {
+      setIngredients(ingredientsArray);
+      prevIngredientsRef.current = ingredientsArray.toString();
+    }
+  }, [query]);
 
   //add an ingredient to the ingredients array
   const addIngredient = (ingredient) => {
@@ -34,13 +51,10 @@ function App() {
     let ing_copy = ingredients.slice();
     let index = ing_copy.indexOf(ingredient);
     if(index != -1) { //check that it exists in the array
-      ing_copy.splice(index,1);
+      ing_copy.splice(index, 1);
       setIngredients(ing_copy);
     }
   }
-
-  console.log(selectedCuisine);
-
 
   return (
     <Router>
@@ -71,8 +85,16 @@ function App() {
           </div>
         <Footer />
       </div>
+      <Footer />
     </Router>
+  );
+}
 
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
   );
 }
 

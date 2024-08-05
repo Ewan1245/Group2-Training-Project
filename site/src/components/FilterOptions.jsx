@@ -6,14 +6,12 @@ const FilterOptions = ({cuisines, setCuisine, selectedCuisine}) => {
         setCuisine(event.target.value);
     }
 
-    console.log(selectedCuisine);
-
     return (
         <div className='filter-options'>
-            <select onChange={handleChange}>
+            <select value={selectedCuisine} onChange={handleChange}>
                 <option value="">Select Cuisine</option>
-                {cuisines !== undefined && cuisines.map((cuisine) => (
-                    <option selected={selectedCuisine === cuisine ? "selected" : ""} value={cuisine}>{cuisine}</option>
+                {cuisines !== undefined && cuisines.map((cuisine, index) => (
+                    <option key={index} value={cuisine}>{cuisine}</option>
                 ))}
             </select>
         </div>
