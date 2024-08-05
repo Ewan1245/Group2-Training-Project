@@ -56,6 +56,7 @@ const Recipes = ({ ingredients, setError, setCuisines, selectedCuisine }) => {
                 // Filter meals to keep only those that contain all the ingredients
                 let filteredMeals = uniqueMeals.filter(meal => containsAllIngredients(meal, ingredients));
 
+
                 if(selectedCuisine !== "") filteredMeals = filteredMeals.filter(meal => meal.strArea === selectedCuisine);
     
                 if (filteredMeals.length === 0) {

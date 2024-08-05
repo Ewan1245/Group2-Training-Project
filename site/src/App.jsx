@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes as Switch, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes as Switch, useLocation, useParams } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -11,9 +11,11 @@ import PersonalProfile from './components/Profile';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap CSS for styling
 import FeaturedRecipes from './components/FeaturedRecipes';
 import FilterOptions from './components/FilterOptions';
-import { FaComments, FaTimes, FaMinus } from 'react-icons/fa'; // Icons for chat UI
-import Chat from './components/Chat';
+// import { FaComments, FaTimes, FaMinus } from 'react-icons/fa'; // Icons for chat UI
+// import Chat from './components/Chat';
 import './css/Chat.css';
+import GenQR from './components/GenQR';
+import QR_Router from './components/QR_Router';
 // Custom hook to get query parameters from the URL
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -84,6 +86,7 @@ function AppContent() {
         {error && <div className="alert alert-danger">{error}</div>}
         <Switch>
           <Route path="/login" element={<Login />} />
+          <Route path='/qr_routing/:ingredients/:cuisine' element={<QR_Router setIngredients={setIngredients} setCuisine={setSelectedCuisine}/>}/>
           <Route path='/' element={
             <>
               <Input addIngredient={addIngredient} ingredients={ingredients} removeIngredient={removeIngredient} />
@@ -91,6 +94,7 @@ function AppContent() {
               {ingredients.length > 0 &&
                 <>
                   <FilterOptions cuisines={cuisines} setCuisine={setSelectedCuisine} selectedCuisine={selectedCuisine} />
+                  <GenQR ingredients={ingredients} cuisine={selectedCuisine}/>
                   <Recipes ingredients={ingredients} setError={setError} setCuisines={setCuisines} selectedCuisine={selectedCuisine} />
                 </>
               }
@@ -102,37 +106,37 @@ function AppContent() {
           <Route path="/profile" element={<PersonalProfile />} />
         </Switch>
       </div>
-      <div name="ChatBot">
+      {/* <div name="ChatBot"> */}
         {/* Button to open chat */}
-        {!isChatOpen && (
-          <button className="chat-icon" onClick={toggleChat}>
-            <FaComments size={30} />
-          </button>
-        )}
+        {/* {!isChatOpen && ( */}
+          {/* <button className="chat-icon" onClick={toggleChat}> */}
+            {/* <FaComments size={30} /> */}
+          {/* </button> */}
+        {/* )} */}
         {/* Chat window */}
-        {isChatOpen && (
-          <div className="chat-container">
-            <div className="chat-header">
+        {/* {isChatOpen && ( */}
+          {/* <div className="chat-container"> */}
+            {/* <div className="chat-header"> */}
               {/* Minimize chat button */}
-              <button className="chat-minimize" onClick={toggleChat}>
-                <FaMinus size={20} />
-              </button>
+              {/* <button className="chat-minimize" onClick={toggleChat}> */}
+                {/* <FaMinus size={20} /> */}
+              {/* </button> */}
               {/* Close chat button */}
-              <button className="chat-close" onClick={closeChat}>
-                <FaTimes size={20} />
-              </button>
-            </div>
-            <div className="chat-content">
-              <Chat
+              {/* <button className="chat-close" onClick={closeChat}> */}
+                {/* <FaTimes size={20} /> */}
+              {/* </button> */}
+            {/* </div> */}
+            {/* <div className="chat-content"> */}
+              {/* <Chat
                 chatHistory={chatHistory}
                 setChatHistory={setChatHistory}
                 userInput={userInput}
                 setUserInput={setUserInput}
-              />
-            </div>
-          </div>
-        )}
-      </div>
+              /> */}
+            {/* </div> */}
+          {/* </div> */}
+        {/* )} */}
+      {/* </div> */}
       <Footer />
     </div>
   );
