@@ -11,7 +11,8 @@ import { FaComments, FaTimes, FaMinus } from 'react-icons/fa'; // Icons for chat
 import Chat from './components/Chat';
 import './css/Chat.css';
 import HomePage from './components/HomePage';
-
+import GenQR from './components/GenQR';
+import QR_Router from './components/QR_Router';
 
 function App() {
   // State variables
@@ -44,9 +45,15 @@ function App() {
           {error && <div className="alert alert-danger">{error}</div>}
           <Switch>
             <Route path="/login" element={<Login />} />
+            <Route path='/qr_routing/:ingredients/:cuisine' element={<QR_Router setIngredients={setIngredients} setCuisine={setSelectedCuisine} />} />
+
 
             {/* Home Page content */}
-            <Route path='/' element={<HomePage setError={setError} />} />
+            <Route path='/' element={
+              <>
+                <HomePage setError={setError} />
+                <GenQR ingredients={ingredients} cuisine={selectedCuisine} />
+              </>} />
             {/* Route for the recipes page, passing ingredient (set in Ingredient component) and setError (to set state of possible error messages) as props to Recipes component */}
             {/* Route for recipe details, matching any URL with /recipe/:id pattern. This is the structure used by navigate in Recipes.jsx and useParams() gets the id that way */}
             <Route path="/recipe/:id" element={<RecipeDetail />} />

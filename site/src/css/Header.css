@@ -7,10 +7,6 @@ header {
     display: inline-block; 
 }
 
-.header-right {
-    float: right;
-}
-
 .header-link img {
     height: 10vh;
     display: inline-block;
@@ -24,3 +20,24 @@ header {
     font-family: "Lucida Console", "Courier New", monospace;
 }
 
+.header-right {
+    float: right;
+    display: flex;
+    align-items:center;
+    padding-right: 5vh;
+}
+
+.img-link{
+    filter: invert(100%) sepia(1%) saturate(4629%) hue-rotate(291deg) brightness(115%) contrast(100%);
+    width: 3vh;
+}
+
+.text-link{
+    background-color: #dc0119;
+    color: white;
+    float: right;
+    font-size: 1.5vh;
+    justify-content: center;
+    padding-left: 0.5vh;
+
+}

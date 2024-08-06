@@ -1,7 +1,8 @@
 import React from 'react';
 //import logo from '../images/logo512.png';
 import sky from "../images/Sky_Eats_Logo.jpg"
-import avatar from '../images/profile.png';
+import avatar from '../images/person-fill.svg';
+import heart from '../images/bookmark-heart-fill.svg'
 import '../css/Header.css';
 
 //returns a header object with a navbar
@@ -13,10 +14,19 @@ const Header = ({logged_in}) => {
                 <img src={sky} alt='logo'></img>
                 
             </a>
+
             {/* TODO: Link this to either a login page or a profile page, depending on logged in status */}
             <a href='/login' className='header-right header-link'>
-                <img src={avatar} alt='profile'></img>
+                <img src={avatar} alt='profile' className='img-link profile'></img>
+                <body className='text-link profile'>Log In</body>
             </a>
+
+            {/* TODO: Change this link to the saved recipes page once built*/}
+            <a href='/' className='header-right header-link saved-recipes'>
+            <img src={heart} alt='Saved Recipes' className='img-link saved-recipes'></img>
+            <body className='text-link saved-recipes'>Saved Recipes</body>
+            </a>
+
         </header>
     )
 }
