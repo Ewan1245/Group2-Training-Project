@@ -3,15 +3,14 @@ import { useSearchParams } from "react-router-dom";
 import Input from "./Input";
 import FilterOptions from "./FilterOptions";
 import Recipes from "./Recipes";
+import GenQR from "./GenQR";
 
 
-const HomePage = ({ setError }) => {
+const HomePage = ({ setError, ingredients, setIngredients,selectedCuisine,setSelectedCuisine }) => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const params = new URLSearchParams(searchParams);
-    const [ingredients, setIngredients] = useState([]); // List of ingredients
     const [cuisines, setCuisines] = useState([]); // List of cuisines
-    const [selectedCuisine, setSelectedCuisine] = useState(""); // Currently selected cuisine
 
     // Effect to update ingredients based on URL parameters
     useEffect(() => {
@@ -43,10 +42,12 @@ const HomePage = ({ setError }) => {
 
         <>
             <Input addIngredient={addIngredient} ingredients={ingredients} removeIngredient={removeIngredient} />
+            
             {/* {ingredients.length==0 && <FeaturedRecipes setError={setError} />} */}
             {ingredients.length > 0 &&
                 <>
                     <FilterOptions cuisines={cuisines} setCuisine={setSelectedCuisine} selectedCuisine={selectedCuisine} />
+                    <GenQR ingredients={ingredients} cuisine={selectedCuisine} />
                     <Recipes ingredients={ingredients} setError={setError} setCuisines={setCuisines} selectedCuisine={selectedCuisine} />
                 </>
             }
