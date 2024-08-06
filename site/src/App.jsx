@@ -45,14 +45,14 @@ function App() {
           {error && <div className="alert alert-danger">{error}</div>}
           <Switch>
             <Route path="/login" element={<Login />} />
-            <Route path='/qr_routing/:ingredients/:cuisine' element={<QR_Router setIngredients={setIngredients} setCuisine={setSelectedCuisine} />} />
+            {/* <Route path='/qr_routing/:ingredients/:cuisine' element={<QR_Router setIngredients={setIngredients} setCuisine={setSelectedCuisine} />} /> */}
 
 
             {/* Home Page content */}
             <Route path='/' element={
               <>
                 <HomePage setError={setError} />
-                <GenQR ingredients={ingredients} cuisine={selectedCuisine} />
+                {/* <GenQR ingredients={ingredients} cuisine={selectedCuisine} /> */}
               </>} />
             {/* Route for the recipes page, passing ingredient (set in Ingredient component) and setError (to set state of possible error messages) as props to Recipes component */}
             {/* Route for recipe details, matching any URL with /recipe/:id pattern. This is the structure used by navigate in Recipes.jsx and useParams() gets the id that way */}
