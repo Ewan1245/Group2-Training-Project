@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class UserEntity {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,10 +14,10 @@ public class UserEntity {
 
     private String firstname, surname, email, password; //password stored in hashed form
 
-    public UserEntity() {
+    public User() {
     }
 
-    public UserEntity(int id, String firstname, String surname, String email, String password) {
+    public User(int id, String firstname, String surname, String email, String password) {
         this.id = id;
         this.firstname = firstname;
         this.surname = surname;
