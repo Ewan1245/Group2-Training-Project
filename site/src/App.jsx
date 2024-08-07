@@ -1,35 +1,29 @@
-import { BrowserRouter as Router, Route, Routes as Switch, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes as Switch } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import React, { useState, useEffect, useRef } from 'react'; // React and its hooks
-import Recipes from './components/Recipes';
+import React, { useState } from 'react'; // React and its hooks
 import RecipeDetail from './components/RecipeDetail';
-import Input from './components/Input';
 import Login from './components/Login';
 import PersonalProfile from './components/Profile';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap CSS for styling
-import FeaturedRecipes from './components/FeaturedRecipes';
-import FilterOptions from './components/FilterOptions';
 import { FaComments, FaTimes, FaMinus } from 'react-icons/fa'; // Icons for chat UI
 import Chat from './components/Chat';
 import './css/Chat.css';
-// Custom hook to get query parameters from the URL
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
+import HomePage from './components/HomePage';
+import GenQR from './components/GenQR';
+import QR_Router from './components/QR_Router';
 
-// Main content of the app, split from main App() component to be able to implement useLocation since it needs to be called within Router component
-function AppContent() {
+function App() {
   // State variables
-  const [ingredients, setIngredients] = useState([]); // List of ingredients
-  const [cuisines, setCuisines] = useState([]); // List of cuisines
-  const [selectedCuisine, setSelectedCuisine] = useState(""); // Currently selected cuisine
   const [error, setError] = useState(""); // Error message
 
   const [isChatOpen, setIsChatOpen] = useState(false); // Whether chat is open
   const [chatHistory, setChatHistory] = useState([]); // History of chat messages
   const [userInput, setUserInput] = useState(""); // User input for chat
+
+  const [ingredients, setIngredients] = useState([]); // List of ingredients
+  const [selectedCuisine, setSelectedCuisine] = useState(""); // Currently selected cuisine
 
   // Function to minimise chat, not fully closing
   const toggleChat = () => {
@@ -42,43 +36,13 @@ function AppContent() {
     setChatHistory([]); // Clear chat history when closing
   };
 
-  const query = useQuery(); // Get query parameters from URL
-  const prevIngredientsRef = useRef(); // Ref to store previous ingredients
-
-  // Effect to update ingredients based on URL parameters
-  useEffect(() => {
-    const urlIngredients = query.get("ingredients");
-    const ingredientsArray = urlIngredients ? urlIngredients.split(",") : [];
-
-    if (prevIngredientsRef.current !== ingredientsArray.toString()) {
-      setIngredients(ingredientsArray);
-      prevIngredientsRef.current = ingredientsArray.toString();
-    }
-  }, [query]);
-
-  // Function to add an ingredient to the list
-  const addIngredient = (ingredient) => {
-    let ing_copy = ingredients.slice(); // Copy current ingredients array
-    ing_copy.push(ingredient); // Add new ingredient
-    setIngredients(ing_copy); // Update state
-  }
-
-  // Function to remove an ingredient from the list
-  const removeIngredient = (ingredient) => {
-    let ing_copy = ingredients.slice(); // Copy current ingredients array
-    let index = ing_copy.indexOf(ingredient); // Find index of ingredient
-    if (index !== -1) { // Check if it exists in the array
-      ing_copy.splice(index, 1); // Remove it from the array
-      setIngredients(ing_copy); // Update state
-    }
-  }
-
   return (
-    <div className="d-flex flex-column min-vh-100">
-      <Header logged_in={false} />
-      <div className="flex-grow-1 container mt-5">
-        {/* TODO remove input when on login/profile page */}
-        {/* Input component, passing setIngredient function as a prop so we can set the Ingredient state in the Input component */}
+    <Router>
+      <div className="d-flex flex-column min-vh-100">
+        <Header logged_in={false} />
+        <div className="flex-grow-1 container mt-5">
+          {/* TODO remove input when on login/profile page */}
+          {/* Input component, passing setIngredient function as a prop so we can set the Ingredient state in the Input component */}
 
         {/* Display error message if there's an error */}
         {error && <div className="alert alert-danger">{error}</div>}
@@ -134,7 +98,7 @@ function AppContent() {
         )}
       </div>
       <Footer />
-      </div>
+    </div>
   );
 }
 
@@ -146,5 +110,14 @@ function App() {
     </Router>
   );
 }
+
+// // Main App component
+// function App() {
+//   return (
+//     <Router>
+//       <AppContent />
+//     </Router>
+//   );
+// }
 
 export default App;
