@@ -1,11 +1,10 @@
 package com.sky.server.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.sky.server.DTOs.UserDTO;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
@@ -14,7 +13,13 @@ public class User {
 
     private String firstname, surname, email, password; //password stored in hashed form
 
-    public User() {
+    public User() {}
+
+    public User(UserDTO user) {
+        this.firstname = user.getFirstname();
+        this.surname = user.getSurname();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
     }
 
     public User(int id, String firstname, String surname, String email, String password) {
