@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes as Switch } from 'react-router-d
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import SavedRecipes from './components/SavedRecipes';
 import React, { useState } from 'react'; // React and its hooks
 import RecipeDetail from './components/RecipeDetail';
 import Login from './components/Login';
@@ -61,6 +62,7 @@ function App() {
             {/* Route for recipe details, matching any URL with /recipe/:id pattern. This is the structure used by navigate in Recipes.jsx and useParams() gets the id that way */}
             <Route path="/recipe/:id" element={<RecipeDetail />} />
             <Route path="/profile" element={<PersonalProfile />} />
+            <Route path="/savedRecipes" element={<SavedRecipes />} />
           </Switch>
         </div>
         <div name="ChatBot">
