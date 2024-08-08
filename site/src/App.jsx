@@ -22,6 +22,9 @@ function App() {
   const [chatHistory, setChatHistory] = useState([]); // History of chat messages
   const [userInput, setUserInput] = useState(""); // User input for chat
 
+  const [ingredients, setIngredients] = useState([]); // List of ingredients
+  const [selectedCuisine, setSelectedCuisine] = useState(""); // Currently selected cuisine
+
   // Function to minimise chat, not fully closing
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
@@ -45,13 +48,13 @@ function App() {
           {error && <div className="alert alert-danger">{error}</div>}
           <Switch>
             <Route path="/login" element={<Login />} />
-            {/* <Route path='/qr_routing/:ingredients/:cuisine' element={<QR_Router setIngredients={setIngredients} setCuisine={setSelectedCuisine} />} /> */}
+            <Route path='/qr_routing/:ingredients/:cuisine' element={<QR_Router setIngredients={setIngredients} setCuisine={setSelectedCuisine} />} />
 
 
             {/* Home Page content */}
             <Route path='/' element={
               <>
-                <HomePage setError={setError} />
+                <HomePage setError={setError} ingredients={ingredients} setIngredients={setIngredients} selectedCuisine={selectedCuisine} setSelectedCuisine={setSelectedCuisine} />
                 {/* <GenQR ingredients={ingredients} cuisine={selectedCuisine} /> */}
               </>} />
             {/* Route for the recipes page, passing ingredient (set in Ingredient component) and setError (to set state of possible error messages) as props to Recipes component */}
@@ -97,13 +100,15 @@ function App() {
   );
 }
 
-// // Main App component
-// function App() {
-//   return (
-//     <Router>
-//       <AppContent />
-//     </Router>
-//   );
-// }
+{/* 
+      // Main App component
+      function App() {
+  return (
+      <Router>
+        <AppContent />
+      </Router>
+      );
+} */}
+
 
 export default App;

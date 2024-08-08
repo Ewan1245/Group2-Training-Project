@@ -40,13 +40,14 @@ const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callbac
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Enter an ingredient"
+                    pattern='[a-zA-Z]*'
                 />
                 <button type="submit" className="input-btn btn btn-primary">Add Ingredient</button>
             </form>
             <div className='ingredients'>
-            {ingredients.map((ingredient, index) => (
-                <IngredientContainer key={index} removeIngredient={removeIngredient} ingredient={ingredient}/>
-            ))}
+                {ingredients.map((ingredient, index) => (
+                    <IngredientContainer key={index} removeIngredient={removeIngredient} ingredient={ingredient} />
+                ))}
             </div>
             {/* <FilterOptions cuisines={cuisines}/> */}
         </div>

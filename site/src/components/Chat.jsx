@@ -5,6 +5,7 @@ import {
     MessageList,
     Message,
     MessageInput,
+    ConversationHeader,
 } from "@chatscope/chat-ui-kit-react";
 
 // Import the OpenAI library for interacting with the OpenAI API.
@@ -65,6 +66,12 @@ const Chat = ({ chatHistory, setChatHistory, userInput, setUserInput }) => {
         <div className="chat-content">
             <MainContainer>
                 <ChatContainer>
+                    <ConversationHeader>
+                        <ConversationHeader.Content
+                            info="your personal Sky sous-chef"
+                            userName="Jeff"
+                        />
+                    </ConversationHeader>
                     <MessageList>
                         {/* Render each message in the chat history */}
                         {chatHistory.map((elt, i) => (
@@ -83,6 +90,8 @@ const Chat = ({ chatHistory, setChatHistory, userInput, setUserInput }) => {
                         value={userInput}
                         onChange={(value) => handleUserInput(value)}
                         onSend={() => sendMessage(userInput)}
+                        attachButton='false'
+                        autoFocus='true'
                     />
                 </ChatContainer>
             </MainContainer>
