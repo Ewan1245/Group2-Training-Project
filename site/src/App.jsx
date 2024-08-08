@@ -94,8 +94,16 @@ function App() {
             </div>
           )}
         </div>
-        <Footer />
+      <Footer />
       </div>
+  );
+}
+
+// Main App component
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }
