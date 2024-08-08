@@ -1,5 +1,6 @@
 package com.sky.server.services;
 
+import com.sky.server.DTOs.SessionVisualisedDTO;
 import com.sky.server.DTOs.UserInfoDTO;
 import com.sky.server.DTOs.UserRecipesDTO;
 import com.sky.server.entities.User;
@@ -71,11 +72,23 @@ public class SessionHandler {
         active_sessions.get(token).lastEvent = now;
     }
 
+    public void endSession(String token) {
+        if(!active_sessions.containsKey(token)) throw new SessionNotActiveException();
+
+        active_sessions.remove(token);
+    }
+
     public LocalDateTime getSessionTime(String token) {
         if(active_sessions.containsKey(token)) {
             return active_sessions.get(token).lastEvent;
         }
 
         throw new SessionNotActiveException();
+    }
+
+    public List<SessionVisualisedDTO> getActiveSessions() {
+        return active_sessions.entrySet().stream().map(e -> {
+            return new SessionVisualisedDTO(e.getKey(), e.getValue().user.getEmail());
+        }).toList();
     }
 }

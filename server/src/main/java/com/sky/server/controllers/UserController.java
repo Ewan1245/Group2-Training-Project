@@ -50,6 +50,7 @@ public class UserController {
         return sessionHandler.createSession(loggedInUser);
     }
 
+
     @GetMapping("/getUserInfo/{token}")
     public UserInfoDTO getUserInfo(@PathVariable String token) {
         return sessionHandler.getUserData(token);
