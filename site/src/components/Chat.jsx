@@ -10,7 +10,7 @@ import {
 
 // Import the OpenAI library for interacting with the OpenAI API.
 import OpenAI from "openai";
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import '../css/Chat.css';
 
@@ -62,16 +62,11 @@ const Chat = ({ chatHistory, setChatHistory, userInput, setUserInput }) => {
         }
     }, [openai, setChatHistory, setUserInput]);
 
+
     return (
         <div className="chat-content">
             <MainContainer>
                 <ChatContainer>
-                    <ConversationHeader>
-                        <ConversationHeader.Content
-                            info="your personal Sky sous-chef"
-                            userName="Jeff"
-                        />
-                    </ConversationHeader>
                     <MessageList>
                         {/* Render each message in the chat history */}
                         {chatHistory.map((elt, i) => (
