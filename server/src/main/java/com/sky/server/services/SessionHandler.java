@@ -6,10 +6,12 @@ import com.sky.server.DTOs.UserRecipesDTO;
 import com.sky.server.entities.User;
 import com.sky.server.exceptions.SessionAlreadyActiveException;
 import com.sky.server.exceptions.SessionNotActiveException;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class SessionHandler {
@@ -22,7 +24,7 @@ public class SessionHandler {
             this.user = user;
         }
     }
-    private HashMap<String, SessionData> active_sessions;
+    private Map<String, SessionData> active_sessions;
 
     public SessionHandler() {
         active_sessions = new HashMap<>();
@@ -90,5 +92,16 @@ public class SessionHandler {
         return active_sessions.entrySet().stream().map(e -> {
             return new SessionVisualisedDTO(e.getKey(), e.getValue().user.getEmail());
         }).toList();
+    }
+
+    //wipes the inactive sessions every 30 seconds
+    @Scheduled(fixedRate = 30000L)
+    public void wipeInactiveSessions() {
+        active_sessions = active_sessions.entrySet().stream().filter(e -> {
+            LocalDateTime lastAction = e.getValue().lastEvent;
+            LocalDateTime now = LocalDateTime.now();
+            //if inactive for more than 5 minutes remove
+            return !lastAction.plusMinutes(5).isBefore(now);
+        }).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }
