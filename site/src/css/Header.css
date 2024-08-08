@@ -1,5 +1,4 @@
 header {
-    background-color: #dc0119;
     height: 10vh;
 }
 
@@ -33,7 +32,6 @@ header {
 }
 
 .text-link{
-    background-color: #dc0119;
     color: white;
     float: right;
     font-size: 1.5vh;

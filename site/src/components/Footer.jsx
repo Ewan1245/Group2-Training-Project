@@ -6,7 +6,7 @@ import "../css/Footer.css";
 const Footer = () => {
     return (
     <>
-    <footer class="text-center text-white">
+    <footer>
         <div class="text-center p-3">
             © 2024 Sky UK. All rights reserved.
             &nbsp;

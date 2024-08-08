@@ -38,7 +38,7 @@ function App() {
 
   return (
     <Router>
-      <div className="d-flex flex-column min-vh-100">
+      <div className="App d-flex flex-column min-vh-100">
         <Header logged_in={false} />
         <div className="flex-grow-1 container mt-5">
           {/* TODO remove input when on login/profile page */}

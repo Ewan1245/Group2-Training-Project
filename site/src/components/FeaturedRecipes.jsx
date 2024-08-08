@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../css/FeaturedRecipes.css';
 
 {/* duplicate of Recipes.jsx with some changes to create a featured recipes panel */}
 const FeaturedRecipes = ({ ingredients, setError }) => {
@@ -84,7 +85,7 @@ const FeaturedRecipes = ({ ingredients, setError }) => {
 
     return (
         <div>
-            <h1 className="mb-4">Featured Recipes</h1>
+            <h1 className="h1 mb-4">Featured</h1>
             <div className="row">
                 {recipes.map(recipe => ( // Mapping over the recipes array filled with the detailedMeals data, using that data to build each recipe card
                     <div key={recipe.idMeal} onClick={() => navigate("/recipe/" + recipe.idMeal)} className="col-md-4 mb-4"> {/* Using navigate in the div to redirect */}
