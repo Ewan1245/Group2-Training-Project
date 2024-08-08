@@ -31,6 +31,13 @@ const Chat = ({ chatHistory, setChatHistory, userInput, setUserInput }) => {
         setUserInput(value);
     }, [setUserInput]);
 
+    useEffect(() => {
+        const welcomeMessage = "Hi, I am Jeff. I am your personal Sky sous-chef. How can I help you today?"
+        setChatHistory(() => [
+            { type: "bot", message: welcomeMessage },
+        ]);
+    }, setChatHistory);
+
     // Function to send a message to the chat.
     const sendMessage = useCallback(async (messageText) => {
         if (messageText.trim() === "") return;  // Do nothing if the message is empty.
