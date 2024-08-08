@@ -4,6 +4,7 @@ import Input from "./Input";
 import FilterOptions from "./FilterOptions";
 import Recipes from "./Recipes";
 import GenQR from "./GenQR";
+import FeaturedRecipes from "./FeaturedRecipes";
 
 
 const HomePage = ({ setError, ingredients, setIngredients, selectedCuisine, setSelectedCuisine }) => {
@@ -43,7 +44,8 @@ const HomePage = ({ setError, ingredients, setIngredients, selectedCuisine, setS
         <>
             <Input addIngredient={addIngredient} ingredients={ingredients} removeIngredient={removeIngredient} />
 
-            {/* {ingredients.length==0 && <FeaturedRecipes setError={setError} />} */}
+            {ingredients.length==0 && <FeaturedRecipes ingredients={['tomato']} setError={setError} setCuisines={setCuisines} selectedCuisine={selectedCuisine} />}
+
             {ingredients.length > 0 &&
                 <>
                     <FilterOptions cuisines={cuisines} setCuisine={setSelectedCuisine} selectedCuisine={selectedCuisine} />

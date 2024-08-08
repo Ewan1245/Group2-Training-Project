@@ -88,8 +88,10 @@ const FeaturedRecipes = ({ ingredients, setError }) => {
             <div className="row">
                 {recipes.map(recipe => ( // Mapping over the recipes array filled with the detailedMeals data, using that data to build each recipe card
                     <div key={recipe.idMeal} onClick={() => navigate("/recipe/" + recipe.idMeal)} className="col-md-4 mb-4"> {/* Using navigate in the div to redirect */}
-                        <div className="card">
+                        <div className="recipes-card card">
+                            <div className="imgContainer">
                             <img src={recipe.strMealThumb} className="card-img-top" alt={recipe.strMeal} />
+                            </div>
                             <div className="card-body">
                                 <h5 className="card-title">{recipe.strMeal}</h5>
                                 <p className="card-text"><strong>Area:</strong> {recipe.strArea}</p>
