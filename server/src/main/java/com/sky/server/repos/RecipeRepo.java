@@ -1,12 +1,9 @@
 package com.sky.server.repos;
 
-
-import com.sky.server.entities.User;
+import com.sky.server.entities.Recipe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
-public interface UserRepo extends JpaRepository<User, String> {
+public interface RecipeRepo extends JpaRepository<Recipe, String> {
 }

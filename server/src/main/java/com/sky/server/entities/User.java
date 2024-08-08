@@ -3,39 +3,33 @@ package com.sky.server.entities;
 import com.sky.server.DTOs.UserDTO;
 import jakarta.persistence.*;
 
+import java.util.LinkedList;
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String email;
 
-    private String firstname, surname, email, password; //password stored in hashed form
+    private String firstname, surname, password; //password stored in hashed form
+
+    @ManyToMany
+    private List<Recipe> savedRecipes;
 
     public User() {}
 
-    public User(UserDTO user) {
-        this.firstname = user.getFirstname();
-        this.surname = user.getSurname();
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-    }
-
-    public User(int id, String firstname, String surname, String email, String password) {
-        this.id = id;
+    public User(String firstname, String surname, String email, String password, List<Recipe> savedRecipes) {
         this.firstname = firstname;
         this.surname = surname;
         this.email = email;
         this.password = password;
+        this.savedRecipes = savedRecipes;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public User(UserDTO user) {
+        this(user.getFirstname(), user.getSurname(), user.getEmail(), user.getPassword(), new LinkedList<>());
     }
 
     public String getFirstname() {
@@ -68,5 +62,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Recipe> getSavedRecipes() {
+        return savedRecipes;
+    }
+
+    public void setSavedRecipes(List<Recipe> savedRecipes) {
+        this.savedRecipes = savedRecipes;
     }
 }

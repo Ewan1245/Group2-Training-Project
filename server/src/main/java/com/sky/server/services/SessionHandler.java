@@ -1,13 +1,14 @@
 package com.sky.server.services;
 
+import com.sky.server.DTOs.UserInfoDTO;
+import com.sky.server.DTOs.UserRecipesDTO;
 import com.sky.server.entities.User;
+import com.sky.server.exceptions.SessionAlreadyActiveException;
+import com.sky.server.exceptions.SessionNotActiveException;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class SessionHandler {
@@ -27,16 +28,35 @@ public class SessionHandler {
     }
 
     public String createSession(User user) {
+        //check if the user has an active session
+        if(active_sessions.values().stream().anyMatch(data -> data.user.getEmail().equals(user.getEmail()))) throw new SessionAlreadyActiveException();
+
         //generate random string
         String sessionToken = UUID.randomUUID().toString();
         active_sessions.put(sessionToken, new SessionData(user));
         return sessionToken;
     }
 
+    public UserInfoDTO getUserData(String token) {
+        //prod the session to keep it alive
+        prodSession(token);
+
+        User user = active_sessions.get(token).user;
+        return new UserInfoDTO(user.getFirstname(), user.getSurname(), user.getEmail());
+    }
+
+
+
+    public User getUser(String token) {
+        prodSession(token);
+
+        return active_sessions.get(token).user;
+    }
+
     //keeps a session alive
-    public boolean prodSession(String token) {
+    public void prodSession(String token) {
         //if there is no active session return false
-        if(!active_sessions.containsKey(token)) return false;
+        if(!active_sessions.containsKey(token)) throw new SessionNotActiveException();
 
         LocalDateTime lastAction = active_sessions.get(token).lastEvent;
         LocalDateTime now = LocalDateTime.now();
@@ -44,12 +64,11 @@ public class SessionHandler {
         //if user hasn't interacted with the session in five minutes remove from the map
         if(lastAction.plusMinutes(5).isBefore(now)) {
             active_sessions.remove(token);
-            return false;
+            throw new SessionNotActiveException();
         }
 
         //if user hasn't timed out update the time that the user has left
         active_sessions.get(token).lastEvent = now;
-        return true;
     }
 
     public LocalDateTime getSessionTime(String token) {
@@ -57,6 +76,6 @@ public class SessionHandler {
             return active_sessions.get(token).lastEvent;
         }
 
-        return null;
+        throw new SessionNotActiveException();
     }
 }

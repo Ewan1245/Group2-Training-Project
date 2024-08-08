@@ -1,7 +1,10 @@
 package com.sky.server.controllers;
 
-import com.sky.server.DTOs.UserDTO;
+import com.sky.server.DTOs.*;
+import com.sky.server.entities.Recipe;
 import com.sky.server.entities.User;
+import com.sky.server.exceptions.CannotLoginUserException;
+import com.sky.server.services.RecipeService;
 import com.sky.server.services.SessionHandler;
 import com.sky.server.services.UserService;
 import org.springframework.http.HttpStatus;
@@ -17,37 +20,63 @@ public class UserController {
 
     private SessionHandler sessionHandler;
 
-    public UserController(UserService userService, SessionHandler sessionHandler) {
+    private RecipeService recipeService;
+
+    public UserController(UserService userService, SessionHandler sessionHandler, RecipeService recipeService) {
         this.userService = userService;
         this.sessionHandler = sessionHandler;
+        this.recipeService = recipeService;
     }
 
     @PostMapping("/createUser")
     @ResponseStatus(HttpStatus.CREATED)
     public String createUser(@RequestBody UserDTO user) { //returns session token (used to confirm that a user is logged on) as a string
         //add the user
-        User created_user = userService.addUser(user);
+        User createdUser = userService.addUser(user);
 
         //generate session token
-        return sessionHandler.createSession(created_user);
+        return sessionHandler.createSession(createdUser);
     }
 
-    @PatchMapping("/prodSession/{token}")
+    @PostMapping("/login")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public boolean prodSession(@PathVariable String token) {
-        return sessionHandler.prodSession(token);
+    public String loginUser(@RequestBody UserCredDTO userCredentials) {
+        User loggedInUser = userService.getUser(userCredentials.getEmail(), userCredentials.getPassword());
+
+        if(loggedInUser == null) {
+            throw new CannotLoginUserException();
+        }
+
+        return sessionHandler.createSession(loggedInUser);
     }
+
+    @GetMapping("/getUserInfo/{token}")
+    public UserInfoDTO getUserInfo(@PathVariable String token) {
+        return sessionHandler.getUserData(token);
+    }
+
+    @GetMapping("/getUserSavedRecipes/{token}")
+    public UserRecipesDTO getUserSavedRecipes(@PathVariable String token) {
+        User user = sessionHandler.getUser(token);
+
+        return userService.getUserRecipes(user.getEmail());
+    }
+
+    @PatchMapping("/saveRecipe/{recipe}/{token}")
+    public void saveRecipeToUser(@PathVariable String token, @PathVariable String recipe) {
+        User user = sessionHandler.getUser(token);
+        Recipe r = recipeService.createRecipe(recipe, user);
+
+        userService.saveRecipe(user.getEmail(), r);
+    }
+
 
     //------For testing only---------- methods below to be removed for production
     @GetMapping("/getAllUsers")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public List<User> getAllUsers() {
+    public List<UserWithRecipesDTO> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/getSessionInfo/{token}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public LocalDateTime getSessionInfo(@PathVariable String token) {
-        return sessionHandler.getSessionTime(token);
-    }
+
 }
