@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../css/Recipes.css'
+import Recipe from './Recipe';
 
 const Recipes = ({ ingredients, setError, setCuisines, selectedCuisine }) => {
     const [recipes, setRecipes] = useState([]); // State for storing recipes
-    const navigate = useNavigate(); // Hook to navigate
 
     // Example ingredients array
     // const ingredients = ['Tomato', 'Mozzarella', 'Bread'];
@@ -91,24 +90,14 @@ const Recipes = ({ ingredients, setError, setCuisines, selectedCuisine }) => {
     //         </div>
     //     );
     // }
+    // console.log(recipes)
 
     return (
         <div>
             <div className="row">
                 {recipes.map(recipe => ( // Mapping over the recipes array filled with the detailedMeals data, using that data to build each recipe card
-                    <div key={recipe.idMeal} onClick={() => navigate("/recipe/" + recipe.idMeal)} className="col-md-3 mb-3"> {/* Using navigate in the div to redirect */}
-                        <div className="recipes-card card">
-                            <div className="imgContainer">
-                            <img src={recipe.strMealThumb} className="card-img-top" alt={recipe.strMeal} />
-                            </div>
-                            <div className="card-body">
-                                <h5 className="card-title">{recipe.strMeal}</h5>
-                                <p className="card-text"><strong>Area:</strong> {recipe.strArea}</p>
-                                <p className="card-text"><strong>Tags:</strong> {recipe.strTags}</p>
-                            </div>
-                        </div>
-                    </div>
-                ))}
+                <Recipe  idMeal = {recipe.idMeal}  strMealThumb = {recipe.strMealThumb} strMeal = {recipe.strMeal} strArea = {recipe.strArea} strTags = {recipe.strTags}/>
+            ))} 
             </div>
         </div>
     );
