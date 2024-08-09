@@ -5,11 +5,12 @@ import {
     MessageList,
     Message,
     MessageInput,
+    ConversationHeader,
 } from "@chatscope/chat-ui-kit-react";
 
 // Import the OpenAI library for interacting with the OpenAI API.
 import OpenAI from "openai";
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import '../css/Chat.css';
 
@@ -29,6 +30,13 @@ const Chat = ({ chatHistory, setChatHistory, userInput, setUserInput }) => {
     const handleUserInput = useCallback((value) => {
         setUserInput(value);
     }, [setUserInput]);
+
+    useEffect(() => {
+        const welcomeMessage = "Hi, I am Jeff. I am your personal Sky sous-chef. How can I help you today?"
+        setChatHistory(() => [
+            { type: "bot", message: welcomeMessage },
+        ]);
+    }, setChatHistory);
 
     // Function to send a message to the chat.
     const sendMessage = useCallback(async (messageText) => {
@@ -61,6 +69,7 @@ const Chat = ({ chatHistory, setChatHistory, userInput, setUserInput }) => {
         }
     }, [openai, setChatHistory, setUserInput]);
 
+
     return (
         <div className="chat-content">
             <MainContainer>
@@ -83,6 +92,8 @@ const Chat = ({ chatHistory, setChatHistory, userInput, setUserInput }) => {
                         value={userInput}
                         onChange={(value) => handleUserInput(value)}
                         onSend={() => sendMessage(userInput)}
+                        attachButton='false'
+                        autoFocus='true'
                     />
                 </ChatContainer>
             </MainContainer>

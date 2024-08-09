@@ -4,28 +4,29 @@ import Input from "./Input";
 import FilterOptions from "./FilterOptions";
 import Recipes from "./Recipes";
 import GenQR from "./GenQR";
+import FeaturedRecipes from "./FeaturedRecipes";
 
 
-const HomePage = ({ setError, ingredients, setIngredients,selectedCuisine,setSelectedCuisine }) => {
+const HomePage = ({ setError, ingredients, setIngredients, selectedCuisine, setSelectedCuisine }) => {
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const params = new URLSearchParams(searchParams);
     const [cuisines, setCuisines] = useState([]); // List of cuisines
 
     // Effect to update ingredients based on URL parameters
     useEffect(() => {
-        const urlIngredients = new URLSearchParams(searchParams).get("ingredients");
-        const ingredientsArray = urlIngredients ? urlIngredients.split(",") : [];
-
-        setIngredients(ingredientsArray);
-    }, [searchParams]);
+        setIngredients(searchParams.getAll("ingredient"))
+    }, [searchParams, setIngredients]);
 
 
     // Function to add an ingredient to the list
     const addIngredient = (ingredient) => {
+        setSearchParams(sp => {
+            sp.append("ingredient", ingredient);
+            console.log(sp.toString());
+
+            return sp;
+        })
         setIngredients([...ingredients, ingredient]);
-        params.append("ingredients", ingredient);
-        setSearchParams({ ingredients: params.getAll("ingredients").join(",") });
     }
 
     // Function to remove an ingredient from the list
@@ -42,8 +43,9 @@ const HomePage = ({ setError, ingredients, setIngredients,selectedCuisine,setSel
 
         <>
             <Input addIngredient={addIngredient} ingredients={ingredients} removeIngredient={removeIngredient} />
-            
-            {/* {ingredients.length==0 && <FeaturedRecipes setError={setError} />} */}
+
+            {ingredients.length == 0 && <FeaturedRecipes ingredients={['tomato']} setError={setError} setCuisines={setCuisines} selectedCuisine={selectedCuisine} />}
+
             {ingredients.length > 0 &&
                 <>
                     <FilterOptions cuisines={cuisines} setCuisine={setSelectedCuisine} selectedCuisine={selectedCuisine} />
