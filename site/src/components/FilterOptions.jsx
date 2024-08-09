@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FilterOptions = ({cuisines, setCuisine, selectedCuisine}) => {
+const FilterOptions = ({ cuisines, setCuisine, selectedCuisine }) => {
 
     const handleChange = (event) => {
         setCuisine(event.target.value);
