@@ -1,14 +1,10 @@
 header {
-    background-color: blue;
+    background-color: #dc0119;
     height: 10vh;
 }
 
 .header-link {
-    display: inline-block;
-}
-
-.header-right {
-    float: right;
+    display: inline-block; 
 }
 
 .header-link img {
@@ -18,6 +14,30 @@ header {
 
 .header-link h1 {
     float: right;
-    color: aqua;
+    color: white;
+    position: relative;
+    top: 2.5vh;
+    font-family: "Lucida Console", "Courier New", monospace;
 }
 
+.header-right {
+    float: right;
+    display: flex;
+    align-items:center;
+    padding-right: 5vh;
+}
+
+.img-link{
+    filter: invert(100%) sepia(1%) saturate(4629%) hue-rotate(291deg) brightness(115%) contrast(100%);
+    width: 3vh;
+}
+
+.text-link{
+    background-color: #dc0119;
+    color: white;
+    float: right;
+    font-size: 1.5vh;
+    justify-content: center;
+    padding-left: 0.5vh;
+
+}
