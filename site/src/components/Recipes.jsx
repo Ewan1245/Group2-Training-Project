@@ -21,19 +21,19 @@ const Recipes = ({ ingredients, setError, setCuisines, selectedCuisine }) => {
         return ingredients.every(ing => mealIngredients.includes(ing.toLowerCase()));
     };
 
-    
+
 
     // Effect to fetch recipes
     useEffect(() => {
         const fetchRecipes = async () => {
             try {
                 const allMeals = [];
-    
+
                 // Fetch recipes for each ingredient in the ingredients array, initial fetch only gets Recipe name and basic info
                 for (let ing of ingredients) {
                     const response = await axios.get(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ing}`);
                     const meals = response.data.meals;
-    
+
                     if (meals) {
                         // Prepare an array to store detailed information about each meal based on id from previous fetch
                         for (let meal of meals) {
@@ -47,17 +47,17 @@ const Recipes = ({ ingredients, setError, setCuisines, selectedCuisine }) => {
                         }
                     }
                 }
-    
+
                 // Remove duplicate meals based on idMeal
                 const uniqueMeals = Array.from(new Set(allMeals.map(meal => meal.idMeal)))
                     .map(idMeal => allMeals.find(meal => meal.idMeal === idMeal));
-    
+
                 // Filter meals to keep only those that contain all the ingredients
                 let filteredMeals = uniqueMeals.filter(meal => containsAllIngredients(meal, ingredients));
 
 
-                if(selectedCuisine !== "") filteredMeals = filteredMeals.filter(meal => meal.strArea === selectedCuisine);
-    
+                if (selectedCuisine !== "") filteredMeals = filteredMeals.filter(meal => meal.strArea === selectedCuisine);
+
                 if (filteredMeals.length === 0) {
                     setRecipes([]); // Clear the recipes state
                     setError("No recipes found for those ingredients.");
@@ -79,20 +79,7 @@ const Recipes = ({ ingredients, setError, setCuisines, selectedCuisine }) => {
     }, [ingredients, setError, selectedCuisine]); // Dependency array: re-run effect when setError changes (need to add ingredients in once Input with array has been implemented)
 
 
-
-    // // message when no/empty string ingredient is submitted
-    // if (!ingredient.trim()) {
-    //     return (
-    //         <div className="container mt-5">
-    //             <div className="alert alert-warning" role="alert">
-    //                 Please enter an ingredient to search for recipes.
-    //             </div>
-    //         </div>
-    //     );
-    // }
-    // console.log(recipes)
-
-    return (
+return (
         <div>
             <div className="row">
                 {recipes.map(recipe => ( // Mapping over the recipes array filled with the detailedMeals data, using that data to build each recipe card
