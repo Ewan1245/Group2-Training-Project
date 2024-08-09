@@ -44,7 +44,7 @@ const Login = () => {
     const user = { username, password };
     // send the username and password to the server
     const response = await axios.post(
-      "https://group2-training-project/site/src/app.jsx",
+      "https:/localhost:3000/",
       user
     );
     // set the state of the user
