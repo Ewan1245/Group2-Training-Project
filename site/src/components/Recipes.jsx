@@ -3,7 +3,7 @@ import axios from 'axios';
 import '../css/Recipes.css'
 import Recipe from './Recipe';
 
-const Recipes = ({ ingredients, setError, setCuisines, selectedCuisine }) => {
+const Recipes = ({ ingredients, setError, setFullCuisines, selectedCuisine }) => {
     const [recipes, setRecipes] = useState([]); // State for storing recipes
 
     // Example ingredients array
@@ -55,6 +55,9 @@ const Recipes = ({ ingredients, setError, setCuisines, selectedCuisine }) => {
                 // Filter meals to keep only those that contain all the ingredients
                 let filteredMeals = uniqueMeals.filter(meal => containsAllIngredients(meal, ingredients));
 
+                // Create a set of all cuisines in the fetched meals
+                const allCuisines = new Set(uniqueMeals.map(meal => meal.strArea));
+                setFullCuisines([...allCuisines]); // Update the full list of cuisines
 
                 if (selectedCuisine !== "") filteredMeals = filteredMeals.filter(meal => meal.strArea === selectedCuisine);
 
@@ -62,11 +65,7 @@ const Recipes = ({ ingredients, setError, setCuisines, selectedCuisine }) => {
                     setRecipes([]); // Clear the recipes state
                     setError("No recipes found for those ingredients.");
                 } else {
-                    //update the available cuisines - converts to set to remove duplicates
-                    setCuisines([...new Set(filteredMeals.map(meal => meal.strArea))]);
-                    // setCuisines(["Indian", "Chinese", "British"]);
-                    // Update the state with the unique detailed meals
-                    setRecipes(filteredMeals);
+                    setRecipes(filteredMeals); // Update the state with the unique detailed meals
                     setError("");
                 }
             } catch (err) {
@@ -76,15 +75,15 @@ const Recipes = ({ ingredients, setError, setCuisines, selectedCuisine }) => {
         };
 
         fetchRecipes();
-    }, [ingredients, setError, selectedCuisine]); // Dependency array: re-run effect when setError changes (need to add ingredients in once Input with array has been implemented)
+    }, [ingredients, setError, selectedCuisine, setFullCuisines]); // Dependency array: re-run effect when setError changes (need to add ingredients in once Input with array has been implemented)
 
 
-return (
+    return (
         <div>
             <div className="row">
                 {recipes.map(recipe => ( // Mapping over the recipes array filled with the detailedMeals data, using that data to build each recipe card
-                <Recipe  idMeal = {recipe.idMeal}  strMealThumb = {recipe.strMealThumb} strMeal = {recipe.strMeal} strArea = {recipe.strArea} strTags = {recipe.strTags}/>
-            ))} 
+                    <Recipe idMeal={recipe.idMeal} strMealThumb={recipe.strMealThumb} strMeal={recipe.strMeal} strArea={recipe.strArea} strTags={recipe.strTags} />
+                ))}
             </div>
         </div>
     );
