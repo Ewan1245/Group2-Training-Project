@@ -71,4 +71,9 @@ public class User {
     public void setSavedRecipes(List<Recipe> savedRecipes) {
         this.savedRecipes = savedRecipes;
     }
+
+    public void addToSavedRecipes(Recipe newRecipe) {
+        this.savedRecipes.add(newRecipe);
+    }
+
 }
