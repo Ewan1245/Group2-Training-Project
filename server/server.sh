@@ -1,0 +1,1 @@
+java -jar target/*.jar --spring.datasource.password=pass
