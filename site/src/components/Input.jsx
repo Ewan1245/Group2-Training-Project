@@ -18,7 +18,6 @@ const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callbac
     const handleSubmit = (event) => {
         event.preventDefault(); // Prevents default form submission
         addIngredient(inputValue); // Calls the parent component's setIngredient function
-        navigate('/'); // Navigates back to the / path which in this case renders Recipe.jsx
 
         //clear the input field and focus it
         input_ref.current.focus();

@@ -52,9 +52,7 @@ public class UserServiceH2 implements UserService {
         User u;
         if(user.isPresent()) {
             u = user.get();
-            List<Recipe> recipes = u.getSavedRecipes();
-            recipes.add(recipe);
-            u.setSavedRecipes(recipes);
+            u.addToSavedRecipes(recipe);
         } else throw new UserNotFoundException();
         userRepo.save(u);
     }

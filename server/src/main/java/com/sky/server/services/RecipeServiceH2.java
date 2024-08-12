@@ -22,9 +22,7 @@ public class RecipeServiceH2 implements RecipeService {
         //check if recipe already exists in the repo
         Optional<Recipe> or = repo.findById(recipe);
         if(or.isPresent()) {
-            List<User> users = or.get().getUsers();
-            users.add(user);
-            or.get().setUsers(users);
+            or.get().addToUsers(user);
             repo.save(or.get());
             return or.get();
         }
