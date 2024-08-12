@@ -67,7 +67,7 @@ const Login = () => {
   return (
     <div className="login-container">
       <form className="login-form d-flex flex-column align-items-center p-4" onSubmit={handleSubmit}>
-        <div className="mb-3 w-75">
+        <div className="mb-3 w-100">
           <label htmlFor="username" className="form-label">Username: </label>
           <input
             type="text"
@@ -77,7 +77,7 @@ const Login = () => {
             onChange={({ target }) => setUsername(target.value)}
           />
         </div>
-        <div className="mb-3 w-75">
+        <div className="mb-3 w-100">
           <label htmlFor="password" className="form-label">Password: </label>
           <input
             type="password"
