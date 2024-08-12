@@ -36,6 +36,16 @@ const HomePage = ({ setError, ingredients, setIngredients, selectedCuisine, setS
         if (index !== -1) { // Check if it exists in the array
             ing_copy.splice(index, 1); // Remove it from the array
             setIngredients(ing_copy); // Update state
+
+            // Update the URL by removing the ingredient from the search parameters
+            setSearchParams(sp => {
+                let params = new URLSearchParams(sp.toString());
+                params.delete("ingredient");
+                ing_copy.forEach(ing => params.append("ingredient", ing)); // Re-add remaining ingredients
+
+                console.log(params.toString());
+                return params;
+            });
         }
     }
 
