@@ -22,7 +22,6 @@ const HomePage = ({ setError, ingredients, setIngredients, selectedCuisine, setS
     const addIngredient = (ingredient) => {
         setSearchParams(sp => {
             sp.append("ingredient", ingredient);
-            console.log(sp.toString());
 
             return sp;
         })
@@ -43,7 +42,6 @@ const HomePage = ({ setError, ingredients, setIngredients, selectedCuisine, setS
                 params.delete("ingredient");
                 ing_copy.forEach(ing => params.append("ingredient", ing)); // Re-add remaining ingredients
 
-                console.log(params.toString());
                 return params;
             });
         }
