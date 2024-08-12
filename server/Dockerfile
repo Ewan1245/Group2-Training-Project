@@ -6,4 +6,4 @@ RUN mvn clean package
 FROM openjdk:17-jdk-slim AS runtime
 WORKDIR /opt/recipes
 COPY --from=build-stage /build/target/*.jar app.jar
-ENTRYPOINT ["/usr/bin/java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
