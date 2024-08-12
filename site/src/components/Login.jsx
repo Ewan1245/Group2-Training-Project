@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../css/Login.css';
+import { TbBackground } from 'react-icons/tb';
 
 const Login = () => {
-    // return (
-    //     <form action="/action_page.php">
-    //         <div class="form-group">
-    //             <label for="email">Email address:</label>
-    //             <input type="email" class="form-control" id="email" />
-    //         </div>
-    //         <div class="form-group">
-    //             <label for="pwd">Password:</label>
-    //             <input type="password" class="form-control" id="pwd" />
-    //         </div>
-    //         <div class="checkbox">
-    //             <label> Remember me</label>
-    //             <input type="checkbox" />
-    //         </div>
-    //         <button type="submit" class="input-btn btn">Submit</button>
-    //     </form>
-    // )
+  // return (
+  //     <form action="/action_page.php">
+  //         <div class="form-group">
+  //             <label for="email">Email address:</label>
+  //             <input type="email" class="form-control" id="email" />
+  //         </div>
+  //         <div class="form-group">
+  //             <label for="pwd">Password:</label>
+  //             <input type="password" class="form-control" id="pwd" />
+  //         </div>
+  //         <div class="checkbox">
+  //             <label> Remember me</label>
+  //             <input type="checkbox" />
+  //         </div>
+  //         <button type="submit" class="input-btn btn">Submit</button>
+  //     </form>
+  // )
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -53,35 +55,41 @@ const Login = () => {
     localStorage.setItem('user', JSON.stringify(response.data))
   };
 
-// if there's a user show the message below
+  // if there's a user show the message below
   if (user) {
     return <div>
-        {user.name} is loggged in
-        <button onClick={handleLogout}>logout</button>
+      {user.name} is loggged in
+      <button onClick={handleLogout}>logout</button>
     </div>;
   }
 
   // if there's no user, show the login form
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="username">Username: </label>
-      <input
-        type="text"
-        value={username}
-        placeholder="Enter username"
-        onChange={({ target }) => setUsername(target.value)}
-      />
-      <div>
-        <label htmlFor="password">password: </label>
-        <input
-          type="password"
-          value={password}
-          placeholder="Enter password"
-          onChange={({ target }) => setPassword(target.value)}
-        />
-      </div>
-      <button type="submit">Login</button>
-    </form>
+    <div className="login-container">
+      <form className="login-form d-flex flex-column align-items-center p-4" onSubmit={handleSubmit}>
+        <div className="mb-3 w-100">
+          <label htmlFor="username" className="form-label">Username: </label>
+          <input
+            type="text"
+            className="form-control"
+            value={username}
+            placeholder="Enter username"
+            onChange={({ target }) => setUsername(target.value)}
+          />
+        </div>
+        <div className="mb-3 w-100">
+          <label htmlFor="password" className="form-label">Password: </label>
+          <input
+            type="password"
+            className="form-control"
+            value={password}
+            placeholder="Enter password"
+            onChange={({ target }) => setPassword(target.value)}
+          />
+        </div>
+        <button type="submit" className="btn btn-primary login-btn w-50">Login</button>
+      </form>
+    </div>
   );
 };
 
