@@ -14,6 +14,7 @@ import './css/Chat.css';
 import HomePage from './components/HomePage';
 import GenQR from './components/GenQR';
 import QR_Router from './components/QR_Router';
+import Register from './components/Register';
 
 function App() {
   // State variables
@@ -49,6 +50,7 @@ function App() {
           {error && <div className="alert alert-danger">{error}</div>}
           <Switch>
             <Route path="/login" element={<Login />} />
+            <Route path='/register' element={<Register />} />
             <Route path='/qr_routing/:ingredients/:cuisine' element={<QR_Router setIngredients={setIngredients} setCuisine={setSelectedCuisine} />} />
 
 
