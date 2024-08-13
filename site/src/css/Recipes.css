@@ -28,3 +28,21 @@
     border: 1px solid #ddd;
     border-radius: 8px;
 }
+
+
+
+.card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.card-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
