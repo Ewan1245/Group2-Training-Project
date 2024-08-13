@@ -13,6 +13,8 @@ public class User {
     @Id
     private String email;
 
+    private boolean isAdmin;
+
     private String firstname, surname, password; //password stored in hashed form
 
     @ManyToMany
@@ -20,16 +22,17 @@ public class User {
 
     public User() {}
 
-    public User(String firstname, String surname, String email, String password, List<Recipe> savedRecipes) {
+    public User(String email, boolean isAdmin, String firstname, String surname, String password, List<Recipe> savedRecipes) {
+        this.email = email;
+        this.isAdmin = isAdmin;
         this.firstname = firstname;
         this.surname = surname;
-        this.email = email;
         this.password = password;
         this.savedRecipes = savedRecipes;
     }
 
     public User(UserDTO user) {
-        this(user.getFirstname(), user.getSurname(), user.getEmail(), user.getPassword(), new LinkedList<>());
+        this(user.getFirstname(), user.isAdmin(), user.getSurname(), user.getEmail(), user.getPassword(), new LinkedList<>());
     }
 
     public String getFirstname() {
@@ -76,4 +79,11 @@ public class User {
         this.savedRecipes.add(newRecipe);
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
 }
