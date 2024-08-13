@@ -48,15 +48,11 @@ function App() {
   const isLoggedInUrl = "http://localhost:8080/prodSession/"
   const isLoggedIn = async () => {
     let sessionToken = sessionStorage.getItem("token");
-    console.log(sessionToken);
 
     if(sessionToken == "") return false;
-    console.log(isLoggedInUrl + sessionToken);
     await axios.get(isLoggedInUrl + sessionToken).then((res) => {
-      console.log("Test");
       setLoggedIn(res.data);
     }).catch((err) => {
-      console.log(err);
       setLoggedIn(false);
     });
   }
