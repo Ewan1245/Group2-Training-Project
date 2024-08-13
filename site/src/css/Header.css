@@ -34,6 +34,7 @@ header {
 
 .text-link{
     color: white;
+    background-color: transparent;
     float: right;
     font-size: 1.5vh;
     justify-content: center;
