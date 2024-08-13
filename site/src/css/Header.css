@@ -28,6 +28,10 @@ header {
     width: 3vh;
 }
 
+.img-link:hover{
+    opacity: 0.40;
+}
+
 .text-link{
     color: white;
     background-color: transparent;
