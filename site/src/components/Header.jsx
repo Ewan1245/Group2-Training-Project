@@ -29,19 +29,25 @@ const Header = ({logged_in}) => {
                             <button class="btn header-right header-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src={avatar} alt='profile' className='img-link profile'></img>
                             </button>
-                            <ul class="dropdown-menu">
-                                <li><Link to='/login' class="dropdown-item">Login</Link></li>
-                                <li><Link to='/profile' class="dropdown-item">Profile</Link></li>
-                                <li><Link to='/logout' class="dropdown-item">Logout</Link></li>
-                            </ul>
+                            {logged_in == false ?
+                                <ul class="dropdown-menu">
+                                    <li><Link to='/login' class="dropdown-item">Login</Link></li>
+                                    <li><Link to='/login' class="dropdown-item">Sign Up</Link></li>
+                                </ul>
+                            :
+                                <ul class="dropdown-menu">
+                                    <li><Link to='/profile' class="dropdown-item">Profile</Link></li>
+                                    <li><Link to='/logout' class="dropdown-item">Logout</Link></li>
+                                </ul>
+                            }
                         </div>
-
+                   
                         {/* TODO: Change this link to the saved recipes page once built*/}
-                        <Link to='/savedRecipes' className='header-right header-link saved-recipes'>
-                        <img src={heart} alt='Saved Recipes' className='img-link saved-recipes'></img>
-                        </Link>
-
-                        
+                        {logged_in == true && 
+                        (<Link to='/savedRecipes' className='header-right header-link saved-recipes'>
+                            <img src={heart} alt='Saved Recipes' className='img-link saved-recipes'></img>
+                        </Link>) 
+                        }
                     </div>
                 </div>    
             </div>    
