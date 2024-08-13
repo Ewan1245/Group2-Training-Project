@@ -8,7 +8,10 @@ import com.sky.server.services.RecipeService;
 import com.sky.server.services.SessionHandler;
 import com.sky.server.services.UserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -32,6 +35,12 @@ public class UserController {
     @PostMapping("/createUser")
     @ResponseStatus(HttpStatus.CREATED)
     public String createUser(@RequestBody UserDTO user) { //returns session token (used to confirm that a user is logged on) as a string
+        // hash password
+        String salt = BCrypt.gensalt();
+        String hashedPassword = BCrypt.hashpw(user.getPassword(), salt);
+
+        user.setPassword(hashedPassword);
+
         //add the user
         User createdUser = userService.addUser(user);
 
