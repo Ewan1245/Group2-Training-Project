@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../css/RecipeDetail.css';
 
 
 const RecipeDetail = () => {
@@ -70,7 +71,11 @@ const RecipeDetail = () => {
     // Similar to previous page, uses meal data to render card. Only single meal fetched based on id
     return (
         <div className="container mt-5">
-            <button className="btn btn-secondary mb-3" onClick={handleBackClick}>Back</button>
+            <div className="row">
+                <div className="col-md-1">
+                    <button className="input-btn btn mb-3 btn-outline-light" onClick={handleBackClick}>Back</button>
+                </div>
+            </div>
             <div className="card">
                 <div className="row g-0">
                     <div className="col-md-4">
