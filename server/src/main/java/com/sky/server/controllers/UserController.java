@@ -28,6 +28,7 @@ public class UserController {
         this.recipeService = recipeService;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/createUser")
     @ResponseStatus(HttpStatus.CREATED)
     public String createUser(@RequestBody UserDTO user) { //returns session token (used to confirm that a user is logged on) as a string
@@ -38,6 +39,7 @@ public class UserController {
         return sessionHandler.createSession(createdUser);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public String loginUser(@RequestBody UserCredDTO userCredentials) {
@@ -55,6 +57,7 @@ public class UserController {
     public UserInfoDTO getUserInfo(@PathVariable String token) {
         return sessionHandler.getUserData(token);
     }
+
 
     @GetMapping("/getUserSavedRecipes/{token}")
     public UserRecipesDTO getUserSavedRecipes(@PathVariable String token) {

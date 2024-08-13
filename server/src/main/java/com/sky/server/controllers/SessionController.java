@@ -16,10 +16,11 @@ public class SessionController {
         this.sessionHandler = sessionHandler;
     }
 
-    @PatchMapping("/prodSession/{token}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/prodSession/{token}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void prodSession(@PathVariable String token) {
-        sessionHandler.prodSession(token);
+    public boolean prodSession(@PathVariable String token) {
+        return sessionHandler.prodSession(token);
     }
 
     @GetMapping("/endSession/{token}")

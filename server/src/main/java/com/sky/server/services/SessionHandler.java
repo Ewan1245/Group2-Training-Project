@@ -57,7 +57,7 @@ public class SessionHandler {
     }
 
     //keeps a session alive
-    public void prodSession(String token) {
+    public boolean prodSession(String token) {
         //if there is no active session return false
         if(!active_sessions.containsKey(token)) throw new SessionNotActiveException();
 
@@ -72,6 +72,7 @@ public class SessionHandler {
 
         //if user hasn't timed out update the time that the user has left
         active_sessions.get(token).lastEvent = now;
+        return true;
     }
 
     public void endSession(String token) {
