@@ -52,7 +52,7 @@ const HomePage = ({ setError, ingredients, setIngredients, selectedCuisine, setS
         <>
             <Input addIngredient={addIngredient} ingredients={ingredients} removeIngredient={removeIngredient} />
 
-            {ingredients.length == 0 && <FeaturedRecipes ingredients={['tomato']} setError={setError} setCuisines={setFullCuisines} selectedCuisine={selectedCuisine} />}
+            {ingredients.length == 0 && <FeaturedRecipes ingredients={['bread']} setError={setError} setCuisines={setFullCuisines} selectedCuisine={selectedCuisine} />}
 
             {ingredients.length > 0 &&
                 <>
