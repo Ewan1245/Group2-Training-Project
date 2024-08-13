@@ -24,10 +24,10 @@ const Header = ({logged_in}) => {
             </Link>
 
             {/* TODO: Change this link to the saved recipes page once built*/}
-            <Link to='/savedRecipes' className='header-right header-link saved-recipes'>
+            {logged_in == true && (<Link to='/savedRecipes' className='header-right header-link saved-recipes'>
             <img src={heart} alt='Saved Recipes' className='img-link saved-recipes'></img>
             <body className='text-link saved-recipes'>Saved Recipes</body>
-            </Link>
+            </Link>) }
 
         </header>
     )

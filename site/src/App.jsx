@@ -3,7 +3,7 @@ import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import SavedRecipes from './components/SavedRecipes';
-import React, { useState } from 'react'; // React and its hooks
+import React, { useEffect, useState } from 'react'; // React and its hooks
 import RecipeDetail from './components/RecipeDetail';
 import Login from './components/Login';
 import PersonalProfile from './components/Profile';
@@ -15,6 +15,8 @@ import HomePage from './components/HomePage';
 import GenQR from './components/GenQR';
 import QR_Router from './components/QR_Router';
 import Register from './components/Register';
+import { createContext } from 'react';
+import axios from 'axios';
 
 function App() {
   // State variables
@@ -27,6 +29,11 @@ function App() {
   const [ingredients, setIngredients] = useState([]); // List of ingredients
   const [selectedCuisine, setSelectedCuisine] = useState(""); // Currently selected cuisine
 
+  const SessionTokenContext = createContext('');
+  // const [sessionToken, setSessionToken] = useState('');
+
+  const [loggedIn, setLoggedIn] = useState(false);
+
   // Function to minimise chat, not fully closing
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
@@ -38,10 +45,31 @@ function App() {
     setChatHistory([]); // Clear chat history when closing
   };
 
+  const isLoggedInUrl = "http://localhost:8080/prodSession/"
+  const isLoggedIn = async () => {
+    let sessionToken = sessionStorage.getItem("token");
+    console.log(sessionToken);
+
+    if(sessionToken == "") return false;
+    console.log(isLoggedInUrl + sessionToken);
+    await axios.get(isLoggedInUrl + sessionToken).then((res) => {
+      console.log("Test");
+      setLoggedIn(res.data);
+    }).catch((err) => {
+      console.log(err);
+      setLoggedIn(false);
+    });
+  }
+
+  useEffect(() => {
+    isLoggedIn();
+  }, [sessionStorage])
+
   return (
+    // <SessionTokenContext.Provider value={sessionToken}>
     <Router>
       <div className="App d-flex flex-column min-vh-100">
-        <Header logged_in={false} />
+        <Header logged_in={loggedIn} />
         <div className="flex-grow-1 container mt-5">
           {/* TODO remove input when on login/profile page */}
           {/* Input component, passing setIngredient function as a prop so we can set the Ingredient state in the Input component */}
@@ -101,6 +129,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+    // </SessionTokenContext.Provider>
   );
 }
 

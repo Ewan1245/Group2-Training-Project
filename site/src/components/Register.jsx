@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import '../css/Register.css'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
     const [firstName, setFirstName] = useState('');
@@ -7,11 +9,32 @@ function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const nav = useNavigate();
 
-    const handleSubmit = (event) => {
+    const createUserURL = 'http://localhost:8080/createUser'
+
+    const createUser = async (firstName, lastName, email, password, isAdmin) => {
+        let body = {
+            'firstname': firstName,
+            'surname': lastName,
+            'email': email,
+            'password': password,
+            'isAdmin': isAdmin
+        }
+        await axios.post(createUserURL, body).then((res) => {
+            sessionStorage.setItem("token", res.data);
+            nav('/');
+        }).catch((err) => {
+            //TODO: Visualise error to user
+            console.log(err);
+        })
+    }
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         // Handle form submission logic here
         console.log({ firstName, lastName, email, password, confirmPassword });
+        await createUser(firstName, lastName, email, password, false);
     };
 
     return (
