@@ -95,6 +95,15 @@ public class SessionHandler {
         }).toList();
     }
 
+    public boolean isAdmin(String token) {
+        //get the session for the token
+        if(active_sessions.containsKey(token)) {
+            return active_sessions.get(token).user.isAdmin();
+        }
+
+        throw new SessionNotActiveException();
+    }
+
     //wipes the inactive sessions every 30 seconds
     @Scheduled(fixedRate = 30000L)
     public void wipeInactiveSessions() {

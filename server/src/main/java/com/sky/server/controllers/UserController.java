@@ -52,6 +52,10 @@ public class UserController {
         return sessionHandler.createSession(loggedInUser);
     }
 
+    @GetMapping("/isAdmin/{token}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public boolean userIsAdmin(@PathVariable String token) { return sessionHandler.isAdmin(token); }
+
 
     @GetMapping("/getUserInfo/{token}")
     public UserInfoDTO getUserInfo(@PathVariable String token) {
