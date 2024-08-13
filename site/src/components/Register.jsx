@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../css/Register.css';
 import bcrypt from 'bcryptjs'
+import axios from 'axios';
 
 function Register() {
     const [firstName, setFirstName] = useState('');
@@ -49,7 +50,7 @@ function Register() {
         return errors;
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const validationErrors = validateForm();
         setErrors(validationErrors);
@@ -74,16 +75,34 @@ function Register() {
                 return await bcrypt.compare(pepperedPassword, hash);
             }
 
-            (async () => {
-                const hash = await hashPassword(password);
-                console.log(`Hash: ${hash}`);
-                console.log(`Pepper: ${pepper}`);
+            const hash = await hashPassword(password)
 
-                const isMatch = await verifyPassword(password, hash);
-                console.log(`Password Match: ${isMatch}`);
-            })();
+            // (async () => {
+            //     const hash = await hashPassword(password);
+            //     console.log(`Hash: ${hash}`);
+            //     console.log(`Pepper: ${pepper}`);
 
-            console.log({ firstName, lastName, email, password, confirmPassword });
+            //     const isMatch = await verifyPassword(password, hash);
+            //     console.log(`Password Match: ${isMatch}`);
+            // })();
+
+            // console.log({ firstName, lastName, email, password, confirmPassword });
+
+            try {
+                await axios.post('http://localhost:8080/createUser',
+                    {
+                        body: {
+                            'firstname': firstName,
+                            'surname': lastName,
+                            'email': email,
+                            'password': hash
+                        }
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+
+
         } else {
             console.log('Form submission failed due to validation errors.');
         }
