@@ -23,14 +23,16 @@ const Header = ({logged_in}) => {
                     </div>
                     <div class="col">
                         {/* TODO: Link this to either a login page or a profile page, depending on logged in status */}
-                        <Link to='/login' className='header-right header-link'>
+                        <Link to={logged_in == false ? '/login' : '/profile'} className='header-right header-link'>
                             <img src={avatar} alt='profile' className='img-link profile'></img>
+                            <body className='text-link profile'>{logged_in == false ? "Log In" : "Profile"}</body>
                         </Link>
                    
                         {/* TODO: Change this link to the saved recipes page once built*/}
-                        <Link to='/savedRecipes' className='header-right header-link saved-recipes'>
+                        {logged_in == true && (<Link to='/savedRecipes' className='header-right header-link saved-recipes'>
                         <img src={heart} alt='Saved Recipes' className='img-link saved-recipes'></img>
-                        </Link>
+                        <body className='text-link saved-recipes'>Saved Recipes</body>
+                        </Link>) }
                     </div>
                 </div>    
             </div>    
