@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import '../css/Register.css';
-import bcrypt from 'bcryptjs'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,7 +12,6 @@ function Register({ setLoginChanged }) {
     const [errors, setErrors] = useState({});
 
     const nav = useNavigate();
-    const pepper = process.env.REACT_APP_PEPPER || 'our-secure-pepper-value';
 
     const validateForm = () => {
         const errors = {};
@@ -60,25 +58,12 @@ function Register({ setLoginChanged }) {
         if (Object.keys(validationErrors).length === 0) {
             // Handle form submission logic here
 
-            async function hashPassword(password) {
-                const pepperedPassword = password + pepper;
-
-                const saltRounds = 13;
-                const salt = bcrypt.genSaltSync(saltRounds);
-
-                const hash = bcrypt.hashSync(pepperedPassword, salt);
-
-                return hash;
-            }
-
-            const hash = await hashPassword(password)
-
             const createUserURL = 'http://localhost:8080/createUser'
             const user = {
                 "firstname": firstName,
                 "surname": lastName,
                 "email": email,
-                "password": hash
+                "password": password
             };
 
             await axios.post(createUserURL, user).then((res) => {
