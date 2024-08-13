@@ -41,7 +41,7 @@ const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callbac
                     placeholder="Enter an ingredient"
                     pattern='[a-zA-Z]*'
                 />
-                <button type="submit" className="input-btn btn btn-primary">Add Ingredient</button>
+                <button type="submit" className="input-btn btn btn-outline-light">Add Ingredient</button>
             </form>
             <div className='ingredients'>
                 {ingredients.map((ingredient, index) => (
