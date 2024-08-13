@@ -46,6 +46,8 @@ public class UserServiceH2 implements UserService {
         return userRepo.findAll().stream().map(UserWithRecipesDTO::new).toList();
     }
 
+
+
     @Override
     public void saveRecipe(String email, Recipe recipe) {
         Optional<User> user = userRepo.findById(email);
