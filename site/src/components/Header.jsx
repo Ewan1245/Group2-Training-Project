@@ -11,7 +11,7 @@ import axios from 'axios';
 
 //returns a header object with a navbar
 //TODO: pages links need to be added
-const Header = ({logged_in}) => {
+const Header = ({logged_in, setLoginChanged}) => {
 
     const handleLogout = () => {
         let token = sessionStorage.getItem("token");
@@ -21,7 +21,7 @@ const Header = ({logged_in}) => {
             return;
         }
 
-        axios.get(url+token).catch(err => {console.log(err)})
+        axios.get(url+token).then(setLoginChanged(true)).catch(err => {console.log(err)})
     }
 
     return (

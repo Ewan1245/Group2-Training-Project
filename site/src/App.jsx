@@ -67,7 +67,7 @@ function App() {
     // <SessionTokenContext.Provider value={sessionToken}>
     <Router>
       <div className="App d-flex flex-column min-vh-100">
-        <Header logged_in={loggedIn} />
+        <Header logged_in={loggedIn} setLoginChanged={setLoginChanged}/>
         <div className="flex-grow-1 container mt-5">
           {/* TODO remove input when on login/profile page */}
           {/* Input component, passing setIngredient function as a prop so we can set the Ingredient state in the Input component */}
