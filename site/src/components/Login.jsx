@@ -51,7 +51,6 @@ const Login = ({setLoginChanged}) => {
   }
   await axios.post(loginURL, body).then((res) => {
       sessionStorage.setItem("token", res.data);
-      console.log(res.data);
       setLoginChanged(true);
       nav('/');
   }).catch((err) => {
