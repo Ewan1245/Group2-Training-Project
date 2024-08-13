@@ -6,7 +6,6 @@ import eats from '../images/eats_white.png';
 import '../css/Header.css';
 import { Link } from 'react-router-dom';
 
-
 //returns a header object with a navbar
 //TODO: pages links need to be added
 const Header = ({logged_in}) => {
