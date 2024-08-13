@@ -13,7 +13,6 @@ function Register({ setLoginChanged }) {
     const [errors, setErrors] = useState({});
 
     const nav = useNavigate();
-
     const pepper = process.env.REACT_APP_PEPPER || 'our-secure-pepper-value';
 
     const validateForm = () => {
@@ -80,17 +79,6 @@ function Register({ setLoginChanged }) {
 
             const hash = await hashPassword(password)
 
-            // (async () => {
-            //     const hash = await hashPassword(password);
-            //     console.log(`Hash: ${hash}`);
-            //     console.log(`Pepper: ${pepper}`);
-
-            //     const isMatch = await verifyPassword(password, hash);
-            //     console.log(`Password Match: ${isMatch}`);
-            // })();
-
-            // console.log({ firstName, lastName, email, password, confirmPassword });
-
             const createUserURL = 'http://localhost:8080/createUser'
             const user = {
                 "firstname": firstName,
@@ -103,13 +91,12 @@ function Register({ setLoginChanged }) {
                 sessionStorage.setItem("token", res.data);
                 nav('/');
                 setLoginChanged(true);
-                alert('Registration successful!')
             }).catch((err) => {
-                // TODO: Visualise error to user
-                errors.email = 'Email already exists';
-                setErrors(errors);
+                setErrors(prevErrors => ({
+                    ...prevErrors,
+                    email: 'Email already exists'
+                }))
             });
-
         } else {
             console.log('Form submission failed due to validation errors.');
         }
