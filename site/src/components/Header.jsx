@@ -6,11 +6,24 @@ import eats from '../images/eats_white.png';
 import '../css/Header.css';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import axios from 'axios';
 
 
 //returns a header object with a navbar
 //TODO: pages links need to be added
 const Header = ({logged_in}) => {
+
+    const handleLogout = () => {
+        let token = sessionStorage.getItem("token");
+        let url = 'http://localhost:8080/endSession/';
+
+        if (!token) {
+            return;
+        }
+
+        axios.get(url+token).catch(err => {console.log(err)})
+    }
+
     return (
         <header>
             <div class="container text-center">
@@ -37,7 +50,7 @@ const Header = ({logged_in}) => {
                             :
                                 <ul class="dropdown-menu">
                                     <li><Link to='/profile' class="dropdown-item">Profile</Link></li>
-                                    <li><Link to='/logout' class="dropdown-item">Logout</Link></li>
+                                    <li><Link to='/' class="dropdown-item" onClick={handleLogout}>Logout</Link></li>
                                 </ul>
                             }
                         </div>

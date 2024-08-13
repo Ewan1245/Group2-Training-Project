@@ -40,7 +40,7 @@ function Register({setLoginChanged}) {
 
     return (
         <div className="register-container">
-            <form className="register-form d-flex flex-column align-items-center p-4" onSubmit={handleSubmit}>
+            <form className="register-form d-flex flex-column align-items-left p-4" onSubmit={handleSubmit}>
                 <div className="mb-3 w-100">
                     <label htmlFor="firstName" className="form-label">First Name: </label>
                     <input
