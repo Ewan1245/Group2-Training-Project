@@ -71,12 +71,6 @@ function Register({ setLoginChanged }) {
                 return hash;
             }
 
-            async function verifyPassword(password, hash) {
-                const pepperedPassword = password + pepper;
-
-                return await bcrypt.compare(pepperedPassword, hash);
-            }
-
             const hash = await hashPassword(password)
 
             const createUserURL = 'http://localhost:8080/createUser'
