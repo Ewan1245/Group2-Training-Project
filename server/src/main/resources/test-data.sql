@@ -1,7 +1,7 @@
 INSERT INTO `USERS` VALUES
-('test1@test', 'test', 'person1', 'password'),
-('test2@test', 'test', 'person2', 'password'),
-('test3@test', 'test', 'person3', 'password');
+('test1@test', 'test', 'person1', 'password', 0),
+('test2@test', 'test', 'person2', 'password', 1),
+('test3@test', 'test', 'person3', 'password', 0);
 
 INSERT INTO `RECIPE` VALUES
 ('Carbonara'),
