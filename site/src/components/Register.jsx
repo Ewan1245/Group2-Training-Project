@@ -88,16 +88,16 @@ function Register() {
 
             // console.log({ firstName, lastName, email, password, confirmPassword });
 
+            const user = {
+                firstname: firstName,
+                surname: lastName,
+                email: email,
+                password: hash
+            };
+
             try {
-                await axios.post('http://localhost:8080/createUser',
-                    {
-                        body: {
-                            'firstname': firstName,
-                            'surname': lastName,
-                            'email': email,
-                            'password': hash
-                        }
-                    });
+                await axios.post('http://localhost:8080/createUser', user, {
+                });
             } catch (error) {
                 console.log(error);
             }
