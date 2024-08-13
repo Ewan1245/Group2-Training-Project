@@ -32,7 +32,7 @@ public class UserControllerIntegrationTest {
 
     @Test
     void testCreate() throws Exception {
-        UserDTO newPerson = new UserDTO("Test", "Person", "test.person@test.uk", "qwertyuiop");
+        UserDTO newPerson = new UserDTO("Test", "Person", "test.person@test.uk", "qwertyuiop", false);
         String newPersonAsJSON = this.mapper.writeValueAsString(newPerson);
         RequestBuilder req = MockMvcRequestBuilders
                 .post("/createUser")
