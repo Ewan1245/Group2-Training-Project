@@ -12,6 +12,8 @@ function Register({ setLoginChanged }) {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errors, setErrors] = useState({});
 
+    const nav = useNavigate();
+
     const pepper = process.env.REACT_APP_PEPPER || 'our-secure-pepper-value';
 
     const validateForm = () => {
@@ -89,53 +91,58 @@ function Register({ setLoginChanged }) {
 
             // console.log({ firstName, lastName, email, password, confirmPassword });
 
+            const createUserURL = 'http://localhost:8080/createUser'
             const user = {
-                firstname: firstName,
-                surname: lastName,
-                email: email,
-                password: hash
+                "firstname": firstName,
+                "surname": lastName,
+                "email": email,
+                "password": hash
             };
+            console.log(user);
 
-            try {
-                await axios.post('http://localhost:8080/createUser', user, {
-                });
-            } catch (error) {
-                console.log(error);
-            }
 
+            await axios.post(createUserURL, user).then((res) => {
+                sessionStorage.setItem("token", res.data);
+                nav('/');
+                setLoginChanged(true);
+                alert('Registration successful!')
+            }).catch((err) => {
+                // TODO: Visualise error to user
+                console.log(err);
+            });
 
         } else {
             console.log('Form submission failed due to validation errors.');
         }
+    }
 
-        // const nav = useNavigate();
+    // const nav = useNavigate();
 
-        // const createUserURL = 'http://localhost:8080/createUser'
+    // const createUserURL = 'http://localhost:8080/createUser'
 
-        // const createUser = async (firstName, lastName, email, password, isAdmin) => {
-        //     let body = {
-        //         'firstname': firstName,
-        //         'surname': lastName,
-        //         'email': email,
-        //         'password': password,
-        //         'isAdmin': isAdmin
-        //     }
-        //     await axios.post(createUserURL, body).then((res) => {
-        //         sessionStorage.setItem("token", res.data);
-        //         nav('/');
-        //         setLoginChanged(true);
-        //     }).catch((err) => {
-        //         //TODO: Visualise error to user
-        //         console.log(err);
-        //     })
-        // }
+    // const createUser = async (firstName, lastName, email, password, isAdmin) => {
+    //     let body = {
+    //         'firstname': firstName,
+    //         'surname': lastName,
+    //         'email': email,
+    //         'password': password,
+    //         'isAdmin': isAdmin
+    //     }
+    //     await axios.post(createUserURL, body).then((res) => {
+    //         sessionStorage.setItem("token", res.data);
+    //         nav('/');
+    //         setLoginChanged(true);
+    //     }).catch((err) => {
+    //         //TODO: Visualise error to user
+    //         console.log(err);
+    //     })
+    // }
 
-        // const handleSubmit = async (event) => {
-        //     event.preventDefault();
-        //     // Handle form submission logic here
-        //     console.log({ firstName, lastName, email, password, confirmPassword });
-        //     await createUser(firstName, lastName, email, password, false);
-    };
+    // const handleSubmit = async (event) => {
+    //     event.preventDefault();
+    //     // Handle form submission logic here
+    //     console.log({ firstName, lastName, email, password, confirmPassword });
+    //     await createUser(firstName, lastName, email, password, false);
 
     return (
         <div className="register-container">
@@ -223,6 +230,6 @@ function Register({ setLoginChanged }) {
             </form>
         </div>
     );
-}
+};
 
 export default Register;
