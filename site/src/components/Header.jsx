@@ -1,8 +1,8 @@
 import React from 'react';
-//import logo from '../images/logo512.png';
-import sky from "../images/Sky_Eats_Logo.jpg"
+import sky from "../images/sky_sq_nobg.png"
 import avatar from '../images/person-fill.svg';
 import heart from '../images/bookmark-heart-fill.svg'
+import eats from '../images/eats_white.png';
 import '../css/Header.css';
 import { Link } from 'react-router-dom';
 
@@ -13,7 +13,8 @@ const Header = ({logged_in}) => {
     return (
         <header>
             <Link to='/' className='header-link'>
-                <img src={sky} alt='logo'></img>
+                <img src={sky} alt='sky ' className='logo'></img>
+                <img src={eats} alt='eats logo' className='logo'></img>
             </Link>
 
             {/* TODO: Link this to either a login page or a profile page, depending on logged in status */}

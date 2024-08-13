@@ -9,6 +9,7 @@ const Recipes = () => {
 
     return (
         <div>
+            <h1 className="h1 mb-4">Saved Recipes</h1>
             <div className="row">
                 {/* <body>{recipes}</body> */}
                 {recipes.map(recipe => ( // Mapping over the recipes array filled with the detailedMeals data, using that data to build each recipe card
