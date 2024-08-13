@@ -98,8 +98,6 @@ function Register({ setLoginChanged }) {
                 "email": email,
                 "password": hash
             };
-            console.log(user);
-
 
             await axios.post(createUserURL, user).then((res) => {
                 sessionStorage.setItem("token", res.data);
@@ -108,41 +106,14 @@ function Register({ setLoginChanged }) {
                 alert('Registration successful!')
             }).catch((err) => {
                 // TODO: Visualise error to user
-                console.log(err);
+                errors.email = 'Email already exists';
+                setErrors(errors);
             });
 
         } else {
             console.log('Form submission failed due to validation errors.');
         }
     }
-
-    // const nav = useNavigate();
-
-    // const createUserURL = 'http://localhost:8080/createUser'
-
-    // const createUser = async (firstName, lastName, email, password, isAdmin) => {
-    //     let body = {
-    //         'firstname': firstName,
-    //         'surname': lastName,
-    //         'email': email,
-    //         'password': password,
-    //         'isAdmin': isAdmin
-    //     }
-    //     await axios.post(createUserURL, body).then((res) => {
-    //         sessionStorage.setItem("token", res.data);
-    //         nav('/');
-    //         setLoginChanged(true);
-    //     }).catch((err) => {
-    //         //TODO: Visualise error to user
-    //         console.log(err);
-    //     })
-    // }
-
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     // Handle form submission logic here
-    //     console.log({ firstName, lastName, email, password, confirmPassword });
-    //     await createUser(firstName, lastName, email, password, false);
 
     return (
         <div className="register-container">
