@@ -76,7 +76,7 @@ public class User {
     }
 
     public void addToSavedRecipes(Recipe newRecipe) {
-        this.savedRecipes.add(newRecipe);
+        if(!savedRecipes.contains(newRecipe)) this.savedRecipes.add(newRecipe);
     }
 
     public boolean isAdmin() {
