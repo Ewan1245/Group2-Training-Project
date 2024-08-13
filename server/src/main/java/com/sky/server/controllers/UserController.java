@@ -28,7 +28,7 @@ public class UserController {
         this.recipeService = recipeService;
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/createUser")
     @ResponseStatus(HttpStatus.CREATED)
     public String createUser(@RequestBody UserDTO user) { //returns session token (used to confirm that a user is logged on) as a string
@@ -39,7 +39,7 @@ public class UserController {
         return sessionHandler.createSession(createdUser);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public String loginUser(@RequestBody UserCredDTO userCredentials) {

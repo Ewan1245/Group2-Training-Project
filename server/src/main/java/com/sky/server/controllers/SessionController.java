@@ -16,7 +16,7 @@ public class SessionController {
         this.sessionHandler = sessionHandler;
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/prodSession/{token}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public boolean prodSession(@PathVariable String token) {
