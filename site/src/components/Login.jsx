@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/Login.css';
 import { TbBackground } from 'react-icons/tb';
+import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({setLoginChanged}) => {
   // return (
   //     <form action="/action_page.php">
   //         <div class="form-group">
@@ -25,6 +26,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState()
+  const nav = useNavigate();
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
@@ -41,18 +43,26 @@ const Login = () => {
     localStorage.clear();
   };
 
+  const loginURL = 'http://localhost:8080/login'
+  const handleLogin = async (email, password) => {
+    let body = {
+      'email': email,
+      'password': password
+  }
+  await axios.post(loginURL, body).then((res) => {
+      sessionStorage.setItem("token", res.data);
+      console.log(res.data);
+      setLoginChanged(true);
+      nav('/');
+  }).catch((err) => {
+      //TODO: Visualise error to user
+      console.log(err);
+  })
+  }
+
   const handleSubmit = async e => {
     e.preventDefault();
-    const user = { username, password };
-    // send the username and password to the server
-    const response = await axios.post(
-      "https://group2-training-project/site/src/app.jsx",
-      user
-    );
-    // set the state of the user
-    setUser(response.data)
-    // store the user in localStorage
-    localStorage.setItem('user', JSON.stringify(response.data))
+    handleLogin(username, password);
   };
 
   // if there's a user show the message below
@@ -68,12 +78,12 @@ const Login = () => {
     <div className="login-container">
       <form className="login-form d-flex flex-column align-items-center p-4" onSubmit={handleSubmit}>
         <div className="mb-3 w-100">
-          <label htmlFor="username" className="form-label">Username: </label>
+          <label htmlFor="username" className="form-label">Email: </label>
           <input
             type="text"
             className="form-control"
             value={username}
-            placeholder="Enter username"
+            placeholder="Enter email"
             onChange={({ target }) => setUsername(target.value)}
           />
         </div>

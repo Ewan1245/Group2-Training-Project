@@ -3,7 +3,7 @@ import '../css/Register.css'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
-function Register() {
+function Register({setLoginChanged}) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -24,6 +24,7 @@ function Register() {
         await axios.post(createUserURL, body).then((res) => {
             sessionStorage.setItem("token", res.data);
             nav('/');
+            setLoginChanged(true);
         }).catch((err) => {
             //TODO: Visualise error to user
             console.log(err);

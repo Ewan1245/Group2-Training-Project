@@ -61,9 +61,11 @@ function App() {
     });
   }
 
+  const [loginChanged, setLoginChanged] = useState(false);
   useEffect(() => {
     isLoggedIn();
-  }, [sessionStorage])
+    if(loginChanged) setLoginChanged(false);
+  }, [loginChanged])
 
   return (
     // <SessionTokenContext.Provider value={sessionToken}>
@@ -77,8 +79,8 @@ function App() {
           {/* Display error message if there's an error */}
           {error && <div className="alert alert-danger">{error}</div>}
           <Switch>
-            <Route path="/login" element={<Login />} />
-            <Route path='/register' element={<Register />} />
+            <Route path="/login" element={<Login setLoginChanged={setLoginChanged}/>} />
+            <Route path='/register' element={<Register setLoginChanged={setLoginChanged}/>} />
             <Route path='/qr_routing/:ingredients/:cuisine' element={<QR_Router setIngredients={setIngredients} setCuisine={setSelectedCuisine} />} />
 
 
