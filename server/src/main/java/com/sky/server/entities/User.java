@@ -32,7 +32,7 @@ public class User {
     }
 
     public User(UserDTO user) {
-        this(user.getFirstname(), user.isAdmin(), user.getSurname(), user.getEmail(), user.getPassword(), new LinkedList<>());
+        this(user.getEmail(), user.isAdmin(), user.getFirstname(), user.getSurname(), user.getPassword(), new LinkedList<>());
     }
 
     public String getFirstname() {
