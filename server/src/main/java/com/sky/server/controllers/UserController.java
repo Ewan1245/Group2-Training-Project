@@ -10,8 +10,6 @@ import com.sky.server.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -54,21 +54,7 @@ const Login = ({ setLoginChanged }) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-
-    async function hashPassword(password) {
-      const pepperedPassword = password + pepper;
-
-      const saltRounds = 13;
-      const salt = bcrypt.genSaltSync(saltRounds);
-
-      const hash = bcrypt.hashSync(pepperedPassword, salt);
-
-      return hash;
-    }
-
-    const hash = await hashPassword(password)
-
-    handleLogin(username, hash);
+    handleLogin(username, password);
   };
 
   // if there's a user show the message below
