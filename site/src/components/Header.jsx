@@ -32,7 +32,7 @@ const Header = ({logged_in}) => {
                             {logged_in == false ?
                                 <ul class="dropdown-menu">
                                     <li><Link to='/login' class="dropdown-item">Login</Link></li>
-                                    <li><Link to='/login' class="dropdown-item">Sign Up</Link></li>
+                                    <li><Link to='/register' class="dropdown-item">Register</Link></li>
                                 </ul>
                             :
                                 <ul class="dropdown-menu">
