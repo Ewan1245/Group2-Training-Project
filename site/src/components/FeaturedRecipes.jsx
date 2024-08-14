@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../css/FeaturedRecipes.css';
+import heart from '../images/bookmark-heart.svg'
 import featured from '../images/featured-recipes.png';
 
 
 {/* duplicate of Recipes.jsx with some changes to create a featured recipes panel */}
-const FeaturedRecipes = ({ ingredients, setError }) => {
+const FeaturedRecipes = ({ ingredients, setError, idMeal }) => {
     const [recipes, setRecipes] = useState([]); // State for storing recipes
     const navigate = useNavigate(); // Hook to navigate
 
@@ -85,12 +86,23 @@ const FeaturedRecipes = ({ ingredients, setError }) => {
     //     );
     // }
 
-    return (
+    const SaveRecipe = async() => {
+        let token = sessionStorage.getItem("token");
+        const url = "http://localhost:8080/saveRecipe/" + idMeal + "/" + token
+        await axios.patch(url).catch(err => {
+            if(err.response.status === 401){
+                navigate("/login")
+                    return
+            }
+            console.log(err)
+        });
+    };
+
+    return(
         <div>
             <img src={featured} className='featured-recipes'></img>
             <br></br>
             <br></br>
-            {/* <h1 className="h1 mb-4">Featured Recipes</h1> */}
             <div className="row">
                 {recipes.map(recipe => ( // Mapping over the recipes array filled with the detailedMeals data, using that data to build each recipe card
                     <div key={recipe.idMeal} onClick={() => navigate("/recipe/" + recipe.idMeal)} className="col-md-4 mb-4"> {/* Using navigate in the div to redirect */}
@@ -99,16 +111,27 @@ const FeaturedRecipes = ({ ingredients, setError }) => {
                             <img src={recipe.strMealThumb} className="card-img-top" alt={recipe.strMeal} />
                             </div>
                             <div className="card-body">
-                                <h5 className="card-title">{recipe.strMeal}</h5>
-                                <p className="card-text"><strong>Area:</strong> {recipe.strArea}</p>
-                                <p className="card-text"><strong>Tags:</strong> {recipe.strTags}</p>
+                                <div className="row">
+                                    <div className="col-md-9 mb-3">
+                                        <h5 className="card-title">{recipe.strMeal}</h5>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <p className="card-text col"><strong>Area:</strong> {recipe.strArea}</p>
+                                </div>
+                                <div className="row">
+                                <p className="card-text col"><strong>Tags:</strong> {recipe.strTags}</p>
+                                    <div className="col-md-3 mb-3">
+                                        <img src={heart} alt='Save Recipe' className='img-link save-recipe' onClick={SaveRecipe}></img>
+                                    </div>
+                            </div>
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
         </div>
-    );
+    )
 };
 
 export default FeaturedRecipes;
