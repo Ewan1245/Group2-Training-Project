@@ -9,7 +9,7 @@ import Recipe from './Recipe';
 
 
 
-{/* duplicate of Recipes.jsx with some changes to create a featured recipes panel */}
+{/* duplicate of Recipes.jsx with some changes to create a featured recipes panel */ }
 const FeaturedRecipes = ({ ingredients, setError, idMeal }) => {
     const [recipes, setRecipes] = useState([]); // State for storing recipes
     const navigate = useNavigate(); // Hook to navigate
@@ -45,7 +45,7 @@ const FeaturedRecipes = ({ ingredients, setError, idMeal }) => {
                             allMeals.push({
                                 ...detailedMeal, // Ensure all detailed properties are included, may include duplicate meals
                                 strArea: detailedMeal.strArea,
-                                strTags: detailedMeal.strTags
+                                strCategory: detailedMeal.strCategory
                             });
                         }
                     }
@@ -90,14 +90,14 @@ const FeaturedRecipes = ({ ingredients, setError, idMeal }) => {
     // }
 
 
-    return(
+    return (
         <div>
             <img src={featured} className='featured-recipes'></img>
             <br></br>
             <br></br>
             <div className="row">
                 {recipes.map(recipe => ( // Mapping over the recipes array filled with the detailedMeals data, using that data to build each recipe card
-                    <Recipe idMeal={recipe.idMeal} strMealThumb={recipe.strMealThumb} strMeal={recipe.strMeal} strArea={recipe.strArea} strTags={recipe.strTags} />
+                    <Recipe idMeal={recipe.idMeal} strMealThumb={recipe.strMealThumb} strMeal={recipe.strMeal} strArea={recipe.strArea} strCategory={recipe.strCategory} />
                 ))}
             </div>
         </div>
