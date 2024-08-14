@@ -78,9 +78,9 @@ const RecipeDetail = () => {
             </div>
             <div className="container text-start my-2">
                 <div className="row">
-                    <div className="col-md-7">
+                    <div className="col-md-6">
                         <h2 className="title">{recipe.strMeal}</h2>
-                        <div class="d-flex flex-column mb-7">
+                        <div class="d-flex flex-column md-6">
                             {recipe.strCategory && <div class="p-2"><strong>Category:</strong> {recipe.strCategory}</div>}
                             {recipe.strArea && <div class="p-2"><strong>Area:</strong> {recipe.strArea}</div>}
                             {recipe.strTags && <div class="p-2"><strong>Tags:</strong> {recipe.strTags}</div>}
@@ -90,7 +90,7 @@ const RecipeDetail = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-5">
+                    <div className="col-md-6">
                         <img src={recipe.strMealThumb} className="img-fluid rounded-start" alt={recipe.strMeal} />
                     </div>
                 </div>
