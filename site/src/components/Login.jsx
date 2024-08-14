@@ -36,7 +36,7 @@ const Login = ({ setLoginChanged }) => {
   //   return await bcrypt.compare(pepperedPassword, hash);
   // }
 
-  const loginURL = baseUrl + '/login'
+  const loginURL = process.env.REACT_APP_BASEURL + '/login'
 
   const handleLogin = async (email, password) => {
     let body = {

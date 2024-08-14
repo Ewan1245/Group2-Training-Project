@@ -19,7 +19,7 @@ const Recipes = () => {
                 navigate("/login")
                 return
             }
-        const url = baseUrl + "/getUserSavedRecipes/" + token;
+        const url = process.env.REACT_APP_BASEURL + "/getUserSavedRecipes/" + token;
         const savedRecipeIds = await axios.get(url).catch(err => console.log(err));
         let allRecipes = [];
         for(let id of savedRecipeIds.data.savedRecipes){
