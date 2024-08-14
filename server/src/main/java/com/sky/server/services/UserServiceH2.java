@@ -10,6 +10,7 @@ import com.sky.server.exceptions.UserNotFoundException;
 import com.sky.server.repos.UserRepo;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +37,7 @@ public class UserServiceH2 implements UserService {
     public User getUser(String email, String password) {
         Optional<User> user = userRepo.findById(email);
         if(user.isPresent()) {
-            if(user.get().getPassword().equals(password)) return user.get();
+            if(BCrypt.checkpw(password, user.get().getPassword())) return user.get();
         }
         return null;
     }

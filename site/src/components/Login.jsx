@@ -1,32 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import bcrypt from 'bcryptjs'
 import '../css/Login.css';
 import { TbBackground } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
 
-const Login = ({setLoginChanged}) => {
-  // return (
-  //     <form action="/action_page.php">
-  //         <div class="form-group">
-  //             <label for="email">Email address:</label>
-  //             <input type="email" class="form-control" id="email" />
-  //         </div>
-  //         <div class="form-group">
-  //             <label for="pwd">Password:</label>
-  //             <input type="password" class="form-control" id="pwd" />
-  //         </div>
-  //         <div class="checkbox">
-  //             <label> Remember me</label>
-  //             <input type="checkbox" />
-  //         </div>
-  //         <button type="submit" class="input-btn btn">Submit</button>
-  //     </form>
-  // )
+const Login = ({ setLoginChanged }) => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState()
+
   const nav = useNavigate();
+  const pepper = process.env.REACT_APP_PEPPER || 'our-secure-pepper-value';
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
@@ -43,20 +29,27 @@ const Login = ({setLoginChanged}) => {
     localStorage.clear();
   };
 
+  // async function verifyPassword(password, hash) {
+  //   const pepperedPassword = password + pepper;
+
+  //   return await bcrypt.compare(pepperedPassword, hash);
+  // }
+
   const loginURL = 'http://localhost:8080/login'
+
   const handleLogin = async (email, password) => {
     let body = {
       'email': email,
       'password': password
-  }
-  await axios.post(loginURL, body).then((res) => {
+    }
+    await axios.post(loginURL, body).then((res) => {
       sessionStorage.setItem("token", res.data);
       setLoginChanged(true);
       nav('/');
-  }).catch((err) => {
+    }).catch((err) => {
       //TODO: Visualise error to user
       console.log(err);
-  })
+    })
   }
 
   const handleSubmit = async e => {
