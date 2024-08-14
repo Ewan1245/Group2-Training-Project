@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Recipe from './Recipe';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import baseUrl from '../baseUrl';
 
 
 
@@ -18,7 +19,7 @@ const Recipes = () => {
                 navigate("/login")
                 return
             }
-        const url = "http://localhost:8080/getUserSavedRecipes/" + token;
+        const url = baseUrl + "/getUserSavedRecipes/" + token;
         const savedRecipeIds = await axios.get(url).catch(err => console.log(err));
         let allRecipes = [];
         for(let id of savedRecipeIds.data.savedRecipes){
