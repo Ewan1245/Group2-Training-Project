@@ -59,7 +59,7 @@ function Register({ setLoginChanged }) {
         if (Object.keys(validationErrors).length === 0) {
             // Handle form submission logic here
 
-            const createUserURL = baseUrl + '/createUser'
+            const createUserURL = process.env.REACT_APP_BASEURL + '/createUser'
             const user = {
                 "firstname": firstName,
                 "surname": lastName,
