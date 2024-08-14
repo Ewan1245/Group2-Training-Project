@@ -70,30 +70,38 @@ const RecipeDetail = () => {
 
     // Similar to previous page, uses meal data to render card. Only single meal fetched based on id
     return (
-        <div className="container mt-5">
+        <div className="container">
             <div className="row">
                 <div className="col-md-1">
                     <button className="input-btn btn mb-3 btn-outline-light" onClick={handleBackClick}>Back</button>
                 </div>
             </div>
-            <div className="card">
-                <div className="row g-0">
-                    <div className="col-md-4">
+            <div className="container text-start my-2">
+                <div className="row">
+                    <div className="col-md-7">
+                        <h2 className="title">{recipe.strMeal}</h2>
+                        <div class="d-flex flex-column mb-7">
+                            {recipe.strCategory && <div class="p-2"><strong>Category:</strong> {recipe.strCategory}</div>}
+                            {recipe.strArea && <div class="p-2"><strong>Area:</strong> {recipe.strArea}</div>}
+                            {recipe.strTags && <div class="p-2"><strong>Tags:</strong> {recipe.strTags}</div>}
+                            <div class="p-2">
+                                <strong>Ingredients:</strong>
+                                <ul>{allIngredients}</ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-5">
                         <img src={recipe.strMealThumb} className="img-fluid rounded-start" alt={recipe.strMeal} />
                     </div>
-                    <div className="col-md-8">
-                        <div className="card-body">
-                            <h2 className="card-title">{recipe.strMeal}</h2>
-                            <p className="card-text"><strong>Category:</strong> {recipe.strCategory}</p>
-                            <p className="card-text"><strong>Area:</strong> {recipe.strArea}</p>
-                            <p className="card-text"><strong>Tags:</strong> {recipe.strTags}</p>
-                            <p className="card-text"><strong>Ingredients:</strong></p>
-                            <ul>{allIngredients}</ul>
-                            <p className="card-text"><strong>Instructions:</strong></p>
-                            {steps}
-                            {recipe.strYoutube && (
-                                <a href={recipe.strYoutube} className="btn btn-primary" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
-                            )}
+                </div>
+                <div className='row g-4'>
+                    <div className="d-flex flex-column">
+                        <div class="p-2">
+                            <strong>Instructions:</strong>
+                                {steps}
+                                {recipe.strYoutube && (
+                                    <a href={recipe.strYoutube} className="btn btn-primary" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+                                )}
                         </div>
                     </div>
                 </div>
