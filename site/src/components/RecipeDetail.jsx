@@ -100,7 +100,7 @@ const RecipeDetail = () => {
                             <strong>Instructions:</strong>
                                 {steps}
                                 {recipe.strYoutube && (
-                                    <a href={recipe.strYoutube} className="btn btn-primary" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+                                    <a href={recipe.strYoutube} className="btn input-btn btn-outline-dark" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
                                 )}
                         </div>
                     </div>
