@@ -40,6 +40,7 @@ const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callbac
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Enter an ingredient"
                     pattern='[a-zA-Z]*'
+                    required='true'
                 />
                 <button type="submit" className="input-btn btn btn-outline-light">Add Ingredient</button>
             </form>
