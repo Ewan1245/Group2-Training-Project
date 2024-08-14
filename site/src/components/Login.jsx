@@ -11,6 +11,7 @@ const Login = ({ setLoginChanged }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState()
+  const [error, setError] = useState();
 
   const nav = useNavigate();
   const pepper = process.env.REACT_APP_PEPPER || 'our-secure-pepper-value';
@@ -48,7 +49,7 @@ const Login = ({ setLoginChanged }) => {
       setLoginChanged(true);
       nav('/');
     }).catch((err) => {
-      //TODO: Visualise error to user
+      setError("Invalid login credentials")
       console.log(err);
     })
   }
@@ -89,7 +90,9 @@ const Login = ({ setLoginChanged }) => {
             placeholder="Enter password"
             onChange={({ target }) => setPassword(target.value)}
           />
+          {error && (<span className="error-message">{error}</span>)}
         </div>
+        
         <button type="submit" className="btn btn-primary login-btn w-50">Login</button>
       </form>
     </div>
