@@ -2,41 +2,43 @@ package com.sky.server.services;
 
 import com.sky.server.DTOs.SessionVisualisedDTO;
 import com.sky.server.DTOs.UserInfoDTO;
-import com.sky.server.DTOs.UserRecipesDTO;
+import com.sky.server.entities.Session;
 import com.sky.server.entities.User;
 import com.sky.server.exceptions.SessionAlreadyActiveException;
 import com.sky.server.exceptions.SessionNotActiveException;
+import com.sky.server.repos.SessionRepo;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class SessionHandler {
-    private static class SessionData {
-        public LocalDateTime lastEvent;
-        public User user;
+    private SessionRepo sessionRepo;
 
-        public SessionData(User user) {
-            lastEvent = LocalDateTime.now();
-            this.user = user;
-        }
-    }
-    private Map<String, SessionData> active_sessions;
 
-    public SessionHandler() {
-        active_sessions = new HashMap<>();
+    public SessionHandler(SessionRepo sessionRepo) {
+        this.sessionRepo = sessionRepo;
     }
 
     public String createSession(User user) {
         //check if the user has an active session
-        if(active_sessions.values().stream().anyMatch(data -> data.user.getEmail().equals(user.getEmail()))) throw new SessionAlreadyActiveException();
+        LocalDateTime now = LocalDateTime.now();
+        if(sessionRepo.getReferenceByUser(user).isPresent()) {
+            Session session = sessionRepo.getReferenceByUser(user).get();
+            if(session.lastEvent.plusMinutes(5).isBefore(now)) {
+                //remove the old session
+                sessionRepo.delete(session);
+            }
+            else throw new SessionAlreadyActiveException();
+        }
+
 
         //generate random string
         String sessionToken = UUID.randomUUID().toString();
-        active_sessions.put(sessionToken, new SessionData(user));
+        Session newSession = new Session(sessionToken, now, user);
+        sessionRepo.save(newSession);
         return sessionToken;
     }
 
@@ -44,7 +46,7 @@ public class SessionHandler {
         //prod the session to keep it alive
         prodSession(token);
 
-        User user = active_sessions.get(token).user;
+        User user = sessionRepo.getReferenceById(token).getUser();
         return new UserInfoDTO(user.getFirstname(), user.getSurname(), user.getEmail());
     }
 
@@ -53,51 +55,52 @@ public class SessionHandler {
     public User getUser(String token) {
         prodSession(token);
 
-        return active_sessions.get(token).user;
+        return sessionRepo.getReferenceById(token).getUser();
     }
 
     //keeps a session alive
-    public void prodSession(String token) {
+    public boolean prodSession(String token) {
         //if there is no active session return false
-        if(!active_sessions.containsKey(token)) throw new SessionNotActiveException();
+        if(!sessionRepo.existsById(token)) throw new SessionNotActiveException();
 
-        LocalDateTime lastAction = active_sessions.get(token).lastEvent;
+        Session session = sessionRepo.findById(token).get();
+        LocalDateTime lastAction = session.getLastEvent();
         LocalDateTime now = LocalDateTime.now();
 
         //if user hasn't interacted with the session in five minutes remove from the map
         if(lastAction.plusMinutes(5).isBefore(now)) {
-            active_sessions.remove(token);
+            sessionRepo.deleteById(token);
             throw new SessionNotActiveException();
         }
 
         //if user hasn't timed out update the time that the user has left
-        active_sessions.get(token).lastEvent = now;
+        session.setLastEvent(now);
+        sessionRepo.save(session);
+        return true;
     }
 
     public void endSession(String token) {
-        if(!active_sessions.containsKey(token)) throw new SessionNotActiveException();
+        if(!sessionRepo.existsById(token)) throw new SessionNotActiveException();
 
-        active_sessions.remove(token);
+        sessionRepo.deleteById(token);
     }
 
     public LocalDateTime getSessionTime(String token) {
-        if(active_sessions.containsKey(token)) {
-            return active_sessions.get(token).lastEvent;
+        if(sessionRepo.existsById(token)) {
+            return sessionRepo.getReferenceById(token).getLastEvent();
         }
 
         throw new SessionNotActiveException();
     }
 
     public List<SessionVisualisedDTO> getActiveSessions() {
-        return active_sessions.entrySet().stream().map(e -> {
-            return new SessionVisualisedDTO(e.getKey(), e.getValue().user.getEmail());
-        }).toList();
+        return sessionRepo.findAll().stream().map(e -> new SessionVisualisedDTO(e.getSessionId(), e.getUser().getEmail())).toList();
     }
 
     public boolean isAdmin(String token) {
         //get the session for the token
-        if(active_sessions.containsKey(token)) {
-            return active_sessions.get(token).user.isAdmin();
+        if(sessionRepo.existsById(token)) {
+            return sessionRepo.getReferenceById(token).getUser().isAdmin();
         }
 
         throw new SessionNotActiveException();
@@ -106,11 +109,12 @@ public class SessionHandler {
     //wipes the inactive sessions every 30 seconds
     @Scheduled(fixedRate = 30000L)
     public void wipeInactiveSessions() {
-        active_sessions = active_sessions.entrySet().stream().filter(e -> {
-            LocalDateTime lastAction = e.getValue().lastEvent;
-            LocalDateTime now = LocalDateTime.now();
-            //if inactive for more than 5 minutes remove
-            return !lastAction.plusMinutes(5).isBefore(now);
-        }).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        LocalDateTime now = LocalDateTime.now();
+        sessionRepo.findAll().forEach(e -> {
+            LocalDateTime lastAction = e.getLastEvent();
+            if(lastAction.plusMinutes(5).isBefore(now)) {
+                sessionRepo.delete(e);
+            }
+        });
     }
 }

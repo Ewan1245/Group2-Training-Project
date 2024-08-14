@@ -4,7 +4,7 @@ import "../css/Qr.css"
 const GenQR = ({ingredients, cuisine}) => {
     const [QRUrl, setQRUrl] = useState("");
 
-    const base_url = "http:/localhost:3000/qr_routing/"
+    const base_url = "http:/54.77.118.182:3000/qr_routing/"
 
     useEffect(() => {
         setQRUrl("");

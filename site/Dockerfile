@@ -1,6 +1,6 @@
 FROM node:alpine
 # Set the working directory
-WORKDIR /app
+WORKDIR /site
 # Copy the package.json and package-lock.json files
 COPY package*.json ./
 # Install the dependencies

@@ -1,5 +1,5 @@
 INSERT INTO `USERS` VALUES
-('test1@test', 'test', 'person1', 'password', 0),
+('test1@test', 'test', 'person1', '$2a$10$TA3i2RKaSeK/GRSTLqebqehWCpL89YgzG6A4QnBi0Ttwda5pvdyT.', 0),
 ('test2@test', 'test', 'person2', 'password', 1),
 ('test3@test', 'test', 'person3', 'password', 0);
 

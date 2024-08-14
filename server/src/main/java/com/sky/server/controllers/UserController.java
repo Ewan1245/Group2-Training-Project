@@ -1,6 +1,7 @@
 package com.sky.server.controllers;
 
 import com.sky.server.DTOs.*;
+import com.sky.server.config.SecurityConfig;
 import com.sky.server.entities.Recipe;
 import com.sky.server.entities.User;
 import com.sky.server.exceptions.CannotLoginUserException;
@@ -8,6 +9,7 @@ import com.sky.server.services.RecipeService;
 import com.sky.server.services.SessionHandler;
 import com.sky.server.services.UserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -22,15 +24,26 @@ public class UserController {
 
     private RecipeService recipeService;
 
-    public UserController(UserService userService, SessionHandler sessionHandler, RecipeService recipeService) {
+    private final SecurityConfig securityConfig;
+
+    public UserController(UserService userService, SessionHandler sessionHandler, RecipeService recipeService, SecurityConfig securityConfig) {
         this.userService = userService;
         this.sessionHandler = sessionHandler;
         this.recipeService = recipeService;
+        this.securityConfig = securityConfig;
     }
 
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/createUser")
     @ResponseStatus(HttpStatus.CREATED)
     public String createUser(@RequestBody UserDTO user) { //returns session token (used to confirm that a user is logged on) as a string
+        // hash password
+        String pepperedPassword = user.getPassword() + securityConfig.getPepper();
+        String salt = BCrypt.gensalt();
+        String hashedPassword = BCrypt.hashpw(pepperedPassword, salt);
+
+        user.setPassword(hashedPassword);
+
         //add the user
         User createdUser = userService.addUser(user);
 
@@ -38,6 +51,7 @@ public class UserController {
         return sessionHandler.createSession(createdUser);
     }
 
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public String loginUser(@RequestBody UserCredDTO userCredentials) {
@@ -59,6 +73,7 @@ public class UserController {
     public UserInfoDTO getUserInfo(@PathVariable String token) {
         return sessionHandler.getUserData(token);
     }
+
 
     @GetMapping("/getUserSavedRecipes/{token}")
     public UserRecipesDTO getUserSavedRecipes(@PathVariable String token) {

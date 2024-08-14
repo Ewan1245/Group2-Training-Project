@@ -8,12 +8,12 @@
     overflow: hidden;
 }
 
-.imgContainer img {
+.imgContainer .card-img-top {
     display: block;
     transition: .5s ease-in-out;
 }
 
-.recipes-card:hover img {
+.recipes-card:hover .card-img-top {
     transform: scale(1.1);
 }
 
@@ -27,4 +27,31 @@
     height: 100%;
     border: 1px solid #ddd;
     border-radius: 8px;
+}
+
+.card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    float: left
+}
+
+.card-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    float: left
+}
+
+.save-recipe{
+    filter: invert(0%) sepia(89%) saturate(0%) hue-rotate(224deg) brightness(91%) contrast(100%);
+    width: 3vh;
+    float: right
+}
+
+.row{
+margin-right: 0;
+margin-left: 0;
 }

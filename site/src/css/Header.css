@@ -1,15 +1,12 @@
 header {
     height: 10vh;
-}
-
-.header-link {
-    display: inline-block; 
+    width: 100%;
 }
 
 .header-link img {
     height: 10vh;
     display: inline-block;
-    float: center;
+    justify-content: between;
 }
 
 .header-link h1 {
@@ -22,9 +19,8 @@ header {
 
 .header-right {
     float: right;
-    display: flex;
-    align-items:center;
-    padding-right: 5vh;
+    right: 0;
+    padding-right: 2.5vh;
 }
 
 .img-link{
@@ -32,10 +28,13 @@ header {
     width: 3vh;
 }
 
+.img-link:hover{
+    opacity: 0.40;
+}
+
 .text-link{
     color: white;
     background-color: transparent;
-    float: right;
     font-size: 1.5vh;
     justify-content: center;
     padding-left: 0.5vh;

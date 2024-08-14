@@ -3,6 +3,7 @@ package com.sky.server.services;
 import com.sky.server.DTOs.UserDTO;
 import com.sky.server.DTOs.UserRecipesDTO;
 import com.sky.server.DTOs.UserWithRecipesDTO;
+import com.sky.server.config.SecurityConfig;
 import com.sky.server.entities.Recipe;
 import com.sky.server.entities.User;
 import com.sky.server.exceptions.EmailAlreadyInUseException;
@@ -10,6 +11,7 @@ import com.sky.server.exceptions.UserNotFoundException;
 import com.sky.server.repos.UserRepo;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,9 +19,11 @@ import java.util.Optional;
 @Service
 public class UserServiceH2 implements UserService {
     private UserRepo userRepo;
+    private final SecurityConfig securityConfig;
 
-    public UserServiceH2(UserRepo userRepo) {
+    public UserServiceH2(UserRepo userRepo, SecurityConfig securityConfig) {
         this.userRepo = userRepo;
+        this.securityConfig = securityConfig;
     }
 
     @Override
@@ -34,9 +38,10 @@ public class UserServiceH2 implements UserService {
 
     @Override
     public User getUser(String email, String password) {
+        String pepperedPassword = password + securityConfig.getPepper();
         Optional<User> user = userRepo.findById(email);
         if(user.isPresent()) {
-            if(user.get().getPassword().equals(password)) return user.get();
+            if(BCrypt.checkpw(pepperedPassword, user.get().getPassword())) return user.get();
         }
         return null;
     }

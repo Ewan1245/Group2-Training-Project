@@ -39,7 +39,7 @@ public class Recipe {
     }
 
     public void addToUsers(User newUser) {
-        this.users.add(newUser);
+        if(!users.contains(newUser)) this.users.add(newUser);
     }
 
 }

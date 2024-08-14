@@ -1,4 +1,9 @@
 .h1 {
     color: white;
-  }
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: xx-large;
+}
   
+.featured-recipes {
+  height: 50px;
+}
