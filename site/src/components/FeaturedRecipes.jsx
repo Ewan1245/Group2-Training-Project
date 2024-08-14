@@ -5,6 +5,8 @@ import '../css/FeaturedRecipes.css';
 import heart from '../images/bookmark-heart.svg'
 import featured from '../images/featured-recipes.png';
 import baseUrl from '../baseUrl';
+import Recipe from './Recipe';
+
 
 
 {/* duplicate of Recipes.jsx with some changes to create a featured recipes panel */}
@@ -56,7 +58,7 @@ const FeaturedRecipes = ({ ingredients, setError, idMeal }) => {
                 // Filter meals to keep only those that contain all the ingredients
                 const filteredMeals = uniqueMeals.filter(meal => containsAllIngredients(meal, ingredients));
 
-                while (filteredMeals.length > 3) {
+                while (filteredMeals.length > 4) {
                     filteredMeals.pop();
                 }
 
@@ -87,17 +89,6 @@ const FeaturedRecipes = ({ ingredients, setError, idMeal }) => {
     //     );
     // }
 
-    const SaveRecipe = async() => {
-        let token = sessionStorage.getItem("token");
-        const url = process.env.REACT_APP_BASEURL + "/saveRecipe/" + idMeal + "/" + token
-        await axios.patch(url).catch(err => {
-            if(err.response.status === 401){
-                navigate("/login")
-                    return
-            }
-            console.log(err)
-        });
-    };
 
     return(
         <div>
@@ -106,29 +97,7 @@ const FeaturedRecipes = ({ ingredients, setError, idMeal }) => {
             <br></br>
             <div className="row">
                 {recipes.map(recipe => ( // Mapping over the recipes array filled with the detailedMeals data, using that data to build each recipe card
-                    <div key={recipe.idMeal} onClick={() => navigate("/recipe/" + recipe.idMeal)} className="col-md-4 mb-4"> {/* Using navigate in the div to redirect */}
-                        <div className="recipes-card card">
-                            <div className="imgContainer">
-                            <img src={recipe.strMealThumb} className="card-img-top" alt={recipe.strMeal} />
-                            </div>
-                            <div className="card-body">
-                                <div className="row">
-                                    <div className="col-md-9 mb-3">
-                                        <h5 className="card-title">{recipe.strMeal}</h5>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <p className="card-text col"><strong>Area:</strong> {recipe.strArea}</p>
-                                </div>
-                                <div className="row">
-                                <p className="card-text col"><strong>Tags:</strong> {recipe.strTags}</p>
-                                    <div className="col-md-3 mb-3">
-                                        <img src={heart} alt='Save Recipe' className='img-link save-recipe' onClick={SaveRecipe}></img>
-                                    </div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
+                    <Recipe idMeal={recipe.idMeal} strMealThumb={recipe.strMealThumb} strMeal={recipe.strMeal} strArea={recipe.strArea} strTags={recipe.strTags} />
                 ))}
             </div>
         </div>
