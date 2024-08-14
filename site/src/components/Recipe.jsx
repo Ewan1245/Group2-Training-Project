@@ -27,12 +27,12 @@ return(
             </div>
             <div className="card-body">
                 <div className="row">
-                    <div className="col-md-9 mb-3"  onClick={() => navigate("/recipe/" + idMeal)}>
+                    <div className="col mb-3"  onClick={() => navigate("/recipe/" + idMeal)}>
                         <h5 className="card-title">{strMeal}</h5>
                     </div>
                 </div>    
                 <div className="row"  onClick={() => navigate("/recipe/" + idMeal)}>
-                    <p className="card-text col" ><strong>Area:</strong> {strArea}</p>
+                    {strArea && <p className="card-text col" ><strong>Area:</strong> {strArea}</p>}
                     </div>
                 <div className="row" >
                     <p className="card-text col" onClick={() => navigate("/recipe/" + idMeal)}><strong>Tags:</strong> {strTags}</p>
