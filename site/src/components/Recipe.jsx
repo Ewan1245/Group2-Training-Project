@@ -26,7 +26,7 @@ return(
             </div>
             <div className="card-body">
                 <div className="row">
-                    <div className="col-md-9 mb-3"  onClick={() => navigate("/recipe/" + idMeal)}>
+                    <div className="col mb-3"  onClick={() => navigate("/recipe/" + idMeal)}>
                         <h5 className="card-title">{strMeal}</h5>
                     </div>
                 </div>    
