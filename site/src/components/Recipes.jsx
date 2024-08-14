@@ -77,7 +77,6 @@ const Recipes = ({ ingredients, setError, setFullCuisines, selectedCuisine }) =>
         fetchRecipes();
     }, [ingredients, setError, selectedCuisine, setFullCuisines]); // Dependency array: re-run effect when setError changes (need to add ingredients in once Input with array has been implemented)
 
-console.log(recipes)
 
     return (
         <div>
