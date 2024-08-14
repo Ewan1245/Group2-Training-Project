@@ -17,6 +17,7 @@ import QR_Router from './components/QR_Router';
 import Register from './components/Register';
 import { createContext } from 'react';
 import axios from 'axios';
+import baseUrl from './baseUrl';
 
 function App() {
   // State variables
@@ -45,7 +46,7 @@ function App() {
     setChatHistory([]); // Clear chat history when closing
   };
 
-  const isLoggedInUrl = "http://localhost:8080/prodSession/"
+  const isLoggedInUrl = baseUrl + "/prodSession/"
   const isLoggedIn = async () => {
     let sessionToken = sessionStorage.getItem("token");
 
