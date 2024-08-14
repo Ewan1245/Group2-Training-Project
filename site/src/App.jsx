@@ -46,7 +46,7 @@ function App() {
     setChatHistory([]); // Clear chat history when closing
   };
 
-  const isLoggedInUrl = baseUrl + "/prodSession/"
+  const isLoggedInUrl = process.env.REACT_APP_BASEURL + "/prodSession/"
   const isLoggedIn = async () => {
     let sessionToken = sessionStorage.getItem("token");
 

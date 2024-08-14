@@ -16,7 +16,7 @@ const Header = ({logged_in, setLoginChanged}) => {
 
     const handleLogout = () => {
         let token = sessionStorage.getItem("token");
-        let url = baseUrl + '/endSession/';
+        let url = process.env.REACT_APP_BASEURL + '/endSession/';
 
         if (!token) {
             return;

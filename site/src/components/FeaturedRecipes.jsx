@@ -4,6 +4,7 @@ import axios from 'axios';
 import '../css/FeaturedRecipes.css';
 import heart from '../images/bookmark-heart.svg'
 import featured from '../images/featured-recipes.png';
+import baseUrl from '../baseUrl';
 
 
 {/* duplicate of Recipes.jsx with some changes to create a featured recipes panel */}
@@ -88,7 +89,7 @@ const FeaturedRecipes = ({ ingredients, setError, idMeal }) => {
 
     const SaveRecipe = async() => {
         let token = sessionStorage.getItem("token");
-        const url = "http://localhost:8080/saveRecipe/" + idMeal + "/" + token
+        const url = process.env.REACT_APP_BASEURL + "/saveRecipe/" + idMeal + "/" + token
         await axios.patch(url).catch(err => {
             if(err.response.status === 401){
                 navigate("/login")

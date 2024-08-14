@@ -9,7 +9,7 @@ const Recipe = ({idMeal, strMealThumb, strMeal, strArea, strTags}) => {
 
     const SaveRecipe = async() => {
         let token = sessionStorage.getItem("token");
-        const url = baseUrl + "/saveRecipe/" + idMeal + "/" + token
+        const url = process.env.REACT_APP_BASEURL + "/saveRecipe/" + idMeal + "/" + token
         await axios.patch(url).catch(err => {
             if(err.response.status === 401){
                 navigate("/login")
