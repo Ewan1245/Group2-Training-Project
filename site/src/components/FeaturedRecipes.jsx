@@ -112,7 +112,9 @@ const FeaturedRecipes = ({ ingredients, setError, idMeal }) => {
                             </div>
                             <div className="card-body">
                                 <div className="row">
-                                    <div className="col mb-3">
+
+                                    <div className="col-md-9 mb-3">
+
                                         <h5 className="card-title">{recipe.strMeal}</h5>
                                     </div>
                                 </div>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../css/Register.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import baseUrl from '../baseUrl';
 
 function Register({ setLoginChanged }) {
     const [firstName, setFirstName] = useState('');
@@ -58,7 +59,7 @@ function Register({ setLoginChanged }) {
         if (Object.keys(validationErrors).length === 0) {
             // Handle form submission logic here
 
-            const createUserURL = 'http://localhost:8080/createUser'
+            const createUserURL = baseUrl + '/createUser'
             const user = {
                 "firstname": firstName,
                 "surname": lastName,

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import heart from '../images/bookmark-heart.svg'
 import axios from "axios";
+import baseUrl from "../baseUrl";
 
 
 const Recipe = ({idMeal, strMealThumb, strMeal, strArea, strTags}) => {
@@ -8,7 +9,7 @@ const Recipe = ({idMeal, strMealThumb, strMeal, strArea, strTags}) => {
 
     const SaveRecipe = async() => {
         let token = sessionStorage.getItem("token");
-        const url = "http://localhost:8080/saveRecipe/" + idMeal + "/" + token
+        const url = baseUrl + "/saveRecipe/" + idMeal + "/" + token
         await axios.patch(url).catch(err => {
             if(err.response.status === 401){
                 navigate("/login")
