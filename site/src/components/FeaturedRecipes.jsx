@@ -120,10 +120,10 @@ const FeaturedRecipes = ({ ingredients, setError, idMeal }) => {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <p className="card-text col"><strong>Area:</strong> {recipe.strArea}</p>
+                                    {recipe.strArea && <p className="card-text col"><strong>Area:</strong> {recipe.strArea}</p>}
                                 </div>
                                 <div className="row">
-                                <p className="card-text col"><strong>Tags:</strong> {recipe.strTags}</p>
+                                {recipe.strTags && <p className="card-text col"><strong>Tags:</strong> {recipe.strTags}</p>}
                                     <div className="col-md-3 mb-3">
                                         <img src={heart} alt='Save Recipe' className='img-link save-recipe' onClick={SaveRecipe}></img>
                                     </div>
