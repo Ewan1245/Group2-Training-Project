@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage } from 'mdb-react-ui-kit';
+import { ChangeLoginContext } from '../App';
 
 const PersonalProfile = () => {
+  const reCheckLogin = useContext(ChangeLoginContext);
+    useEffect(() => {
+        reCheckLogin(true);
+    }, []);
+
     return (
         <div className="gradient-custom-2" style={{ backgroundColor: '#9de2ff' }}>
           <MDBContainer className="py-5 h-100">
