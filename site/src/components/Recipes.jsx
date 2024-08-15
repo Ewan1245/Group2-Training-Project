@@ -42,7 +42,7 @@ const Recipes = ({ ingredients, setError, setFullCuisines, selectedCuisine }) =>
                             allMeals.push({
                                 ...detailedMeal, // Ensure all detailed properties are included, may include duplicate meals
                                 strArea: detailedMeal.strArea,
-                                strTags: detailedMeal.strTags
+                                strCategory: detailedMeal.strCategory
                             });
                         }
                     }
@@ -82,7 +82,7 @@ const Recipes = ({ ingredients, setError, setFullCuisines, selectedCuisine }) =>
         <div>
             <div className="row">
                 {recipes.map(recipe => ( // Mapping over the recipes array filled with the detailedMeals data, using that data to build each recipe card
-                    <Recipe idMeal={recipe.idMeal} strMealThumb={recipe.strMealThumb} strMeal={recipe.strMeal} strArea={recipe.strArea} strTags={recipe.strTags} />
+                    <Recipe idMeal={recipe.idMeal} strMealThumb={recipe.strMealThumb} strMeal={recipe.strMeal} strArea={recipe.strArea} strCategory={recipe.strCategory} />
                 ))}
             </div>
         </div>
