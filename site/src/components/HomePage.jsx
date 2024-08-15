@@ -56,8 +56,10 @@ const HomePage = ({ setError, ingredients, setIngredients, selectedCuisine, setS
 
             {ingredients.length > 0 &&
                 <>
+                    <div className="belowInput">
                     <FilterOptions cuisines={fullCuisines} setCuisine={setSelectedCuisine} selectedCuisine={selectedCuisine} />
                     <GenQR ingredients={ingredients} cuisine={selectedCuisine} />
+                    </div>
                     <Recipes ingredients={ingredients} setError={setError} setFullCuisines={setFullCuisines} selectedCuisine={selectedCuisine} />
                 </>
             }
