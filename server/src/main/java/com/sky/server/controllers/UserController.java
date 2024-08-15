@@ -97,6 +97,14 @@ public class UserController {
         userService.saveRecipe(user.getEmail(), r);
     }
 
+    @PatchMapping("/unsaveRecipe/{recipe}/{token}")
+    public void unsaveRecipeToUser(@PathVariable String token, @PathVariable String recipe) {
+        User user = sessionHandler.getUser(token);
+        Recipe r = recipeService.deleteRecipe(recipe, user);
+
+        userService.removeRecipe(user.getEmail(), r);
+    }
+
 
     //------For testing only---------- methods below to be removed for production
     @GetMapping("/getAllUsers")

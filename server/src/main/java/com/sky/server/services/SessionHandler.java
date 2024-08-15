@@ -15,6 +15,8 @@ import java.util.*;
 
 @Service
 public class SessionHandler {
+
+    private static final int session_life = 1;
     private SessionRepo sessionRepo;
 
 
@@ -27,7 +29,7 @@ public class SessionHandler {
         LocalDateTime now = LocalDateTime.now();
         if(sessionRepo.getReferenceByUser(user).isPresent()) {
             Session session = sessionRepo.getReferenceByUser(user).get();
-            if(session.lastEvent.plusMinutes(5).isBefore(now)) {
+            if(session.lastEvent.plusMinutes(session_life).isBefore(now)) {
                 //remove the old session
                 sessionRepo.delete(session);
             }
@@ -68,7 +70,7 @@ public class SessionHandler {
         LocalDateTime now = LocalDateTime.now();
 
         //if user hasn't interacted with the session in five minutes remove from the map
-        if(lastAction.plusMinutes(5).isBefore(now)) {
+        if(lastAction.plusMinutes(session_life).isBefore(now)) {
             sessionRepo.deleteById(token);
             throw new SessionNotActiveException();
         }
@@ -118,7 +120,7 @@ public class SessionHandler {
         LocalDateTime now = LocalDateTime.now();
         sessionRepo.findAll().forEach(e -> {
             LocalDateTime lastAction = e.getLastEvent();
-            if(lastAction.plusMinutes(5).isBefore(now)) {
+            if(lastAction.plusMinutes(session_life).isBefore(now)) {
                 sessionRepo.delete(e);
             }
         });

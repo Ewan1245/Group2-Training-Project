@@ -8,4 +8,5 @@ import org.springframework.stereotype.Service;
 public interface RecipeService {
     public Recipe createRecipe(String recipe, User user);
     public Recipe getRecipe(String recipe);
+    public Recipe deleteRecipe(String recipe, User user);
 }

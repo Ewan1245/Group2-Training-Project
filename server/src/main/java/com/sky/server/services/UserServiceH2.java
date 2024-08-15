@@ -65,6 +65,16 @@ public class UserServiceH2 implements UserService {
     }
 
     @Override
+    public void removeRecipe(String email, Recipe r) {
+        Optional<User> user = userRepo.findById(email);
+        if(user.isPresent()) {
+            User u = user.get();
+            u.removeFromSavedRecipes(r);
+            userRepo.save(u);
+        }
+    }
+
+    @Override
     public UserRecipesDTO getUserRecipes(String email) {
         Optional<User> o_user = userRepo.findById(email);
         if(o_user.isEmpty()) throw new UserNotFoundException();

@@ -1,0 +1,19 @@
+.recipe-filter-container {
+    text-align: left;
+    padding-bottom: 0.5rem;
+    padding-left: 0.9rem;
+
+}
+
+.recipe-filter-box {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: rgba(222, 101, 238, 0);
+    color: white;
+    padding: 0.3rem;
+}
+
+.recipe-filter-box:hover {
+    background-color: rgba(186, 80, 205, 0.313);
+    cursor: pointer;
+}

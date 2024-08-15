@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import '../css/Register.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import baseUrl from '../baseUrl';
+import { ChangeLoginContext } from '../App';
 
-function Profile({ setLoginChanged }) {
+function Profile() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [password, setPassword] = useState('');
@@ -12,6 +13,11 @@ function Profile({ setLoginChanged }) {
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState('');
     const [userInfo, setUserInfo] = useState({});
+    
+    const reCheckLogin = useContext(ChangeLoginContext);
+    useEffect(() => {
+        reCheckLogin(true);
+    }, []);
     
     const nav = useNavigate();
 

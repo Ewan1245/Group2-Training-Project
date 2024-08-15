@@ -1,4 +1,10 @@
-.input-btn:hover{
-    background-color: rgba(0, 0, 0, 0.1);
-    border-color: black;
+.input-btn {
+    color: white;
+    border-color: white;
+}
+
+.input-btn:hover {
+    background-color: rgba(186, 80, 205, 0.313);
+    color: white;
+    border-color: white;
 }
