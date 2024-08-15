@@ -42,7 +42,7 @@ const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callbac
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Enter an ingredient"
-                    pattern='[a-zA-Z]*'
+                    pattern='[a-zA-Z\s\-]*'
                     required='true'
                     onInvalid={(e) => e.target.setCustomValidity('Please add individual ingredients.')}
                     onInput={(e) => e.target.setCustomValidity('')} />
