@@ -6,16 +6,16 @@ import { useCallback, useContext } from "react";
 import { ChangeLoginContext } from "../App";
 
 
-const Recipe = ({idMeal, strMealThumb, strMeal, strArea, strTags, isSaved, setRefreshSaved}) => {
+const Recipe = ({ idMeal, strMealThumb, strMeal, strArea, strCategory, isSaved, setRefreshSaved }) => {
     const navigate = useNavigate(); // Hook to navigate
 
     const reCheckLogin = useContext(ChangeLoginContext);
 
-    const SaveRecipe = async() => {
+    const SaveRecipe = async () => {
         reCheckLogin(true);
         let token = sessionStorage.getItem("token");
         let url = process.env.REACT_APP_BASEURL;
-        if(!isSaved) url += "/saveRecipe/";
+        if (!isSaved) url += "/saveRecipe/";
         else url += "/unsaveRecipe/";
         url += idMeal + "/" + token;
         await axios.patch(url).catch(err => {
@@ -25,7 +25,7 @@ const Recipe = ({idMeal, strMealThumb, strMeal, strArea, strTags, isSaved, setRe
             }
             console.log(err)
         });
-        if(isSaved) setRefreshSaved(true);
+        if (isSaved) setRefreshSaved(true);
     };
 
     return (
