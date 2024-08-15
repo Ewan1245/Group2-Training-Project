@@ -46,14 +46,13 @@ const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callbac
                     pattern='[a-zA-Z]*'
                     required='true'
                 />
-                <button type="submit" className="input-btn btn btn-outline-light">Add Ingredient</button>
+                <button type="submit" className="input-btn btn">Add Ingredient</button>
             </form>
             <div className='ingredients'>
                 {ingredients.map((ingredient, index) => (
                     <IngredientContainer key={index} removeIngredient={removeIngredient} ingredient={ingredient} />
                 ))}
             </div>
-            {/* <FilterOptions cuisines={cuisines}/> */}
         </div>
     );
 };

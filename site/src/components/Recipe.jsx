@@ -6,16 +6,20 @@ import { useCallback, useContext } from "react";
 import { ChangeLoginContext } from "../App";
 
 
-const Recipe = ({idMeal, strMealThumb, strMeal, strArea, strCategory, isSaved, setRefreshSaved}) => {
+
+const Recipe = ({ idMeal, strMealThumb, strMeal, strArea, strCategory, isSaved, setRefreshSaved }) => {
+
+const Recipe = ({ idMeal, strMealThumb, strMeal, strArea, strCategory, isSaved, setRefreshSaved }) => {
+
     const navigate = useNavigate(); // Hook to navigate
 
     const reCheckLogin = useContext(ChangeLoginContext);
 
-    const SaveRecipe = async() => {
+    const SaveRecipe = async () => {
         reCheckLogin(true);
         let token = sessionStorage.getItem("token");
         let url = process.env.REACT_APP_BASEURL;
-        if(!isSaved) url += "/saveRecipe/";
+        if (!isSaved) url += "/saveRecipe/";
         else url += "/unsaveRecipe/";
         url += idMeal + "/" + token;
         await axios.patch(url).catch(err => {
@@ -25,11 +29,11 @@ const Recipe = ({idMeal, strMealThumb, strMeal, strArea, strCategory, isSaved, s
             }
             console.log(err)
         });
-        if(isSaved) setRefreshSaved(true);
+        if (isSaved) setRefreshSaved(true);
     };
 
     return (
-<div key={idMeal} className="col-md-3 mb-3"> {/* Using navigate in the div to redirect */}
+        <div key={idMeal} className="col-md-3 mb-3"> {/* Using navigate in the div to redirect */}
             <div className="recipes-card card">
                 <div className="imgContainer" onClick={() => navigate("/recipe/" + idMeal)}>
                     <img src={strMealThumb} className="card-img-top" alt={strMeal} />
