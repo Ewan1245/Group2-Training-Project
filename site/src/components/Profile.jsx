@@ -13,12 +13,12 @@ function Profile() {
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState('');
     const [userInfo, setUserInfo] = useState({});
-    
+
     const reCheckLogin = useContext(ChangeLoginContext);
     useEffect(() => {
         reCheckLogin(true);
     }, []);
-    
+
     const nav = useNavigate();
 
     const validateForm = () => {
@@ -36,32 +36,32 @@ function Profile() {
         }
 
         if (password.length < 8 && password != "") {
-          errors.password = 'Password must be at least 8 characters long';
-      }
+            errors.password = 'Password must be at least 8 characters long';
+        }
 
-      if (confirmPassword !== password) {
-          errors.confirmPassword = 'Passwords do not match';
-      }
+        if (confirmPassword !== password) {
+            errors.confirmPassword = 'Passwords do not match';
+        }
         return errors;
     };
 
     useEffect(() => {
-      const getUserInfo = async () => {
-          let token = sessionStorage.getItem("token");
-          if (!token) {
-              nav("/login")
-              return
-          }
+        const getUserInfo = async () => {
+            let token = sessionStorage.getItem("token");
+            if (!token) {
+                nav("/login")
+                return
+            }
 
-          const url = process.env.REACT_APP_BASEURL + "/getUserInfo/" + token;
-          const userInfo = await axios.get(url).catch(err => console.log(err));
-          if (!userInfo) {
-            console.log("details failed to load")
-            return
+            const url = process.env.REACT_APP_BASEURL + "/getUserInfo/" + token;
+            const userInfo = await axios.get(url).catch(err => console.log(err));
+            if (!userInfo) {
+                console.log("details failed to load")
+                return
+            }
+            setUserInfo(userInfo.data)
         }
-          setUserInfo(userInfo.data)
-      }
-      getUserInfo()
+        getUserInfo()
     }, []);
 
     const handleSubmit = async (event) => {
@@ -80,7 +80,7 @@ function Profile() {
             };
 
             await axios.patch(updateUserURL, user).then(
-              setSuccess('Details successfully updated')
+                setSuccess('Details successfully updated')
             ).catch((err) => {
                 console.log(err)
                 setErrors(prevErrors => ({
@@ -94,7 +94,7 @@ function Profile() {
 
     return (
         <div className="register-container">
-          {success && <div class="alert alert-success" role="alert">{success}</div>}
+            {success && <div class="alert alert-success" role="alert">{success}</div>}
             <form className="register-form d-flex flex-column p-4" onSubmit={handleSubmit}>
                 <div className="mb-3 w-100">
                     <label htmlFor="firstName" className="form-label">First Name: </label>
@@ -172,7 +172,7 @@ function Profile() {
                 </div>
                 <button
                     type="submit"
-                    className="btn btn-outline-dark w-50">
+                    className="btn register-btn w-50">
                     Update Details
                 </button>
             </form>
