@@ -6,6 +6,7 @@ const QR_Router = ({setIngredients, setCuisine}) => {
     const nav = useNavigate();
     
     useEffect(() => {
+        alert(ingredients);
         setIngredients(ingredients.split(","));
         if(cuisine == "undefined") setCuisine("");
         else setCuisine(cuisine);

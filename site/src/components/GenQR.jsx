@@ -24,9 +24,7 @@ const GenQR = ({ingredients, cuisine}) => {
         reCheckLogin(true);
         //encode the url string
         
-        const url_ext = `${ingredients}/${cuisine === "" ? "undefined" : cuisine}`;
-        
-        const url = routing_url + url_ext;
+        const url = window.location.href;
 
         console.log(encodeURI(url));
 
@@ -57,7 +55,7 @@ const GenQR = ({ingredients, cuisine}) => {
 
     return (
         <>
-            { admin ? (
+            { !admin ? (
                 <div className='qr-container'>
                 {QRUrl === "" ? (
                     <button className='input-btn btn btn-outline-light' onClick={generateQRUrl}>
