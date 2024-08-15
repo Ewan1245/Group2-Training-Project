@@ -17,24 +17,4 @@ public class ServerApplication {
 		SpringApplication.run(ServerApplication.class, args);
 	}
 
-//	@Bean
-//	public WebMvcConfigurer corsConfigurer() {
-//		return new WebMvcConfigurer() {
-//			@Override
-//			public void addCorsMappings(CorsRegistry registry) {
-//				String allowedUrl = "http://localhost:3000";
-//				String[] paths = {
-//						"/create",
-//						"/login",
-//						"/prodSession/{token}"
-//				};
-//
-//				Arrays.stream(paths).forEach(path -> {
-//					registry.addMapping(path).allowedOrigins(allowedUrl);
-//				});
-//
-//				registry.addMapping("/create").allowedOrigins("http://localhost:3000");
-//			}
-//		};
-//	}
 }

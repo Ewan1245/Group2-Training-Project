@@ -1,5 +1,9 @@
 package com.sky.server.DTOs;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class SessionVisualisedDTO {
     private String token, name;
 
@@ -8,22 +12,6 @@ public class SessionVisualisedDTO {
 
     public SessionVisualisedDTO(String token, String name) {
         this.token = token;
-        this.name = name;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
     }
 }
