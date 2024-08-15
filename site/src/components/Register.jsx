@@ -162,7 +162,7 @@ function Register({ setLoginChanged }) {
                 </div>
                 <button
                     type="submit"
-                    className="btn btn-outline-dark w-50">
+                    className="btn register-btn w-50">
                     Register
                 </button>
             </form>

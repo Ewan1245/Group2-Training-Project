@@ -92,8 +92,8 @@ const Login = ({ setLoginChanged }) => {
           />
           {error && (<span className="error-message">{error}</span>)}
         </div>
-        
-        <button type="submit" className="btn btn-outline-dark login-btn w-50">Login</button>
+
+        <button type="submit" className="btn login-btn w-50">Login</button>
       </form>
     </div>
   );
