@@ -97,11 +97,14 @@ const RecipeDetail = () => {
     return (
         <div className="container">
             <div className="row">
-                <div className="row navigate-container">
-                    <button className="col-auto input-btn btn btn-outline-light" onClick={handleBackClick}>Back</button>
-                    <img src={heart} alt='Save Recipe' className='col-auto detailed-save-recipe' onClick={SaveRecipe}></img>
+                <div className="col-12">
+                    <div className="d-flex justify-content-between align-items-center navigate-container">
+                        <button className="btn btn-outline-light" onClick={handleBackClick}>Back</button>
+                        <img src={heart} alt='Save Recipe' className='detailed-save-recipe' onClick={SaveRecipe}></img>
+                    </div>
                 </div>
             </div>
+
             <div className="container text-start my-2">
                 <div className="row">
                     <div className="col-md-6">
