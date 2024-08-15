@@ -18,6 +18,8 @@ import Register from './components/Register';
 import { createContext } from 'react';
 import axios from 'axios';
 import baseUrl from './baseUrl';
+// import { CronJob } from 'cron';
+// import { start } from '@popperjs/core';
 
 export const ChangeLoginContext = createContext(null);
 
@@ -52,7 +54,7 @@ function App() {
   const isLoggedIn = async () => {
     let sessionToken = sessionStorage.getItem("token");
 
-    if(sessionToken == "") setLoggedIn(false);
+    if(sessionToken == "" || sessionToken == null) setLoggedIn(false);
     await axios.get(isLoggedInUrl + sessionToken).then((res) => {
       setLoggedIn(res.data);
     }).catch((err) => {
@@ -65,9 +67,21 @@ function App() {
   useEffect(() => {
     isLoggedIn();
     if(loginChanged) setLoginChanged(false);
+    // setTimeout(() => {
+    //   //if the user is logged in checks if the session has timed out
+    //   if(loggedIn) setLoginChanged(true)
+    // }, 12e4);
   }, [loginChanged])
 
-  useEffect(() => setLoginChanged(true),[]);
+  // const [updateLoggedInStatus] = useState(new CronJob("0 */2 * * * *", () => {
+  //   setLoginChanged(true);
+  //   console.log("Test");
+  // }, null, true));
+
+  useEffect(() => {
+    setLoginChanged(true);
+    // updateLoggedInStatus.start();
+  },[]);
 
   return (
     <ChangeLoginContext.Provider value={setLoginChanged}>

@@ -11,6 +11,7 @@ const Recipes = () => {
 
     const navigate = useNavigate(); // Hook to navigate
     const [recipes, setRecipes] = useState([]);
+    const [refreshSaved, setRefreshSaved] = useState(true);
     const reCheckLogin = useContext(ChangeLoginContext);
 
 
@@ -36,8 +37,12 @@ const Recipes = () => {
         setRecipes(allRecipes)
     }
     reCheckLogin(true);
-    getSavedRecipes()
-    }, [] );
+    if(refreshSaved) {
+        setRefreshSaved(false);
+        getSavedRecipes();
+    }
+
+    }, [refreshSaved] );
     
         
     return (
@@ -46,7 +51,7 @@ const Recipes = () => {
             <div className="row">
                 {/* <body>{recipes}</body> */}
                 {recipes.map(recipe => ( // Mapping over the recipes array filled with the detailedMeals data, using that data to build each recipe card
-                    <Recipe  idMeal = {recipe.idMeal}  strMealThumb = {recipe.strMealThumb} strMeal = {recipe.strMeal} strArea = {recipe.strArea} strTags = {recipe.strTags}/>
+                    <Recipe  idMeal = {recipe.idMeal}  strMealThumb = {recipe.strMealThumb} strMeal = {recipe.strMeal} strArea = {recipe.strArea} strTags = {recipe.strTags} isSaved={true} setRefreshSaved={setRefreshSaved}/>
                 ))}
             </div>
         </div>
