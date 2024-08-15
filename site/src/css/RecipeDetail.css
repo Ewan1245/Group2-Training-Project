@@ -23,5 +23,5 @@
 }
 
 .detailed-save-recipe:hover{
-    filter: invert(0%) sepia(89%) saturate(0%) hue-rotate(224deg) brightness(91%) contrast(100%);
+    content: url('/src/images/bookmark-heart-fill.svg');
 }
