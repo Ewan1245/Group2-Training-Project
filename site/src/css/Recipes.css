@@ -1,6 +1,5 @@
 .recipes-card:hover {
     box-shadow: 5px 5px 25px #e1d5d5;
-
 }
 
 .imgContainer {
@@ -19,6 +18,8 @@
 
 .recipes-card:hover .card-body {
     background-color: #f5f5f5;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-color: black;
 }
 
 .recipes-card {
@@ -26,7 +27,8 @@
     flex-direction: column;
     height: 100%;
     border: 1px solid #ddd;
-    border-radius: 8px
+    border-radius: 8px;
+    background-color: transparent
 }
 
 .card-title {
@@ -35,8 +37,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: left;
-    float: center
-
+    float: center;
+    color: white;
 }
 
 .card-text {
@@ -44,16 +46,20 @@
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: left;
-    float: left
+    float: left;
+    color: white;
 }
 
-.save-recipe{
-    filter: invert(0%) sepia(89%) saturate(0%) hue-rotate(224deg) brightness(91%) contrast(100%);
+.save-recipe {
     width: 3vh;
-    float: right
+    float: right;
 }
 
-.row{
-margin-right: 0;
-margin-left: 0;
+.save-recipe:hover {
+    content: url('/src/images/bookmark-heart-fill.svg');
+}
+
+.row {
+    margin-right: 0;
+    margin-left: 0;
 }

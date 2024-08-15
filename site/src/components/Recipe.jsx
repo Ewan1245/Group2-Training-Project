@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import heart from '../images/bookmark-heart.svg'
 import axios from "axios";
-import baseUrl from "../baseUrl";
 
 
 const Recipe = ({ idMeal, strMealThumb, strMeal, strArea, strCategory }) => {

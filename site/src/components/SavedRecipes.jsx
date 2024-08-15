@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Recipe from './Recipe';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import baseUrl from '../baseUrl';
 
 
 
