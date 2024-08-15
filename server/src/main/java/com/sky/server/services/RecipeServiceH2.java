@@ -38,4 +38,12 @@ public class RecipeServiceH2 implements RecipeService {
     public Recipe getRecipe(String recipe) {
         return null;
     }
+
+    @Override
+    public Recipe deleteRecipe(String recipe, User user) {
+        Recipe r = repo.findById(recipe).get();
+        r.removeFromUsers(user);
+        repo.save(r);
+        return r;
+    }
 }

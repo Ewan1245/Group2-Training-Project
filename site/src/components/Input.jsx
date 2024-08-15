@@ -1,9 +1,10 @@
-import React, { createRef, useState } from 'react';
+import React, { createRef, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Input.css';
 import IngredientContainer from './IngredientContainer';
 import FilterOptions from './FilterOptions';
+import { ChangeLoginContext } from '../App';
 
 
 const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callback function provided by parent (App) which passes the data (ingredient) back up
@@ -12,6 +13,8 @@ const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callbac
     const navigate = useNavigate(); // Hook for navigation
 
     const input_ref = createRef();
+
+    const reCheckLogin = useContext(ChangeLoginContext);
 
 
     // Function to handle form submission
@@ -22,6 +25,7 @@ const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callbac
         //clear the input field and focus it
         input_ref.current.focus();
         setInputValue("");
+        reCheckLogin(true);
     };
 
     const cuisines = ["Chinese", "Indian", "British"];
@@ -42,14 +46,13 @@ const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callbac
                     pattern='[a-zA-Z]*'
                     required='true'
                 />
-                <button type="submit" className="input-btn btn btn-outline-light">Add Ingredient</button>
+                <button type="submit" className="input-btn btn">Add Ingredient</button>
             </form>
             <div className='ingredients'>
                 {ingredients.map((ingredient, index) => (
                     <IngredientContainer key={index} removeIngredient={removeIngredient} ingredient={ingredient} />
                 ))}
             </div>
-            {/* <FilterOptions cuisines={cuisines}/> */}
         </div>
     );
 };

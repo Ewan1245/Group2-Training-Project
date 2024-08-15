@@ -10,9 +10,10 @@ import {
 
 // Import the OpenAI library for interacting with the OpenAI API.
 import OpenAI from "openai";
-import { useRef, useCallback, useEffect } from 'react';
+import { useRef, useCallback, useEffect, useContext } from 'react';
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import '../css/Chat.css';
+import { ChangeLoginContext } from "../App";
 
 // Function to create an OpenAI instance with the given API key.
 const createOpenAIInstance = (apiKey) => new OpenAI({
@@ -22,9 +23,12 @@ const createOpenAIInstance = (apiKey) => new OpenAI({
 });
 
 
+
 const Chat = ({ chatHistory, setChatHistory, userInput, setUserInput }) => {
     const apiKey = process.env.REACT_APP_API_KEY;  // Get the API key from environment variables.
     const openai = useRef(createOpenAIInstance(apiKey)).current;  // Create and store the OpenAI instance.
+
+    
 
     // Function to handle user input changes.
     const handleUserInput = useCallback((value) => {
@@ -37,6 +41,11 @@ const Chat = ({ chatHistory, setChatHistory, userInput, setUserInput }) => {
             { type: "bot", message: welcomeMessage },
         ]);
     }, setChatHistory);
+
+    const reCheckLogin = useContext(ChangeLoginContext);
+    useEffect(() => {
+        reCheckLogin(true);
+    }, []);
 
     // Function to send a message to the chat.
     const sendMessage = useCallback(async (messageText) => {
@@ -63,7 +72,8 @@ const Chat = ({ chatHistory, setChatHistory, userInput, setUserInput }) => {
                 ...prev,
                 { type: "bot", message: text },
             ]);
-            setUserInput("");  // Clear the input field after sending the message.
+            setUserInput(""); // Clear the input field after sending the message.
+            reCheckLogin(true);
         } catch (e) {
             console.log("Error occurred while fetching", e);
         }
