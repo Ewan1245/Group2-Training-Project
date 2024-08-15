@@ -108,6 +108,12 @@ public class SessionHandler {
         throw new SessionNotActiveException();
     }
 
+    public void updateUser(String token, User user) {
+        Session session = sessionRepo.getReferenceById(token);
+        session.setUser(user);
+        sessionRepo.save(session);
+    }
+
     //wipes the inactive sessions every 30 seconds
     @Scheduled(fixedRate = 30000L)
     public void wipeInactiveSessions() {
