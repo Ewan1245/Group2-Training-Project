@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/RecipeDetail.css';
+import { ChangeLoginContext } from '../App';
 import heart from '../images/bookmark-heart.svg'
+
 
 
 const RecipeDetail = () => {
@@ -43,6 +45,11 @@ const RecipeDetail = () => {
     const handleBackClick = () => {
         navigate(-1);
     };
+
+    const reCheckLogin = useContext(ChangeLoginContext);
+    useEffect(() => {
+        reCheckLogin(true);
+    }, []);
 
     // Renders an error message if there is an error
     if (error) {
@@ -89,15 +96,12 @@ const RecipeDetail = () => {
     // Similar to previous page, uses meal data to render card. Only single meal fetched based on id
     return (
         <div className="container">
-            <img src={heart} alt='Save Recipe' className='detailed-save-recipe' onClick={SaveRecipe}></img>
-
             <div className="row">
                 <div className="row ">
                     <button className="col-auto input-btn btn btn-outline-light" onClick={handleBackClick}>Back</button>
                     <img src={heart} alt='Save Recipe' className='col-auto detailed-save-recipe' onClick={SaveRecipe}></img>
                 </div>
             </div>
-            <img src={heart} alt='Save Recipe' className='detailed-save-recipe' onClick={SaveRecipe}></img>
             <div className="container text-start my-2">
                 <div className="row">
                     <div className="col-md-6">

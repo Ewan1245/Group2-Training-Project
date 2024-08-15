@@ -42,4 +42,7 @@ public class Recipe {
         if(!users.contains(newUser)) this.users.add(newUser);
     }
 
+    public void removeFromUsers(User user) {
+        users.remove(user);
+    }
 }

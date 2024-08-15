@@ -18,6 +18,10 @@ import Register from './components/Register';
 import { createContext } from 'react';
 import axios from 'axios';
 import baseUrl from './baseUrl';
+// import { CronJob } from 'cron';
+// import { start } from '@popperjs/core';
+
+export const ChangeLoginContext = createContext(null);
 
 function App() {
   // State variables
@@ -50,11 +54,12 @@ function App() {
   const isLoggedIn = async () => {
     let sessionToken = sessionStorage.getItem("token");
 
-    if(sessionToken == "") return false;
+    if(sessionToken == "" || sessionToken == null) setLoggedIn(false);
     await axios.get(isLoggedInUrl + sessionToken).then((res) => {
       setLoggedIn(res.data);
     }).catch((err) => {
       setLoggedIn(false);
+      sessionStorage.removeItem("token");
     });
   }
 
@@ -62,10 +67,24 @@ function App() {
   useEffect(() => {
     isLoggedIn();
     if(loginChanged) setLoginChanged(false);
+    // setTimeout(() => {
+    //   //if the user is logged in checks if the session has timed out
+    //   if(loggedIn) setLoginChanged(true)
+    // }, 12e4);
   }, [loginChanged])
 
+  // const [updateLoggedInStatus] = useState(new CronJob("0 */2 * * * *", () => {
+  //   setLoginChanged(true);
+  //   console.log("Test");
+  // }, null, true));
+
+  useEffect(() => {
+    setLoginChanged(true);
+    // updateLoggedInStatus.start();
+  },[]);
+
   return (
-    // <SessionTokenContext.Provider value={sessionToken}>
+    <ChangeLoginContext.Provider value={setLoginChanged}>
     <Router>
       <div className="App d-flex flex-column min-vh-100">
         <Header logged_in={loggedIn} setLoginChanged={setLoginChanged}/>
@@ -128,7 +147,7 @@ function App() {
         <Footer />
       </div>
     </Router>
-    // </SessionTokenContext.Provider>
+    </ChangeLoginContext.Provider>
   );
 }
 
@@ -141,6 +160,5 @@ function App() {
       </Router>
       );
 } */}
-
 
 export default App;

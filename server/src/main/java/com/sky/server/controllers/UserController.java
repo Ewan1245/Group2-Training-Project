@@ -74,6 +74,13 @@ public class UserController {
         return sessionHandler.getUserData(token);
     }
 
+    @PatchMapping("/updateUserInfo/{token}")
+    public void updateUserInfo(@PathVariable String token, @RequestBody UserDTO userInfo) {
+        User user = sessionHandler.getUser(token);
+        System.out.println("session");
+        user = userService.updateUserInfo(user, userInfo);
+        sessionHandler.updateUser(token, user);
+    }
 
     @GetMapping("/getUserSavedRecipes/{token}")
     public UserRecipesDTO getUserSavedRecipes(@PathVariable String token) {
@@ -88,6 +95,14 @@ public class UserController {
         Recipe r = recipeService.createRecipe(recipe, user);
 
         userService.saveRecipe(user.getEmail(), r);
+    }
+
+    @PatchMapping("/unsaveRecipe/{recipe}/{token}")
+    public void unsaveRecipeToUser(@PathVariable String token, @PathVariable String recipe) {
+        User user = sessionHandler.getUser(token);
+        Recipe r = recipeService.deleteRecipe(recipe, user);
+
+        userService.removeRecipe(user.getEmail(), r);
     }
 
 
