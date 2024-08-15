@@ -5,10 +5,6 @@ import baseUrl from "../baseUrl";
 import { useCallback, useContext } from "react";
 import { ChangeLoginContext } from "../App";
 
-
-
-const Recipe = ({ idMeal, strMealThumb, strMeal, strArea, strCategory, isSaved, setRefreshSaved }) => {
-
 const Recipe = ({ idMeal, strMealThumb, strMeal, strArea, strCategory, isSaved, setRefreshSaved }) => {
 
     const navigate = useNavigate(); // Hook to navigate
