@@ -122,7 +122,7 @@ const RecipeDetail = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-5">
+                    <div className="col-md-4">
                         <img src={recipe.strMealThumb} className="img-fluid img-thumbnail recipe-image" alt={recipe.strMeal} />
                     </div>
                 </div>

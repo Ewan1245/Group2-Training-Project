@@ -3,10 +3,13 @@ package com.sky.server.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
+@Getter @Setter
 public class Recipe {
     @Id
     private String recipeId;
@@ -20,22 +23,6 @@ public class Recipe {
     }
 
     public Recipe() {
-    }
-
-    public String getRecipeId() {
-        return recipeId;
-    }
-
-    public void setRecipeId(String recipeId) {
-        this.recipeId = recipeId;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
     }
 
     public void addToUsers(User newUser) {
