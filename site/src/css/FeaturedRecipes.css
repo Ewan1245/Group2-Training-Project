@@ -16,3 +16,13 @@
   text-align: left;
   float: center
 }
+
+.carousel-control-prev{
+  width: 10%;
+  filter: invert(100%);
+}
+
+.carousel-control-next{
+  width: 10%;
+  filter: invert(100%);
+}
