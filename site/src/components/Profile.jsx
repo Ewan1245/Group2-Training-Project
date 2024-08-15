@@ -10,6 +10,7 @@ function Profile({ setLoginChanged }) {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errors, setErrors] = useState({});
+    const [success, setSuccess] = useState('');
     const [userInfo, setUserInfo] = useState({});
     
     const nav = useNavigate();
@@ -48,7 +49,6 @@ function Profile({ setLoginChanged }) {
 
           const url = process.env.REACT_APP_BASEURL + "/getUserInfo/" + token;
           const userInfo = await axios.get(url).catch(err => console.log(err));
-          console.log(userInfo)
           if (!userInfo) {
             console.log("details failed to load")
             return
@@ -74,7 +74,7 @@ function Profile({ setLoginChanged }) {
             };
 
             await axios.patch(updateUserURL, user).then(
-              console.log("success")
+              setSuccess('Details successfully updated')
             ).catch((err) => {
                 console.log(err)
                 setErrors(prevErrors => ({
@@ -88,6 +88,7 @@ function Profile({ setLoginChanged }) {
 
     return (
         <div className="register-container">
+          {success && <div class="alert alert-success" role="alert">{success}</div>}
             <form className="register-form d-flex flex-column p-4" onSubmit={handleSubmit}>
                 <div className="mb-3 w-100">
                     <label htmlFor="firstName" className="form-label">First Name: </label>
