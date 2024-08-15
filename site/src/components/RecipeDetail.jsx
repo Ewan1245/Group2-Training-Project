@@ -4,9 +4,12 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/RecipeDetail.css';
 import { ChangeLoginContext } from '../App';
+import heart from '../images/bookmark-heart.svg'
+
 
 
 const RecipeDetail = () => {
+    
     // Hook to get the id parameter from the URL
     const { id } = useParams();
 
@@ -74,12 +77,29 @@ const RecipeDetail = () => {
         ))
         : [];
 
+
+
+    
+    const SaveRecipe = async() => {
+        let token = sessionStorage.getItem("token");
+        const url = process.env.REACT_APP_BASEURL + "/saveRecipe/" + id + "/" + token
+        await axios.patch(url).catch(err => {
+            if(err.response.status === 401){
+                navigate("/login")
+                    return
+            }
+            console.log(err)
+        });
+    };
+    
+
     // Similar to previous page, uses meal data to render card. Only single meal fetched based on id
     return (
         <div className="container">
             <div className="row">
-                <div className="col-md-1">
-                    <button className="input-btn btn mb-3 btn-outline-light" onClick={handleBackClick}>Back</button>
+                <div className="row ">
+                    <button className="col-auto input-btn btn btn-outline-light" onClick={handleBackClick}>Back</button>
+                    <img src={heart} alt='Save Recipe' className='col-auto detailed-save-recipe' onClick={SaveRecipe}></img>
                 </div>
             </div>
             <div className="container text-start my-2">
