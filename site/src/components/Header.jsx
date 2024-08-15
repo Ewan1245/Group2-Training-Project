@@ -7,6 +7,7 @@ import '../css/Header.css';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import axios from 'axios';
+import baseUrl from '../baseUrl';
 
 
 //returns a header object with a navbar
@@ -15,7 +16,7 @@ const Header = ({logged_in, setLoginChanged}) => {
 
     const handleLogout = () => {
         let token = sessionStorage.getItem("token");
-        let url = 'http://localhost:8080/endSession/';
+        let url = process.env.REACT_APP_BASEURL + '/endSession/';
 
         if (!token) {
             return;

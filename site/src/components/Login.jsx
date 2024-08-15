@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs'
 import '../css/Login.css';
 import { TbBackground } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
+import baseUrl from '../baseUrl';
 
 const Login = ({ setLoginChanged }) => {
 
@@ -35,7 +36,7 @@ const Login = ({ setLoginChanged }) => {
   //   return await bcrypt.compare(pepperedPassword, hash);
   // }
 
-  const loginURL = 'http://localhost:8080/login'
+  const loginURL = process.env.REACT_APP_BASEURL + '/login'
 
   const handleLogin = async (email, password) => {
     let body = {

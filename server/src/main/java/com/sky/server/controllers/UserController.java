@@ -1,6 +1,7 @@
 package com.sky.server.controllers;
 
 import com.sky.server.DTOs.*;
+import com.sky.server.config.SecurityConfig;
 import com.sky.server.entities.Recipe;
 import com.sky.server.entities.User;
 import com.sky.server.exceptions.CannotLoginUserException;
@@ -23,10 +24,13 @@ public class UserController {
 
     private RecipeService recipeService;
 
-    public UserController(UserService userService, SessionHandler sessionHandler, RecipeService recipeService) {
+    private final SecurityConfig securityConfig;
+
+    public UserController(UserService userService, SessionHandler sessionHandler, RecipeService recipeService, SecurityConfig securityConfig) {
         this.userService = userService;
         this.sessionHandler = sessionHandler;
         this.recipeService = recipeService;
+        this.securityConfig = securityConfig;
     }
 
 //    @CrossOrigin(origins = "http://localhost:3000")
@@ -34,8 +38,9 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public String createUser(@RequestBody UserDTO user) { //returns session token (used to confirm that a user is logged on) as a string
         // hash password
+        String pepperedPassword = user.getPassword() + securityConfig.getPepper();
         String salt = BCrypt.gensalt();
-        String hashedPassword = BCrypt.hashpw(user.getPassword(), salt);
+        String hashedPassword = BCrypt.hashpw(pepperedPassword, salt);
 
         user.setPassword(hashedPassword);
 
