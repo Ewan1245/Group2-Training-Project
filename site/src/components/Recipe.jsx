@@ -26,7 +26,7 @@ const Recipe = ({ idMeal, strMealThumb, strMeal, strArea, strCategory }) => {
                 </div>
                 <div className="card-body">
                     <div className="row">
-                        <div className="col mb-3" onClick={() => navigate("/recipe/" + idMeal)}>
+                        <div className="col" onClick={() => navigate("/recipe/" + idMeal)}>
                             <h5 className="card-title">{strMeal}</h5>
                         </div>
                     </div>
@@ -34,8 +34,8 @@ const Recipe = ({ idMeal, strMealThumb, strMeal, strArea, strCategory }) => {
                         {strArea && <p className="card-text col" ><strong>Area:</strong> {strArea}</p>}
                     </div>
                     <div className="row" >
-                        <p className="card-text col" onClick={() => navigate("/recipe/" + idMeal)}><strong>Category:</strong> {strCategory}</p>
-                        <div className="col-md-3 mb-3">
+                        <p className="card-text col mb-0" onClick={() => navigate("/recipe/" + idMeal)}><strong>Category:</strong> {strCategory}</p>
+                        <div className="col-auto">
                             <img src={heart} alt='Save Recipe' className='img-link save-recipe' onClick={SaveRecipe}></img>
                         </div>
                     </div>
