@@ -8,6 +8,7 @@
 .register-form {
     background-color: #fff;
     border-radius: 8px;
+    align-items: center;
 }
 
 .register-form .form-label {
@@ -19,8 +20,13 @@
 }
 
 .register-btn {
-    color: white;
-    background-color: #002367;
+    background-color: rgba(222, 101, 238, 0);
+    border-color: lightgrey;
+}
+
+.register-btn:hover {
+    background-color: rgba(186, 80, 205, 0.313);
+    cursor: pointer;
 }
 
 .error-message {
