@@ -31,7 +31,6 @@ const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callbac
     const cuisines = ["Chinese", "Indian", "British"];
 
     return (
-
         <div className='input'>
             <form className="d-flex mb-4" onSubmit={handleSubmit}>
                 <input
@@ -43,9 +42,10 @@ const Input = ({ addIngredient, ingredients, removeIngredient }) => { // callbac
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Enter an ingredient"
-                    pattern='[a-zA-Z]*'
+                    pattern='[a-zA-Z\s\-]*'
                     required='true'
-                />
+                    onInvalid={(e) => e.target.setCustomValidity('Please add individual ingredients.')}
+                    onInput={(e) => e.target.setCustomValidity('')} />
                 <button type="submit" className="input-btn btn">Add Ingredient</button>
             </form>
             <div className='ingredients'>
