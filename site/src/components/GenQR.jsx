@@ -60,7 +60,7 @@ const GenQR = ({ingredients, cuisine}) => {
             { admin ? (
                 <div className='qr-container'>
                 {QRUrl === "" ? (
-                    <button className='btn btn-primary' onClick={generateQRUrl}>
+                    <button className='input-btn btn btn-outline-light' onClick={generateQRUrl}>
                         Generate QR Code
                     </button>
                 ) : (
