@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/RecipeDetail.css';
+import { ChangeLoginContext } from '../App';
 
 
 const RecipeDetail = () => {
@@ -41,6 +42,11 @@ const RecipeDetail = () => {
     const handleBackClick = () => {
         navigate(-1);
     };
+
+    const reCheckLogin = useContext(ChangeLoginContext);
+    useEffect(() => {
+        reCheckLogin(true);
+    }, []);
 
     // Renders an error message if there is an error
     if (error) {

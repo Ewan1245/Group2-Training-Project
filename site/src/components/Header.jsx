@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import sky from "../images/sky_sq_nobg.png"
 import avatar from '../images/person-fill.svg';
 import heart from '../images/bookmark-heart-fill.svg'
@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import axios from 'axios';
 import baseUrl from '../baseUrl';
+import { ChangeLoginContext } from '../App';
 
 
 //returns a header object with a navbar
@@ -25,6 +26,11 @@ const Header = ({logged_in, setLoginChanged}) => {
         axios.get(url+token).then(setLoginChanged(true)).catch(err => {console.log(err)})
     }
 
+    const reCheckLogin = useContext(ChangeLoginContext);
+    useEffect(() => {
+        reCheckLogin(true);
+    }, []);
+
     return (
         <header>
             <div class="container text-center">
@@ -32,7 +38,7 @@ const Header = ({logged_in, setLoginChanged}) => {
                     <div class="col">
                     </div>
                     <div class="col">
-                        <Link to='/' className='header-link'>
+                        <Link to='/' onClick={() => {reCheckLogin(true)}} className='header-link'>
                             <img src={sky} alt='sky ' className='logo'></img>
                             <img src={eats} alt='eats logo' className='logo'></img>
                         </Link>

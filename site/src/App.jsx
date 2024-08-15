@@ -19,6 +19,8 @@ import { createContext } from 'react';
 import axios from 'axios';
 import baseUrl from './baseUrl';
 
+export const ChangeLoginContext = createContext(null);
+
 function App() {
   // State variables
   const [error, setError] = useState(""); // Error message
@@ -50,11 +52,12 @@ function App() {
   const isLoggedIn = async () => {
     let sessionToken = sessionStorage.getItem("token");
 
-    if(sessionToken == "") return false;
+    if(sessionToken == "") setLoggedIn(false);
     await axios.get(isLoggedInUrl + sessionToken).then((res) => {
       setLoggedIn(res.data);
     }).catch((err) => {
       setLoggedIn(false);
+      sessionStorage.removeItem("token");
     });
   }
 
@@ -64,8 +67,10 @@ function App() {
     if(loginChanged) setLoginChanged(false);
   }, [loginChanged])
 
+  useEffect(() => setLoginChanged(true),[]);
+
   return (
-    // <SessionTokenContext.Provider value={sessionToken}>
+    <ChangeLoginContext.Provider value={setLoginChanged}>
     <Router>
       <div className="App d-flex flex-column min-vh-100">
         <Header logged_in={loggedIn} setLoginChanged={setLoginChanged}/>
@@ -128,7 +133,7 @@ function App() {
         <Footer />
       </div>
     </Router>
-    // </SessionTokenContext.Provider>
+    </ChangeLoginContext.Provider>
   );
 }
 
@@ -141,6 +146,5 @@ function App() {
       </Router>
       );
 } */}
-
 
 export default App;

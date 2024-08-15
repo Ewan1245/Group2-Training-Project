@@ -2,12 +2,17 @@ import { useNavigate } from "react-router-dom";
 import heart from '../images/bookmark-heart.svg'
 import axios from "axios";
 import baseUrl from "../baseUrl";
+import { useCallback, useContext } from "react";
+import { ChangeLoginContext } from "../App";
 
 
 const Recipe = ({idMeal, strMealThumb, strMeal, strArea, strTags}) => {
     const navigate = useNavigate(); // Hook to navigate
 
+    const reCheckLogin = useContext(ChangeLoginContext);
+
     const SaveRecipe = async() => {
+        reCheckLogin(true);
         let token = sessionStorage.getItem("token");
         const url = process.env.REACT_APP_BASEURL + "/saveRecipe/" + idMeal + "/" + token
         await axios.patch(url).catch(err => {

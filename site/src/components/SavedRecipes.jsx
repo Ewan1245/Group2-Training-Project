@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Recipe from './Recipe';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import baseUrl from '../baseUrl';
+import { ChangeLoginContext } from '../App';
 
 
 
@@ -10,17 +11,22 @@ const Recipes = () => {
 
     const navigate = useNavigate(); // Hook to navigate
     const [recipes, setRecipes] = useState([]);
+    const reCheckLogin = useContext(ChangeLoginContext);
 
 
     useEffect(() => {
     const getSavedRecipes = async() => {
         let token = sessionStorage.getItem("token");
-            if(!token){
+            if(!token || token == ""){
                 navigate("/login")
                 return
             }
         const url = process.env.REACT_APP_BASEURL + "/getUserSavedRecipes/" + token;
         const savedRecipeIds = await axios.get(url).catch(err => console.log(err));
+        if(!savedRecipeIds) {
+            navigate("/login")
+            return
+        }
         let allRecipes = [];
         for(let id of savedRecipeIds.data.savedRecipes){
             const recipe = await axios.get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`).catch(err => console.log(err));
@@ -29,6 +35,7 @@ const Recipes = () => {
 
         setRecipes(allRecipes)
     }
+    reCheckLogin(true);
     getSavedRecipes()
     }, [] );
     
