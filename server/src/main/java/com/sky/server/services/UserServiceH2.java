@@ -71,4 +71,23 @@ public class UserServiceH2 implements UserService {
 
         return new UserRecipesDTO(o_user.get().getSavedRecipes().stream().map(Recipe::getRecipeId).toList());
     }
+
+    @Override
+    public User updateUserInfo(User user, UserDTO userInfo) {
+        user = userRepo.findById(user.getEmail()).get();
+        if (userInfo.getFirstname() != ""){
+            user.setFirstname(userInfo.getFirstname());
+        }
+        if (userInfo.getSurname() != ""){
+            user.setSurname(userInfo.getSurname());
+        }
+        if (userInfo.getPassword() != ""){
+            String pepperedPassword = userInfo.getPassword() + securityConfig.getPepper();
+            String salt = BCrypt.gensalt();
+            String hashedPassword = BCrypt.hashpw(pepperedPassword, salt);
+
+            user.setPassword(hashedPassword);
+        }
+        return userRepo.save(user);
+    }
 }

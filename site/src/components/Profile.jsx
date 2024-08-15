@@ -7,7 +7,8 @@ import baseUrl from '../baseUrl';
 function Profile({ setLoginChanged }) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [errors, setErrors] = useState({});
     const [userInfo, setUserInfo] = useState({});
     
@@ -19,24 +20,21 @@ function Profile({ setLoginChanged }) {
         let firstNameIsValid = charRange.test(firstName) && firstName.length >= 2 && firstName.length <= 30;
         let lastNameIsValid = charRange.test(lastName) && lastName.length >= 2 && lastName.length <= 30;
 
-        if (!firstName.trim()) {
-            errors.firstName = 'First name is required';
-        } else if (!firstNameIsValid) {
+        if (!firstNameIsValid && firstName != "") {
             errors.firstName = 'Enter a valid first name';
         }
 
-        if (!lastName.trim()) {
-            errors.lastName = 'Last name is required';
-        } else if (!lastNameIsValid) {
+        if (!lastNameIsValid && lastName != "") {
             errors.lastName = 'Enter a valid last name';
         }
 
-        if (!email.trim()) {
-            errors.email = 'Email is required';
-        } else if (!/\S+@\S+\.\S+/.test(email)) {
-            errors.email = 'Email is invalid';
-        }
+        if (password.length < 8 && password != "") {
+          errors.password = 'Password must be at least 8 characters long';
+      }
 
+      if (confirmPassword !== password) {
+          errors.confirmPassword = 'Passwords do not match';
+      }
         return errors;
     };
 
@@ -58,9 +56,7 @@ function Profile({ setLoginChanged }) {
           setUserInfo(userInfo.data)
       }
       getUserInfo()
-  }, []);
-
-  
+    }, []);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -70,21 +66,19 @@ function Profile({ setLoginChanged }) {
         if (Object.keys(validationErrors).length === 0) {
             // Handle form submission logic here
 
-            const createUserURL = process.env.REACT_APP_BASEURL + '/createUser'
+            const updateUserURL = process.env.REACT_APP_BASEURL + '/updateUserInfo/' + sessionStorage.getItem('token')
             const user = {
                 "firstname": firstName,
                 "surname": lastName,
-                "email": email,
+                "password": password
             };
 
-            await axios.post(createUserURL, user).then((res) => {
-                sessionStorage.setItem("token", res.data);
-                nav('/');
-                setLoginChanged(true);
-            }).catch((err) => {
+            await axios.patch(updateUserURL, user).then(
+              console.log("success")
+            ).catch((err) => {
+                console.log(err)
                 setErrors(prevErrors => ({
                     ...prevErrors,
-                    email: 'Email already exists'
                 }))
             });
         } else {
@@ -130,9 +124,8 @@ function Profile({ setLoginChanged }) {
                     <input
                         type="email"
                         className="form-control"
-                        value={email}
-                        placeholder={userInfo.email}
-                        onChange={({ target }) => setEmail(target.value)}
+                        value={userInfo.email}
+                        
                     />
                     {errors.email && (
                         <span className="error-message">
@@ -140,7 +133,36 @@ function Profile({ setLoginChanged }) {
                         </span>
                     )}
                 </div>
-                
+                <div className="mb-3 w-100">
+                    <label htmlFor="password" className="form-label">Password: </label>
+                    <input
+                        type="password"
+                        className="form-control"
+                        value={password}
+                        placeholder="Enter a password"
+                        onChange={({ target }) => setPassword(target.value)}
+                    />
+                    {errors.password && (
+                        <span className="error-message">
+                            {errors.password}
+                        </span>
+                    )}
+                </div>
+                <div className="mb-3 w-100">
+                    <label htmlFor="confirmPassword" className="form-label">Confirm Password: </label>
+                    <input
+                        type="password"
+                        className="form-control"
+                        value={confirmPassword}
+                        placeholder="Confirm your password"
+                        onChange={({ target }) => setConfirmPassword(target.value)}
+                    />
+                    {errors.confirmPassword && (
+                        <span className="error-message">
+                            {errors.confirmPassword}
+                        </span>
+                    )}
+                </div>
                 <button
                     type="submit"
                     className="btn btn-outline-dark w-50">

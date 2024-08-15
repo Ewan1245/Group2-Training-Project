@@ -74,6 +74,13 @@ public class UserController {
         return sessionHandler.getUserData(token);
     }
 
+    @PatchMapping("/updateUserInfo/{token}")
+    public void updateUserInfo(@PathVariable String token, @RequestBody UserDTO userInfo) {
+        User user = sessionHandler.getUser(token);
+        System.out.println("session");
+        user = userService.updateUserInfo(user, userInfo);
+        sessionHandler.updateUser(token, user);
+    }
 
     @GetMapping("/getUserSavedRecipes/{token}")
     public UserRecipesDTO getUserSavedRecipes(@PathVariable String token) {
