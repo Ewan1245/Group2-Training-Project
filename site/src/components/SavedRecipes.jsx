@@ -25,13 +25,13 @@ const Recipes = () => {
             const url = process.env.REACT_APP_BASEURL + "/getUserSavedRecipes/" + token;
             const savedRecipeIds = await axios.get(url).catch(err => console.log(err));
             let allRecipes = [];
-            if(!savedRecipeIds) {
+            if(!savedRecipeIds || !savedRecipeIds.data) {
                 navigate("/login")
                 return
             }
             for (let id of savedRecipeIds.data.savedRecipes) {
                 const recipe = await axios.get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`).catch(err => console.log(err));
-                allRecipes.push(recipe.data.meals[0])
+                if(recipe) allRecipes.push(recipe.data.meals[0])
             }
 
             
