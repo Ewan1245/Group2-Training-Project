@@ -17,4 +17,6 @@ public interface UserService {
     public List<UserWithRecipesDTO> getAllUsers();
     public UserRecipesDTO getUserRecipes(String email);
     public void saveRecipe(String email, Recipe recipe);
+
+    public void removeRecipe(String email, Recipe r);
 }

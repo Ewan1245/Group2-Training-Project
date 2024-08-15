@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import "../css/Qr.css"
 import baseUrl from '../baseUrl';
 import axios from 'axios';
+import { ChangeLoginContext } from '../App';
 
 const GenQR = ({ingredients, cuisine}) => {
     const [QRUrl, setQRUrl] = useState("");
@@ -17,9 +18,12 @@ const GenQR = ({ingredients, cuisine}) => {
         isAdmin();
     }, [])
 
-    const generateQRUrl = () => {
-        //encode the url string
+    const reCheckLogin = useContext(ChangeLoginContext);
 
+    const generateQRUrl = () => {
+        reCheckLogin(true);
+        //encode the url string
+        
         const url_ext = `${ingredients}/${cuisine === "" ? "undefined" : cuisine}`;
         
         const url = routing_url + url_ext;
@@ -38,6 +42,19 @@ const GenQR = ({ingredients, cuisine}) => {
         })
     }
 
+    const printQRCode = () => {
+        var win = window.open('', "_blank");
+        win.document.open();
+        win.document.write([
+            '<html>',
+            '   <body onload="window.print()" onafterprint="window.close()">',
+            '       <img style="width:50%" src="' + QRUrl + '"/>',
+            '   </body>',
+            '</html>'
+        ].join(''));
+        win.document.close();
+    }
+
     return (
         <>
             { admin ? (
@@ -47,7 +64,7 @@ const GenQR = ({ingredients, cuisine}) => {
                         Generate QR Code
                     </button>
                 ) : (
-                    <img src={QRUrl} alt='QR Code' />
+                    <img src={QRUrl} id='QRCode' onClick={printQRCode} alt='QR Code' />
                 )}
                 </div>
             ) : ""}

@@ -86,4 +86,8 @@ public class User {
     public void setAdmin(boolean admin) {
         isAdmin = admin;
     }
+
+    public void removeFromSavedRecipes(Recipe r) {
+        savedRecipes.remove(r);
+    }
 }
