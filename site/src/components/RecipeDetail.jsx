@@ -9,7 +9,7 @@ import heart from '../images/bookmark-heart.svg'
 
 
 const RecipeDetail = () => {
-    
+
     // Hook to get the id parameter from the URL
     const { id } = useParams();
 
@@ -79,25 +79,25 @@ const RecipeDetail = () => {
 
 
 
-    
-    const SaveRecipe = async() => {
+
+    const SaveRecipe = async () => {
         let token = sessionStorage.getItem("token");
         const url = process.env.REACT_APP_BASEURL + "/saveRecipe/" + id + "/" + token
         await axios.patch(url).catch(err => {
-            if(err.response.status === 401){
+            if (err.response.status === 401) {
                 navigate("/login")
-                    return
+                return
             }
             console.log(err)
         });
     };
-    
+
 
     // Similar to previous page, uses meal data to render card. Only single meal fetched based on id
     return (
         <div className="container">
             <div className="row">
-                <div className="row ">
+                <div className="row navigate-container">
                     <button className="col-auto input-btn btn btn-outline-light" onClick={handleBackClick}>Back</button>
                     <img src={heart} alt='Save Recipe' className='col-auto detailed-save-recipe' onClick={SaveRecipe}></img>
                 </div>
@@ -106,28 +106,28 @@ const RecipeDetail = () => {
                 <div className="row">
                     <div className="col-md-6">
                         <h2 className="title">{recipe.strMeal}</h2>
-                        <div class="d-flex flex-column md-6">
-                            {recipe.strCategory && <div class="p-2"><strong>Category:</strong> {recipe.strCategory}</div>}
-                            {recipe.strArea && <div class="p-2"><strong>Area:</strong> {recipe.strArea}</div>}
-                            {recipe.strTags && <div class="p-2"><strong>Tags:</strong> {recipe.strTags}</div>}
-                            <div class="p-2">
+                        <div class="d-flex flex-column">
+                            {recipe.strCategory && <div class="p-1"><strong>Category:</strong> {recipe.strCategory}</div>}
+                            {recipe.strArea && <div class="p-1"><strong>Area:</strong> {recipe.strArea}</div>}
+                            {recipe.strTags && <div class="p-1"><strong>Tags:</strong> {recipe.strTags}</div>}
+                            <div class="p-0">
                                 <strong>Ingredients:</strong>
                                 <ul>{allIngredients}</ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-6">
-                        <img src={recipe.strMealThumb} className="img-fluid rounded-start" alt={recipe.strMeal} />
-                    </div>
-                </div>
-                <div className='row g-4'>
-                    <div className="d-flex flex-column">
-                        <div class="p-2">
-                            <strong>Instructions:</strong>
-                                {steps}
                                 {recipe.strYoutube && (
                                     <a href={recipe.strYoutube} className="btn input-btn btn-outline-dark" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
                                 )}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-5">
+                        <img src={recipe.strMealThumb} className="img-fluid img-thumbnail recipe-image" alt={recipe.strMeal} />
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className="d-flex flex-column">
+                        <div class="p-2">
+                            <strong>Instructions:</strong>
+                            {steps}
                         </div>
                     </div>
                 </div>

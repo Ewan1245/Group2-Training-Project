@@ -2,19 +2,18 @@
     position: relative;
 }
 
-
-.btn-outline-light{
+.btn-outline-light {
     margin: 0;
     top: 50%;
     float: right;
 }
 
-.input-btn:hover{
+.input-btn:hover {
     background-color: rgba(0, 0, 0, 0.1);
     border-color: black;
 }
 
-.detailed-save-recipe{
+.detailed-save-recipe {
     transform: scale(0.75, 0.75);
     filter: invert(100%) sepia(11%) saturate(5852%) hue-rotate(195deg) brightness(109%) contrast(109%);
     float: right;
@@ -22,6 +21,16 @@
     width: 8vh
 }
 
-.detailed-save-recipe:hover{
+.detailed-save-recipe:hover {
     content: url('/src/images/bookmark-heart-fill.svg');
+}
+
+.recipe-image {
+    height: 85%;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.navigate-container {
+    padding-bottom: 3rem;
 }
