@@ -5,7 +5,6 @@ import heart from '../images/bookmark-heart-fill.svg'
 import eats from '../images/eats_white.png';
 import '../css/Header.css';
 import { Link } from 'react-router-dom';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import axios from 'axios';
 import baseUrl from '../baseUrl';
 import { ChangeLoginContext } from '../App';
@@ -36,7 +35,7 @@ const Header = ({ logged_in, setLoginChanged }) => {
             <div className="container text-center">
                 <div className="row align-items-center justify-content-between">
                     <div className="col d-flex justify-content-left">
-                        <Link to='/' onClick={() => {reCheckLogin(true)}} className='header-link d-flex align-items-center'>
+                        <Link to='/' onClick={() => { reCheckLogin(true) }} className='header-link d-flex align-items-center'>
                             <img src={sky} alt='sky' className='logo'></img>
                             <img src={eats} alt='eats logo' className='logo'></img>
                         </Link>
