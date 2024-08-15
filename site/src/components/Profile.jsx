@@ -130,9 +130,9 @@ function Profile() {
                     <label htmlFor="email" className="form-label">Email Address: </label>
                     <input
                         type="email"
-                        className="form-control"
+                        className="form-control" 
                         value={userInfo.email}
-
+                        disabled readonly
                     />
                     {errors.email && (
                         <span className="error-message">
