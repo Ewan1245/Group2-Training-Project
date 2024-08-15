@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/FilterOptions.css'
 
 const FilterOptions = ({ cuisines, setCuisine, selectedCuisine }) => {
 
@@ -7,8 +8,8 @@ const FilterOptions = ({ cuisines, setCuisine, selectedCuisine }) => {
     }
 
     return (
-        <div className='filter-options'>
-            <select value={selectedCuisine} onChange={handleChange}>
+        <div className="recipe-filter-container">
+            <select className="recipe-filter-box" value={selectedCuisine} onChange={handleChange}>
                 <option value="">Select Cuisine</option>
                 {cuisines !== undefined && cuisines.map((cuisine, index) => (
                     <option key={index} value={cuisine}>{cuisine}</option>
@@ -17,7 +18,5 @@ const FilterOptions = ({ cuisines, setCuisine, selectedCuisine }) => {
         </div>
     )
 }
-
-
 
 export default FilterOptions;

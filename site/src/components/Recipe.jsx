@@ -19,7 +19,7 @@ const Recipe = ({ idMeal, strMealThumb, strMeal, strArea, strCategory }) => {
     };
 
     return (
-<div key={idMeal} className="col-md-3 mb-3"> {/* Using navigate in the div to redirect */}
+        <div key={idMeal} className="col-md-3 mb-3"> {/* Using navigate in the div to redirect */}
             <div className="recipes-card card">
                 <div className="imgContainer" onClick={() => navigate("/recipe/" + idMeal)}>
                     <img src={strMealThumb} className="card-img-top" alt={strMeal} />

@@ -78,18 +78,6 @@ const FeaturedRecipes = ({ ingredients, setError, idMeal }) => {
         fetchRecipes();
     }, [ingredients, setError]); // Dependency array: re-run effect when setError changes (need to add ingredients in once Input with array has been implemented)
 
-    // // message when no/empty string ingredient is submitted
-    // if (!ingredient.trim()) {
-    //     return (
-    //         <div className="container mt-5">
-    //             <div className="alert alert-warning" role="alert">
-    //                 Please enter an ingredient to search for recipes.
-    //             </div>
-    //         </div>
-    //     );
-    // }
-
-
     return (
         <div>
             <img src={featured} className='featured-recipes'></img>
