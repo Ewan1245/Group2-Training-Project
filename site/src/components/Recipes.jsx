@@ -56,7 +56,7 @@ const Recipes = ({ ingredients, setError, setFullCuisines, selectedCuisine }) =>
                 let filteredMeals = uniqueMeals.filter(meal => containsAllIngredients(meal, ingredients));
 
                 // Create a set of all cuisines in the fetched meals
-                const allCuisines = new Set(uniqueMeals.map(meal => meal.strArea));
+                const allCuisines = new Set(filteredMeals.map(meal => meal.strArea));
                 setFullCuisines([...allCuisines]); // Update the full list of cuisines
 
                 if (selectedCuisine !== "") filteredMeals = filteredMeals.filter(meal => meal.strArea === selectedCuisine);
