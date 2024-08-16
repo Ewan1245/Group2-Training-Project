@@ -26,3 +26,7 @@
   width: 10%;
   filter: invert(100%);
 }
+
+.d-md-none{
+  padding-bottom: 10%;
+}
