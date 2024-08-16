@@ -22,6 +22,8 @@ const Header = ({ logged_in, setLoginChanged }) => {
             return;
         }
 
+        sessionStorage.removeItem("token");
+        reCheckLogin(true);
         axios.get(url + token).then(setLoginChanged(true)).catch(err => { console.log(err) })
     }
 
