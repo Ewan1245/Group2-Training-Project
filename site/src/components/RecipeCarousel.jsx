@@ -19,8 +19,8 @@ const Recipe = ({ idMeal, strMealThumb, strMeal, strArea, strCategory }) => {
     };
 
 
-return(
-    <div key={idMeal} > {/* Using navigate in the div to redirect */}
+    return (
+        <div key={idMeal} > {/* Using navigate in the div to redirect */}
             <div className="recipes-card card">
                 <div className="imgContainer" onClick={() => navigate("/recipe/" + idMeal)}>
                     <img src={strMealThumb} className="card-img-top" alt={strMeal} />
@@ -32,7 +32,7 @@ return(
                         </div>
                     </div>
                     <div className="row" onClick={() => navigate("/recipe/" + idMeal)}>
-                        {strArea && <p className="card-text col" ><strong>Area:</strong> {strArea}</p>}
+                        {strArea && <p className="card-text col" ><strong>Cuisine:</strong> {strArea}</p>}
                     </div>
                     <div className="row" >
                         <p className="card-text col mb-0" onClick={() => navigate("/recipe/" + idMeal)}><strong>Category:</strong> {strCategory}</p>
@@ -43,7 +43,7 @@ return(
                 </div>
             </div>
         </div>
-);
+    );
 
 
 }
