@@ -4,6 +4,7 @@ import baseUrl from '../baseUrl';
 import axios from 'axios';
 import { ChangeLoginContext } from '../App';
 
+
 const GenQR = ({ingredients, cuisine}) => {
     const [QRUrl, setQRUrl] = useState("");
     const [admin, setAdmin] = useState(false);
@@ -28,7 +29,7 @@ const GenQR = ({ingredients, cuisine}) => {
 
         console.log(encodeURI(url));
 
-        setQRUrl("http://api.qrserver.com/v1/create-qr-code/?data=" + encodeURI(url));
+        setQRUrl("http://api.qrserver.com/v1/create-qr-code/?data=" + encodeURIComponent(url));
     }
 
     const isAdmin = async () => {
