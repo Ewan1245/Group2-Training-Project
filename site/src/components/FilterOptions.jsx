@@ -14,7 +14,6 @@ const FilterOptions = ({ cuisines, setCuisine, selectedCuisine }) => {
     }, []);
 
 
-
     return (
         <div className="recipe-filter-container">
             <select className="recipe-filter-box" value={selectedCuisine} onChange={handleChange}>

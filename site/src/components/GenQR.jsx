@@ -55,7 +55,7 @@ const GenQR = ({ingredients, cuisine}) => {
 
     return (
         <>
-            { !admin ? (
+            { admin ? (
                 <div className='qr-container'>
                 {QRUrl === "" ? (
                     <button className='input-btn btn btn-outline-light' onClick={generateQRUrl}>

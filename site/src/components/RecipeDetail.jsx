@@ -111,7 +111,7 @@ const RecipeDetail = () => {
                         <h2 className="title">{recipe.strMeal}</h2>
                         <div class="d-flex flex-column">
                             {recipe.strCategory && <div class="p-1"><strong>Category:</strong> {recipe.strCategory}</div>}
-                            {recipe.strArea && <div class="p-1"><strong>Area:</strong> {recipe.strArea}</div>}
+                            {recipe.strArea && <div class="p-1"><strong>Cuisine:</strong> {recipe.strArea}</div>}
                             {recipe.strTags && <div class="p-1"><strong>Tags:</strong> {recipe.strTags}</div>}
                             <div class="p-0">
                                 <strong>Ingredients:</strong>

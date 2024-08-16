@@ -41,7 +41,7 @@ const Recipe = ({ idMeal, strMealThumb, strMeal, strArea, strCategory, isSaved, 
                         </div>
                     </div>
                     <div className="row" onClick={() => navigate("/recipe/" + idMeal)}>
-                        {strArea && <p className="card-text col" ><strong>Area:</strong> {strArea}</p>}
+                        {strArea && <p className="card-text col" ><strong>Cuisine:</strong> {strArea}</p>}
                     </div>
                     <div className="row" >
                         <p className="card-text col mb-0" onClick={() => navigate("/recipe/" + idMeal)}><strong>Category:</strong> {strCategory}</p>

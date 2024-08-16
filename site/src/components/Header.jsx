@@ -14,7 +14,7 @@ import { ChangeLoginContext } from '../App';
 //TODO: pages links need to be added
 const Header = ({ logged_in, setLoginChanged }) => {
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
         let token = sessionStorage.getItem("token");
         let url = process.env.REACT_APP_BASEURL + '/endSession/';
 
@@ -22,7 +22,9 @@ const Header = ({ logged_in, setLoginChanged }) => {
             return;
         }
 
-        axios.get(url + token).then(setLoginChanged(true)).catch(err => { console.log(err) })
+        
+        await axios.get(url + token).then(setLoginChanged(true)).catch(err => { console.log(err) })
+        reCheckLogin(true);
     }
 
     const reCheckLogin = useContext(ChangeLoginContext);

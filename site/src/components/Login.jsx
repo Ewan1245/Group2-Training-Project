@@ -5,6 +5,7 @@ import '../css/Login.css';
 import { TbBackground } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
 import baseUrl from '../baseUrl';
+import { Link } from 'react-router-dom';
 
 const Login = ({ setLoginChanged }) => {
 
@@ -94,6 +95,7 @@ const Login = ({ setLoginChanged }) => {
         </div>
 
         <button type="submit" className="btn login-btn w-50">Login</button>
+        <Link to='/register'>Don't have an account? Register here</Link>
       </form>
     </div>
   );
