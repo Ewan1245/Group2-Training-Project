@@ -16,7 +16,7 @@ import java.util.*;
 @Service
 public class SessionHandler {
 
-    private static final int session_life = 1;
+    private static final int session_life = 15;
     private SessionRepo sessionRepo;
 
 
